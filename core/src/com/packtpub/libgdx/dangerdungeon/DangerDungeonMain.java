@@ -3,7 +3,7 @@ package com.packtpub.libgdx.dangerdungeon;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogix.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL20;
 
 public class DangerDungeonMain extends Game{
 
