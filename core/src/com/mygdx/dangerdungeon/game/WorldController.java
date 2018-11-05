@@ -11,7 +11,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 
-
+/**
+ * Class that Handles the inputs in the world
+ * @author tf0199
+ *
+ */
 public class WorldController extends InputAdapter
 {
 	private static final String TAG = WorldController.class.getName();
