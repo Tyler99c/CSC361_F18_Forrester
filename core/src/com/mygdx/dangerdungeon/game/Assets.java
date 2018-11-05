@@ -21,7 +21,8 @@ import com.badlogic.gdx.utils.Array;
  * @author Tyler Forrester
  *
  */
-public class Assets implements Disposable, AssetErrorListener{
+public class Assets implements Disposable, AssetErrorListener
+{
 
 	public static final String TAG = Assets.class.getName();
 	
