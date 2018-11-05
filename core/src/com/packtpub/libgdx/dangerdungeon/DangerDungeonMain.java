@@ -11,15 +11,17 @@ public class DangerDungeonMain extends Game{
 	public void create() {
 		//Set Libgdx lgo level to DEBUG
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		//Initialize controller and renderer
-		worldController = new WorldController();
-		worldRenderer = new WorldRenderer(worldController);
+		//Load assets
+		Assets.instance.init(new AssetManager());
+		//Loads perefences for audio settings and astarting playing
+		//Starts game at menu screen
+		setScreen(new GameScreen(this));
 	}
-	@Override public void render() {}
-	@Override public void resize(int width, int height) {}
-	@Override public void pause() {}
-	@Override public void resume() {}
-	@Override public void dispose() {}
+	//@Override public void render() {}
+	//@Override public void resize(int width, int height) {}
+	//@Override public void pause() {}
+	//@Override public void resume() {}
+	//@Override public void dispose() {}
 	
 
 }
