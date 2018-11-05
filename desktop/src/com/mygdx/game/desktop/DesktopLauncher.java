@@ -11,11 +11,13 @@ import com.mygdx.dangerdungeon.MyGdxGame;
  * @author tf0199
  *
  */
-public class DesktopLauncher {
+public class DesktopLauncher 
+{
 	private static boolean rebuildAtlas = false;
 	private static boolean drawDebugOutline = false;
 	
-	public static void main (String[] arg) {
+	public static void main (String[] arg) 
+	{
 		
 		if (rebuildAtlas)
 		{

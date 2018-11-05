@@ -5,6 +5,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.assets.AssetManager;
 import com.packtpub.libgdx.canyonbunny.game.Assets;
 
-public class AbstractGameScreen {
+public class AbstractGameScreen 
+{
 
 }

@@ -5,10 +5,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-public class DangerDungeonMain extends Game{
+public class DangerDungeonMain extends Game
+{
 
 	@Override
-	public void create() {
+	public void create() 
+	{
 		//Set Libgdx lgo level to DEBUG
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		//Load assets
