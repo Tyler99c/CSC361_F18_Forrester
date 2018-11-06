@@ -60,7 +60,7 @@ public class Assets implements Disposable, AssetErrorListener
 		//enable texture filtering for pixel smoothing
 		for (Texture t : atlas.getTextures())
 		{
-				t.setFilter(TextureFilter.Linear, TextureFilter.Linear);
+				t.setFilter(TextureFilter.Nearest, TextureFilter.Nearest);
 		}
 		
 		//create game resource objects
@@ -84,11 +84,11 @@ public class Assets implements Disposable, AssetErrorListener
 	
 	public class AssetKnight
 	{
-		public final AtlasRegion head;
+		public final AtlasRegion knight;
 		
 		public AssetKnight(TextureAtlas atlas)
 		{
-			head = atlas.findRegion("knight");
+			knight = atlas.findRegion("knight");
 		}
 	}
 	
