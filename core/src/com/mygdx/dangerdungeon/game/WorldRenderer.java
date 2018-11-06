@@ -43,7 +43,7 @@ public class WorldRenderer implements Disposable
 	 */
 	public void render() 
 	{
-		renderTextObjects();
+		renderTestObjects();
 	}
 	
 	/**
