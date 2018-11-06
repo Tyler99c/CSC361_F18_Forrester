@@ -13,7 +13,7 @@ import com.packtpub.libgdx.dangerdungeon.util.Constants;
  */
 public class WorldRenderer implements Disposable
 {
-	private OrthographicCamera camera;
+	private OrthographicCamera cameraGui;
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
@@ -43,7 +43,7 @@ public class WorldRenderer implements Disposable
 	 */
 	public void render() 
 	{
-		renderTestObjects();
+		renderWorld(batch);
 	}
 	
 	/**
@@ -75,5 +75,14 @@ public class WorldRenderer implements Disposable
 	 */
 	@Override public void dispose() {
 		batch.dispose();
+	}
+	
+	private void renderWorld (SpriteBatch batch) 
+	{
+		worldController.cameraHelper.applyTo(camera);
+		batch.setProjectionMatrix(camera.combined);
+		batch.begin();
+		worldController.level.render(batch);
+		batch.end();
 	}
 }
