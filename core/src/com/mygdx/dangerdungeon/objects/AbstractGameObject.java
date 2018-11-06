@@ -3,6 +3,11 @@ package com.mygdx.dangerdungeon.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 
+/**
+ * Is the base for all objects in the game
+ * @author tf0199
+ *
+ */
 public abstract class AbstractGameObject 
 {
 
@@ -12,6 +17,10 @@ public abstract class AbstractGameObject
 	public Vector2 scale;
 	public float rotation;
 	
+	
+	/**
+	 * Instances an object with dimensions, scale and positon
+	 */
 	public AbstractGameObject()
 	{
 		position = new Vector2();
@@ -21,6 +30,10 @@ public abstract class AbstractGameObject
 		rotation = 0;
 	}
 	
+	/**
+	 * Allows the objects
+	 * @param deltaTime
+	 */
 	public void update (float deltaTime)
 	{
 		
