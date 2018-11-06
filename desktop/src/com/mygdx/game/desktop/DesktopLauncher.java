@@ -4,7 +4,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker;
 import com.badlogic.gdx.tools.texturepacker.TexturePacker.Settings;
-import com.mygdx.dangerdungeon.MyGdxGame;
+import com.packtpub.libgdx.dangerdungeon.DangerDungeonMain;
 
 /**
  * Launches the game
@@ -30,6 +30,6 @@ public class DesktopLauncher
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new MyGdxGame(), config);
+		new LwjglApplication(new DangerDungeonMain(), config);
 	}
 }
