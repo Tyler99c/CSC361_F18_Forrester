@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
-import com.sun.javafx.scene.CameraHelper;
+import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -191,7 +191,7 @@ public class WorldController extends InputAdapter
 		{
 			selectedSprite = (selectedSprite + 1) % testSprites.length;
 			//Update camera's target to follow the currently selected sprite
-			if (CameraHelper.hasTarget()) 
+			if (cameraHelper.hasTarget()) 
 			{
 				cameraHelper.setTarget(testSprites[selectedSprite]);
 			}
@@ -201,7 +201,7 @@ public class WorldController extends InputAdapter
 		else if (keycode == Keys.ENTER)
 		{
 			cameraHelper.setTarget(cameraHelper.hasTarget() ? null : testSprites[selectedSprite]);
-			Gdx.appdebug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
+			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
 		}
 		return false;
 	}

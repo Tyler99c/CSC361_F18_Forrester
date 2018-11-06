@@ -13,8 +13,8 @@ import com.mygdx.dangerdungeon.MyGdxGame;
  */
 public class DesktopLauncher 
 {
-	private static boolean rebuildAtlas = true;
-	private static boolean drawDebugOutline = true;
+	private static boolean rebuildAtlas = false;
+	private static boolean drawDebugOutline = false;
 	
 	public static void main (String[] arg) 
 	{
@@ -26,7 +26,7 @@ public class DesktopLauncher
 			settings.maxHeight = 1024;
 			settings.duplicatePadding = false;
 			settings.debug = drawDebugOutline;
-			TexturePacker.process(settings, "assets-raw/images", "../CSC361_F18_Forrester-desktop/assets/images", "dangerdungeon.pack");
+			TexturePacker.process(settings, "assets-raw/images", "../CSC361_F18_Forrester-core/assets/images", "dangerdungeon.pack");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
