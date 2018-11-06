@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -37,6 +39,7 @@ public class WorldController extends InputAdapter
 		cameraHelper = new CameraHelper();
 		initTestObjects();
 	}
+	
 	/**
 	 * Creates test objects for debugging purposes
 	 */
@@ -44,16 +47,14 @@ public class WorldController extends InputAdapter
 	{
 		//Cr4eate new array for 5 sprites
 		testSprites = new Sprite[5];
-		//create empty POT-sized Pixmap with 8 bit RGBA  pixel data
-		int width = 32;
-		int height = 32;
-		Pixmap pixmap = createProceduralPixmap(width, height);
-		//Create a new texture from pixmap data
-		Texture texture = new Texture(pixmap);
+		//create a list of texture regions
+		Array<TextureRegion> regions = new Array<TextureRegion>();
+		regions.add(Assets.instance.knight.knight);
+		regions.add(Assets.instance.chest.chest);
 		//Create new sprites using the just created texture
 		for (int i = 0; i < testSprites.length; i++)
 		{
-			Sprite spr = new Sprite(texture);
+			Sprite spr = new Sprite(regions.random());
 			//Define sprite size to be 1m x 1m in game world
 			spr.setSize(1,1);
 			//Set origin to sprite's center
@@ -68,6 +69,37 @@ public class WorldController extends InputAdapter
 		//Set first sprite as selected one
 		selectedSprite = 0;
 	}
+	/**
+	 * Creates test objects for debugging purposes
+	 */
+//	private void initTestObjects() 
+//	{
+//		//Cr4eate new array for 5 sprites
+//		testSprites = new Sprite[5];
+//		//create empty POT-sized Pixmap with 8 bit RGBA  pixel data
+//		int width = 32;
+//		int height = 32;
+//		Pixmap pixmap = createProceduralPixmap(width, height);
+//		//Create a new texture from pixmap data
+//		Texture texture = new Texture(pixmap);
+//		//Create new sprites using the just created texture
+//		for (int i = 0; i < testSprites.length; i++)
+//		{
+//			Sprite spr = new Sprite(texture);
+//			//Define sprite size to be 1m x 1m in game world
+//			spr.setSize(1,1);
+//			//Set origin to sprite's center
+//			spr.setOrigin(spr.getWidth()/2.0f, spr.getHeight()/2.0f);
+//			//Calculate random position for sprite
+//			float randomX = MathUtils.random(-2.0f, 2.0f);
+//			float randomY = MathUtils.random(-2.0f,2.0f);
+//			spr.setPosition(randomX, randomY);
+//			//Put new Sprite into array
+//			testSprites[i] = spr;
+//		}
+//		//Set first sprite as selected one
+//		selectedSprite = 0;
+//	}
 	/**
 	 * Creaste an object to test with
 	 * @param width
