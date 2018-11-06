@@ -3,6 +3,7 @@ package com.packtpub.libgdx.dangerdungeon;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.GL20;
 import com.mygdx.dangerdungeon.game.Assets;
 import com.mygdx.dangerdungeon.game.WorldController;
