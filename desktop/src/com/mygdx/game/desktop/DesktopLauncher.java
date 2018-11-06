@@ -13,8 +13,8 @@ import com.mygdx.dangerdungeon.MyGdxGame;
  */
 public class DesktopLauncher 
 {
-	private static boolean rebuildAtlas = true;
-	private static boolean drawDebugOutline = true;
+	private static boolean rebuildAtlas = false;
+	private static boolean drawDebugOutline = false;
 	
 	public static void main (String[] arg) 
 	{
@@ -30,9 +30,6 @@ public class DesktopLauncher
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		//config.title = "Dangerdungeon";
-		//config.width = 800;
-		//config.height = 480;
 		new LwjglApplication(new MyGdxGame(), config);
 	}
 }
