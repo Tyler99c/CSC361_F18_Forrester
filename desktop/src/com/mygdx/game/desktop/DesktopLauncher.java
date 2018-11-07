@@ -8,7 +8,7 @@ import com.packtpub.libgdx.dangerdungeon.DangerDungeonMain;
 
 /**
  * Launches the game
- * @author tf0199
+ * @author Tyler Forrester
  *
  */
 public class DesktopLauncher 

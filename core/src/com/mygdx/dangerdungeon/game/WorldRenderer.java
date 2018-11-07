@@ -87,6 +87,10 @@ public class WorldRenderer implements Disposable
 		batch.dispose();
 	}
 	
+	/**
+	 * Draws the world
+	 * @param batch
+	 */
 	private void renderWorld (SpriteBatch batch) 
 	{
 		worldController.cameraHelper.applyTo(camera);

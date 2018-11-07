@@ -39,7 +39,10 @@ public class Assets implements Disposable, AssetErrorListener
 	{
 	}
 	
-	
+	/**
+	 * Initiates the assets class
+	 * @param assetManager
+	 */
 	public void init (AssetManager assetManager) 
 	{
 		this.assetManager = assetManager;
@@ -70,18 +73,29 @@ public class Assets implements Disposable, AssetErrorListener
 	}
 	
 
+	/**
+	 * Disposes the unused memory
+	 */
 	@Override
 	public void dispose() 
 	{
 		assetManager.dispose();
 	}
 	
+	/**
+	 * Handles when an error with assets show up
+	 */
 	@Override
 	public void error(AssetDescriptor asset, Throwable throwable) 
 	{
 		Gdx.app.error(TAG, "Couldn't load asset '" + asset.fileName + "'", (Exception)throwable);
 	}
 	
+	/**
+	 * Handles the knight player
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetKnight
 	{
 		public final AtlasRegion knight;
@@ -92,6 +106,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the floor asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetFloor
 	{
 		public final AtlasRegion floor;
@@ -103,6 +122,11 @@ public class Assets implements Disposable, AssetErrorListener
 		
 	}
 	
+	/**
+	 * Handles the chest asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetChest
 	{
 		public final AtlasRegion chest;
@@ -113,6 +137,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the Level decoration, don't know if I'll need this, but oh well
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion floor;

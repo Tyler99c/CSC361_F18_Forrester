@@ -4,17 +4,28 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
+/**
+ *  Creates the floor unwhich the player walk, mearly a decoration
+ * @author Tyler Forrester
+ *
+ */
 public class Floor extends AbstractGameObject
 {
 	private TextureRegion tile;
 
 	private int length;
 	
+	/**
+	 * Creates a new floor instance
+	 */
 	public Floor() 
 	{
 		init();
 	}
 	
+	/**
+	 * Initiates the floor class
+	 */
 	private void init() 
 	{
 		dimension.set(1,1);
@@ -24,6 +35,9 @@ public class Floor extends AbstractGameObject
 		
 	}
 	
+	/**
+	 * Draws the object
+	 */
 	@Override
 	public void render(SpriteBatch batch) {
 		TextureRegion reg = null;

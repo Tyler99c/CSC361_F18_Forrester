@@ -8,9 +8,19 @@ import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.packtpub.libgdx.dangerdungeon.util.*;
 
+/**
+ * This class reads the level data and draws the level
+ * @author Tyler Forrester
+ *
+ */
 public class Level {
 	public static final String TAG = Level.class.getName();
 	
+	/**
+	 * Gives data to the level image so we draw the level in the game 
+	 * based on the image data.
+	 *
+	 */
 	public enum BLOCK_TYPE
 	{
 		EMPTY(0,0,0), FLOOR(255,174,201);
@@ -36,11 +46,19 @@ public class Level {
 	//objects
 	public Array<Floor> floor;
 	
+	/**
+	 * Creates the level instance
+	 * @param filename
+	 */
 	public Level(String filename)
 	{
 		init(filename);
 	}
 	
+	/**
+	 * Initiatez the  level
+	 * @param filename
+	 */
 	private void init(String filename) {
 		//objects
 		floor = new Array<Floor>();
@@ -82,6 +100,11 @@ public class Level {
 		pixmap.dispose();
 		Gdx.app.debug(TAG,  "level '" + filename + "' loaded");
 	}
+	
+	/**
+	 * Draws the level after it's loaded in
+	 * @param batch
+	 */
 	public void render(SpriteBatch batch) 
 	{ 
 		//Draws the floor
