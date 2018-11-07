@@ -12,6 +12,8 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.dangerdungeon.objects.Floor;
+import com.packtpub.libgdx.dangerdungeon.util.Constants;
 
 /**
  * Class that Handles the inputs in the world
@@ -24,6 +26,9 @@ public class WorldController extends InputAdapter
 	public Sprite[] testSprites;
 	public int selectedSprite;
 	public CameraHelper cameraHelper;
+	public Level level;
+	public int health;
+	public int score;
 	
 	public WorldController() 
 	{
@@ -38,6 +43,8 @@ public class WorldController extends InputAdapter
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
 		initTestObjects();
+		lives = Constants.LIVES_START;
+		initLevel();
 	}
 	
 	/**
@@ -129,7 +136,7 @@ public class WorldController extends InputAdapter
 	public void update (float deltaTime) 
 	{
 		handleDebugInput(deltaTime);
-		updateTestObjects(deltaTime);
+		//updateTestObjects(deltaTime);
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -140,7 +147,7 @@ public class WorldController extends InputAdapter
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
-		
+		/*
 		//Selected Sprite Controls
 		float sprMoveSpeed = 5 * deltaTime;
 		if (Gdx.input.isKeyPressed(Keys.A)) 
@@ -151,6 +158,7 @@ public class WorldController extends InputAdapter
 			moveSelectedSprite(0,sprMoveSpeed);
 		if(Gdx.input.isKeyPressed(Keys.S))
 			moveSelectedSprite(0,-sprMoveSpeed);
+			*/
 		
 		//Camera Controls (move)
 		float camMoveSpeed = 5 * deltaTime;
@@ -218,7 +226,7 @@ public class WorldController extends InputAdapter
 			init();
 			Gdx.app.debug(TAG, "Game world resetted");
 		}
-		//Select next sprite
+		/*//Select next sprite
 		else if (keycode == Keys.SPACE)
 		{
 			selectedSprite = (selectedSprite + 1) % testSprites.length;
@@ -234,7 +242,7 @@ public class WorldController extends InputAdapter
 		{
 			cameraHelper.setTarget(cameraHelper.hasTarget() ? null : testSprites[selectedSprite]);
 			Gdx.app.debug(TAG, "Camera follow enabled: " + cameraHelper.hasTarget());
-		}
+		}*/
 		return false;
 	}
 }
