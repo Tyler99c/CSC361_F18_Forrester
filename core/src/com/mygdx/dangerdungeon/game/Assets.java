@@ -28,6 +28,9 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetChest chest;
 	public AssetFloor floor;
 	public AssetWallUp wall_up;
+	public AssetWallDown wall_down;
+	public AssetWallRight wall_right;
+	public AssetWallLeft wall_left;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -72,6 +75,9 @@ public class Assets implements Disposable, AssetErrorListener
 		chest = new AssetChest(atlas);
 		floor = new AssetFloor(atlas);
 		wall_up = new AssetWallUp(atlas);
+		wall_down = new AssetWallDown(atlas);
+		wall_left = new AssetWallLeft(atlas);
+		wall_right = new AssetWallRight(atlas);
 	}
 	
 
@@ -149,6 +155,35 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	public class AssetWallDown
+	{
+		public final AtlasRegion wall_down;
+		
+		public AssetWallDown(TextureAtlas atlas)
+		{
+			wall_down = atlas.findRegion("wall_down");
+		}
+	}
+	
+	public class AssetWallRight
+	{
+		public final AtlasRegion wall_right;
+		
+		public AssetWallRight(TextureAtlas atlas)
+		{
+			wall_right = atlas.findRegion("wall_right");
+		}
+	}
+	
+	public class AssetWallLeft
+	{
+		public final AtlasRegion wall_left;
+		
+		public AssetWallLeft(TextureAtlas atlas)
+		{
+			wall_left = atlas.findRegion("wall_left");
+		}
+	}
 	/**
 	 * Handles the Level decoration, don't know if I'll need this, but oh well
 	 * @author Tyler Forrester

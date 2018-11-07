@@ -27,7 +27,7 @@ public class CameraHelper
 	public CameraHelper()
 	{
 		position = new Vector2();
-		zoom = 5.0f;
+		zoom = 2.0f;
 	}
 	
 	/**
