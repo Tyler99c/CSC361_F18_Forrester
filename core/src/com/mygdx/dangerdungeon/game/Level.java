@@ -77,6 +77,15 @@ public class Level {
 				}
 			}
 		}
+		
+		//free memoery
+		pixmap.dispose();
+		Gdx.app.debug(TAG,  "level '" + filename + "' loaded");
 	}
-	public void render(SpriteBatch batch) { }
+	public void render(SpriteBatch batch) 
+	{ 
+		//Draws the floor
+		for(Floor floor : floor)
+			floor.render(batch);
+	}
 }
