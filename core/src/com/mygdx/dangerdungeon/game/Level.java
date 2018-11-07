@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.*;
 
 /**
@@ -23,7 +25,7 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201);
 		
 		private int color;
 		
@@ -45,6 +47,8 @@ public class Level {
 	
 	//objects
 	public Array<Floor> floor;
+	public Knight knight;
+	public Array<WallUp> wall_up;
 	
 	/**
 	 * Creates the level instance
@@ -62,6 +66,10 @@ public class Level {
 	private void init(String filename) {
 		//objects
 		floor = new Array<Floor>();
+		wall_up = new Array<WallUp>();
+		
+		//player character
+		knight = null;
 		
 		//load image file that represents the elvel data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -93,6 +101,33 @@ public class Level {
 					floor.add((Floor)obj);
 					System.out.println("Founds a floor pixel");
 				}
+				else if (BLOCK_TYPE.KNIGHT.sameColor(currentPixel))
+				{
+					obj = new Floor();
+					offsetHeight = -1.5f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					floor.add((Floor)obj);
+					System.out.println("Founds a floor pixel");
+					obj = new Knight();
+					offsetHeight = -1.5f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					knight = (Knight)obj;
+				}
+				else if (BLOCK_TYPE.WALL_UP.sameColor(currentPixel))
+				{
+					obj = new WallUp();
+					offsetHeight = -1.5f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_up.add((WallUp)obj);
+				}
+				else
+				{
+					int r = 0xff & (currentPixel >>> 24); //red color channel
+					int g = 0xff & (currentPixel >>> 16); //green color channel
+					int b = 0xff & (currentPixel >>> 8); //blue color channel
+					int a = 0xff & currentPixel; //Alpha Channel
+					Gdx.app.error(TAG, "Unkonw objec at x<" + pixelX + "> y<" + pixelY + ">: r<" + r+ "> g<" + g + "> b<" + b + "> a<" + a + ">");
+				}
 			}
 		}
 		
@@ -110,5 +145,10 @@ public class Level {
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);
+		//Draw Player Character
+		knight.render(batch);
+		//Draws the walls
+		for(WallUp wall_up : wall_up)
+			wall_up.render(batch);
 	}
 }
