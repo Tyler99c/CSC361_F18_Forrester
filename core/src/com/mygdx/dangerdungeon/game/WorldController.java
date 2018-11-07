@@ -17,7 +17,7 @@ import com.packtpub.libgdx.dangerdungeon.util.Constants;
 
 /**
  * Class that Handles the inputs in the world
- * @author tf0199
+ * @author Tyler Forrester
  *
  */
 public class WorldController extends InputAdapter
@@ -30,11 +30,17 @@ public class WorldController extends InputAdapter
 	public int health;
 	public int score;
 	
+	/**
+	 * Cresates the worldController instance
+	 */
 	public WorldController() 
 	{
 		init();
 	}
 	
+	/**
+	 * initiates the level
+	 */
 	private void initLevel()
 	{
 		score = 0;

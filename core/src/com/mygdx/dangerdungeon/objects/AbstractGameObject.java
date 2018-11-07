@@ -5,7 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 
 /**
  * Is the base for all objects in the game
- * @author tf0199
+ * @author Tyler Forrester
  *
  */
 public abstract class AbstractGameObject 
@@ -31,13 +31,16 @@ public abstract class AbstractGameObject
 	}
 	
 	/**
-	 * Allows the objects
+	 * Allows the objects to update
 	 * @param deltaTime
 	 */
 	public void update (float deltaTime)
 	{
 		
 	}
-
+	/**
+	 * Draws the game object
+	 * @param batch
+	 */
 	public abstract void render (SpriteBatch batch);
 }

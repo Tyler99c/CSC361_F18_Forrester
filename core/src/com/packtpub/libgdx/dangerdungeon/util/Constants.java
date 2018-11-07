@@ -2,7 +2,7 @@ package com.packtpub.libgdx.dangerdungeon.util;
 
 /**
  * Constants class that effects the game's viewport
- * @author tf0199
+ * @author Tyler Forrester
  *
  */
 public class Constants 

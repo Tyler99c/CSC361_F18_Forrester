@@ -12,7 +12,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 
-
+/**
+ * Provides a framework for Abstract Game screen.
+ * @author Tyler Forrester
+ *
+ */
 public class AbstractGameScreen implements ApplicationListener
 {
 	private static final String TAG = DangerDungeonMain.class.getName();
@@ -21,10 +25,20 @@ public class AbstractGameScreen implements ApplicationListener
 	private WorldRenderer worldRenderer;
 	private boolean paused;
 	
+	/**
+	 * Provides framework for the screens
+	 */
 	public void init() { }
 	
+	/**
+	 * Updates the screen
+	 * @param deltaTime
+	 */
 	public void update(float deltaTime) { }
 	
+	/**
+	 * Creates the screen
+	 */
 	@Override public void create() 
 	{
 		//Set Libgdx log level to DEBUG
@@ -36,12 +50,18 @@ public class AbstractGameScreen implements ApplicationListener
 		paused = false;
 	}
 
+	/**
+	 * Resizes the screen
+	 */
 	@Override
 	public void resize(int width, int height) 
 	{
 		worldRenderer.resize(width, height);
 	}
 
+	/**
+	 * Draws images on the screen
+	 */
 	@Override
 	public void render() 
 	{
@@ -60,18 +80,27 @@ public class AbstractGameScreen implements ApplicationListener
 		worldRenderer.render();
 	}
 
+	/**
+	 * Pauses the game
+	 */
 	@Override
 	public void pause() 
 	{
 		paused = true;
 	}
 
+	/**
+	 * Resumes teh game
+	 */
 	@Override
 	public void resume() 
 	{
 		paused = false;
 	}
 
+	/**
+	 * Disposes the memory
+	 */
 	@Override
 	public void dispose() 
 	{
