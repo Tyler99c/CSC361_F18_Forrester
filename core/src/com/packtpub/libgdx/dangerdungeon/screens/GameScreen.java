@@ -1,5 +1,11 @@
 package com.packtpub.libgdx.dangerdungeon.screens;
 
-public class GameScreen {
+/**
+ * This class will handle the game
+ * @author Tyler Forrester
+ *
+ */
+public class GameScreen 
+{
 
 }
