@@ -14,6 +14,7 @@ import com.packtpub.libgdx.dangerdungeon.util.Constants;
 public class WorldRenderer implements Disposable
 {
 	private OrthographicCamera cameraGui;
+	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private WorldController worldController;
 	
@@ -36,6 +37,10 @@ public class WorldRenderer implements Disposable
 		camera = new OrthographicCamera(Constants.VIEWPORT_WIDTH,Constants.VIEWPORT_HEIGHT);
 		camera.position.set(0,0,0);
 		camera.update();
+		cameraGui = new OrthographicCamera(Constants.VIEWPORT_GUI_WIDTH,Constants.VIEWPORT_GUI_HEIGHT);
+		cameraGui.position.set(0,0,0);
+		cameraGui.setToOrtho(true);
+		cameraGui.update();
 	}
 	
 	/**
@@ -68,6 +73,11 @@ public class WorldRenderer implements Disposable
 	public void resize (int width, int height) {
 		camera.viewportWidth = (Constants.VIEWPORT_HEIGHT / height) * width;
 		camera.update();
+		cameraGui.viewportHeight = Constants.VIEWPORT_GUI_HEIGHT;
+		cameraGui.viewportWidth = (Constants.VIEWPORT_GUI_HEIGHT / (float)height) * (float)width;
+		cameraGui.position.set(cameraGui.viewportWidth/2, cameraGui.viewportHeight /2,0);
+		cameraGui.update();
+		
 	}
 	
 	/**
