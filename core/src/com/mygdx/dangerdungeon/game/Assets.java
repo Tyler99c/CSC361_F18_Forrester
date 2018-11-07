@@ -27,6 +27,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetKnight knight;
 	public AssetChest chest;
 	public AssetFloor floor;
+	public AssetWallUp wall_up;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -70,6 +71,7 @@ public class Assets implements Disposable, AssetErrorListener
 		knight = new AssetKnight(atlas);
 		chest = new AssetChest(atlas);
 		floor = new AssetFloor(atlas);
+		wall_up = new AssetWallUp(atlas);
 	}
 	
 
@@ -134,6 +136,16 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetChest(TextureAtlas atlas)
 		{
 			chest = atlas.findRegion("chest");
+		}
+	}
+	
+	public class AssetWallUp
+	{
+		public final AtlasRegion wall_up;
+		
+		public AssetWallUp(TextureAtlas atlas)
+		{
+			wall_up = atlas.findRegion("wall_up");
 		}
 	}
 	
