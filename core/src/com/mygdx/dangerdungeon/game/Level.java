@@ -7,6 +7,9 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallDown;
+import com.mygdx.dangerdungeon.objects.WallLeft;
+import com.mygdx.dangerdungeon.objects.WallRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.*;
 
@@ -25,7 +28,7 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201);
 		
 		private int color;
 		
@@ -49,6 +52,9 @@ public class Level {
 	public Array<Floor> floor;
 	public Knight knight;
 	public Array<WallUp> wall_up;
+	public Array<WallDown> wall_down;
+	public Array<WallRight> wall_right;
+	public Array<WallLeft> wall_left;
 	
 	/**
 	 * Creates the level instance
@@ -67,6 +73,9 @@ public class Level {
 		//objects
 		floor = new Array<Floor>();
 		wall_up = new Array<WallUp>();
+		wall_down = new Array<WallDown>();
+		wall_right = new Array<WallRight>();
+		wall_left = new Array<WallLeft>();
 		
 		//player character
 		knight = null;
@@ -96,7 +105,7 @@ public class Level {
 				else if (BLOCK_TYPE.FLOOR.sameColor(currentPixel))
 				{
 					obj = new Floor();
-					offsetHeight = -1.5f;
+					offsetHeight = 0f;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 					System.out.println("Founds a floor pixel");
@@ -104,21 +113,42 @@ public class Level {
 				else if (BLOCK_TYPE.KNIGHT.sameColor(currentPixel))
 				{
 					obj = new Floor();
-					offsetHeight = -1.5f;
+					offsetHeight = 0f;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 					System.out.println("Founds a floor pixel");
 					obj = new Knight();
-					offsetHeight = -1.5f;
+					offsetHeight = 0f;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					knight = (Knight)obj;
 				}
 				else if (BLOCK_TYPE.WALL_UP.sameColor(currentPixel))
 				{
 					obj = new WallUp();
-					offsetHeight = -1.5f;
+					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_up.add((WallUp)obj);
+				}
+				else if (BLOCK_TYPE.WALL_DOWN.sameColor(currentPixel))
+				{
+					obj = new WallDown();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_down.add((WallDown)obj);					
+				}
+				else if (BLOCK_TYPE.WALL_LEFT.sameColor(currentPixel))
+				{
+					obj = new WallLeft();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_left.add((WallLeft)obj);
+				}
+				else if (BLOCK_TYPE.WALL_RIGHT.sameColor(currentPixel))
+				{
+					obj = new WallRight();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_right.add((WallRight)obj);
 				}
 				else
 				{
@@ -150,5 +180,11 @@ public class Level {
 		//Draws the walls
 		for(WallUp wall_up : wall_up)
 			wall_up.render(batch);
+		for(WallDown wall_down : wall_down)
+			wall_down.render(batch);
+		for(WallLeft wall_left : wall_left)
+			wall_left.render(batch);
+		for(WallRight wall_right : wall_right)
+			wall_right.render(batch);
 	}
 }

@@ -6,49 +6,49 @@ filter: Nearest,Nearest
 repeat: none
 chest
   rotate: false
-  xy: 20, 10
+  xy: 20, 5
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 38, 10
+  xy: 38, 5
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 knight
   rotate: false
-  xy: 56, 10
+  xy: 110, 5
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 wall_down
   rotate: false
-  xy: 2, 2
-  size: 16, 3
-  orig: 16, 3
+  xy: 56, 5
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 wall_left
   rotate: false
-  xy: 71, 10
-  size: 3, 16
-  orig: 3, 16
+  xy: 74, 5
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 wall_right
   rotate: false
-  xy: 76, 10
-  size: 3, 16
-  orig: 3, 16
+  xy: 92, 5
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
   index: -1
 wall_up
   rotate: false
-  xy: 2, 7
+  xy: 2, 2
   size: 16, 19
   orig: 16, 19
   offset: 0, 0
