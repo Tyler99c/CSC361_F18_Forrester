@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -13,7 +14,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Knight;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Class that Handles the inputs in the world
@@ -29,6 +37,9 @@ public class WorldController extends InputAdapter
 	public Level level;
 	public int health;
 	public int score;
+	
+	private boolean goalReached;
+	public World b2world;
 	
 	/**
 	 * Cresates the worldController instance
@@ -46,6 +57,27 @@ public class WorldController extends InputAdapter
 		score = 0;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.knight);
+		initPhysics();
+	}
+	
+	private void initPhysics() 
+	{
+		if(b2world != null) b2world.dispose();
+			b2world = new World(new Vector2(0,0), true);
+			Vector2 origin = new Vector2();
+		Knight knight = level.knight;
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(knight.position);
+		Body body = b2world.createBody(bodyDef);
+		knight.body = body;
+		PolygonShape polygonShape = new PolygonShape();
+		origin.x = knight.bounds.width / 2.0f;
+		origin.y = knight.bounds.height / 2.0f;
+		polygonShape.setAsBox(knight.bounds.width / 2.0f, knight.bounds.height / 2.0f,origin,0);
+		FixtureDef fixtureDef = new FixtureDef();
+		body.createFixture(fixtureDef);
+		polygonShape.dispose();
 	}
 	
 	/**
@@ -181,5 +213,13 @@ public class WorldController extends InputAdapter
 			Gdx.app.debug(TAG, "Game world resetted");
 		}
 		return false;
+	}
+	
+	private void handleInputGame(float deltaTime)
+	{
+		if(cameraHelper.hasTarget(level.knight))
+		{
+			level.knight. = -5;
+		}
 	}
 }

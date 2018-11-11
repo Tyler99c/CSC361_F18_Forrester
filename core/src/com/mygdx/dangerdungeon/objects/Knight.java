@@ -3,6 +3,8 @@ package com.mygdx.dangerdungeon.objects;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 public class Knight extends AbstractGameObject{
 
@@ -11,6 +13,15 @@ public class Knight extends AbstractGameObject{
 	public VIEW_DIRECTION viewDirection;
 	
 	private TextureRegion regKnight;
+	
+	private final float FLOAT_CYCLE_TIME = 2.0f;
+	private final float FLOAT_AMPLITUDE = 0.25f;
+	
+	private float floatCycleTimeLeft;
+	private boolean floatingDownwards;
+	private Vector2 floatTargetPositon;
+	
+	private int length;
 	
 	public Knight()
 	{
@@ -28,6 +39,18 @@ public class Knight extends AbstractGameObject{
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
+		
+		floatCycleTimeLeft -= deltaTime;
+		if (floatCycleTimeLeft<= 0)
+		{
+			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
+			floatingDownwards = !floatingDownwards;
+			body.setLinearVelocity(0,FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1));
+		}
+		else
+		{
+			body.setLinearVelocity(body.getLinearVelocity().scl(0.98f));
+		}
 		
 	}
 	@Override
