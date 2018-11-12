@@ -22,6 +22,7 @@ public abstract class AbstractGameObject
 	public float rotation;
 	public Rectangle bounds;
 	
+	public float stateTime;
 	
 	
 	/**
@@ -33,6 +34,7 @@ public abstract class AbstractGameObject
 		dimension = new Vector2(1,1);
 		origin = new Vector2();
 		scale = new Vector2(1,1);
+		bounds = new Rectangle();
 		rotation = 0;
 	}
 	

@@ -110,19 +110,7 @@ public class Level {
 					floor.add((Floor)obj);
 					System.out.println("Founds a floor pixel");
 				}
-				else if (BLOCK_TYPE.KNIGHT.sameColor(currentPixel))
-				{
-					obj = new Floor();
-					offsetHeight = 0f;
-					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
-					floor.add((Floor)obj);
-					System.out.println("Founds a floor pixel");
-					obj = new Knight();
-					offsetHeight = 0f;
-					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
-					knight = (Knight)obj;
-				}
-				else if (BLOCK_TYPE.WALL_UP.sameColor(currentPixel))
+				if (BLOCK_TYPE.WALL_UP.sameColor(currentPixel))
 				{
 					obj = new WallUp();
 					offsetHeight = 0;
@@ -149,6 +137,18 @@ public class Level {
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_right.add((WallRight)obj);
+				}
+				else if (BLOCK_TYPE.KNIGHT.sameColor(currentPixel))
+				{
+					obj = new Floor();
+					offsetHeight = 0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					floor.add((Floor)obj);
+					System.out.println("Founds a floor pixel");
+					obj = new Knight();
+					offsetHeight = 0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					knight = (Knight)obj;
 				}
 				else
 				{
@@ -186,5 +186,10 @@ public class Level {
 			wall_left.render(batch);
 		for(WallRight wall_right : wall_right)
 			wall_right.render(batch);
+	}
+	
+	public void update(float deltaTime)
+	{
+		knight.update(deltaTime);
 	}
 }

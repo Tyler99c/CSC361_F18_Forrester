@@ -34,29 +34,19 @@ public class Knight extends AbstractGameObject{
 		dimension.set(1,1);
 		
 		regKnight = Assets.instance.knight.knight;
+		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
-		
-		floatCycleTimeLeft -= deltaTime;
-		if (floatCycleTimeLeft<= 0)
-		{
-			floatCycleTimeLeft = FLOAT_CYCLE_TIME;
-			floatingDownwards = !floatingDownwards;
-			body.setLinearVelocity(0,FLOAT_AMPLITUDE * (floatingDownwards ? -1 : 1));
-		}
-		else
-		{
-			body.setLinearVelocity(body.getLinearVelocity().scl(0.98f));
-		}
-		
+		System.out.println(body.getLinearVelocity());
 	}
 	@Override
 	public void render(SpriteBatch batch) {
 		TextureRegion reg = null;
-		
 		//Draw image
 		reg = regKnight;
 		batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(), reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),viewDirection == VIEW_DIRECTION.LEFT, false);

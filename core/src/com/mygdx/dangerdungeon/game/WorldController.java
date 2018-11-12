@@ -15,6 +15,10 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallDown;
+import com.mygdx.dangerdungeon.objects.WallLeft;
+import com.mygdx.dangerdungeon.objects.WallRight;
+import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -62,9 +66,15 @@ public class WorldController extends InputAdapter
 	
 	private void initPhysics() 
 	{
-		if(b2world != null) b2world.dispose();
-			b2world = new World(new Vector2(0,0), true);
-			Vector2 origin = new Vector2();
+		if(b2world != null)
+		{
+			b2world.dispose();
+		}
+		
+		b2world = new World(new Vector2(0,0), true);
+		
+		
+		Vector2 origin = new Vector2();
 		Knight knight = level.knight;
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyType.DynamicBody;
@@ -76,8 +86,70 @@ public class WorldController extends InputAdapter
 		origin.y = knight.bounds.height / 2.0f;
 		polygonShape.setAsBox(knight.bounds.width / 2.0f, knight.bounds.height / 2.0f,origin,0);
 		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		//fixtureDef.density = 50;
+		fixtureDef.restitution = 0f;
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
+		
+		
+		for(WallUp wall_up : level.wall_up)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_up.position);
+			body = b2world.createBody(bodyDef);
+			wall_up.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_up.bounds.width /2.0f;
+			origin.y = wall_up.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_up.bounds.width/2.0f,wall_up.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+		}
+		for(WallDown wall_down : level.wall_down)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_down.position);
+			body = b2world.createBody(bodyDef);
+			wall_down.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_down.bounds.width /2.0f;
+			origin.y = wall_down.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+		}
+		for(WallRight wall_right : level.wall_right)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_right.position);
+			body = b2world.createBody(bodyDef);
+			wall_right.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_right.bounds.width /2.0f;
+			origin.y = wall_right.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_right.bounds.width/2.0f,wall_right.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+		}
+		for(WallLeft wall_left : level.wall_left)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_left.position);
+			body = b2world.createBody(bodyDef);
+			wall_left.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_left.bounds.width /2.0f;
+			origin.y = wall_left.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_left.bounds.width/2.0f,wall_left.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+		}
+		
 	}
 	
 	/**
@@ -148,8 +220,11 @@ public class WorldController extends InputAdapter
 	 */
 	public void update (float deltaTime) 
 	{
+		handleInputGame(deltaTime);
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
+		level.update(deltaTime);
+		b2world.step(deltaTime, 8, 3);
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -160,7 +235,7 @@ public class WorldController extends InputAdapter
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
-		
+	
 		//Camera Controls (move)
 		float camMoveSpeed = 5 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 5;
@@ -217,9 +292,47 @@ public class WorldController extends InputAdapter
 	
 	private void handleInputGame(float deltaTime)
 	{
-		if(cameraHelper.hasTarget(level.knight))
+		if(Gdx.input.isKeyPressed(Keys.A))
 		{
-			level.knight. = -5;
+			if(Gdx.input.isKeyPressed(Keys.W))
+			{
+				level.knight.body.setLinearVelocity(-5,5);
+			}
+			else if(Gdx.input.isKeyPressed(Keys.S))
+			{
+				level.knight.body.setLinearVelocity(-5,-5);
+			}
+			else
+			{
+				level.knight.body.setLinearVelocity(-5,0);
+			}
+		}
+		else if (Gdx.input.isKeyPressed(Keys.D))
+		{
+			if(Gdx.input.isKeyPressed(Keys.S))
+			{
+				level.knight.body.setLinearVelocity(5,-5);
+			}
+			else if(Gdx.input.isKeyPressed(Keys.W))
+			{
+				level.knight.body.setLinearVelocity(5,5);
+			}
+			else
+			{
+			level.knight.body.setLinearVelocity(5,0);
+			}
+		}
+		else if (Gdx.input.isKeyPressed(Keys.S))
+		{
+			level.knight.body.setLinearVelocity(0,-5);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.W))
+		{
+			level.knight.body.setLinearVelocity(0,5);
+		}
+		else
+		{
+			level.knight.body.setLinearVelocity(0,0);
 		}
 	}
 }
