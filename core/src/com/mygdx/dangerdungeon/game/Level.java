@@ -7,9 +7,13 @@ import com.badlogic.gdx.utils.Array;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallBottomLeft;
+import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
 import com.mygdx.dangerdungeon.objects.WallLeft;
 import com.mygdx.dangerdungeon.objects.WallRight;
+import com.mygdx.dangerdungeon.objects.WallTopLeft;
+import com.mygdx.dangerdungeon.objects.WallTopRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.*;
 
@@ -28,7 +32,7 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76);
 		
 		private int color;
 		
@@ -55,6 +59,11 @@ public class Level {
 	public Array<WallDown> wall_down;
 	public Array<WallRight> wall_right;
 	public Array<WallLeft> wall_left;
+	public Array<WallBottomRight> wall_bottomright;
+	public Array<WallTopRight> wall_topright;
+	public Array<WallBottomLeft> wall_bottomleft;
+	public Array<WallTopLeft> wall_topleft;
+
 	
 	/**
 	 * Creates the level instance
@@ -76,6 +85,10 @@ public class Level {
 		wall_down = new Array<WallDown>();
 		wall_right = new Array<WallRight>();
 		wall_left = new Array<WallLeft>();
+		wall_bottomleft = new Array<WallBottomLeft>();
+		wall_topleft = new Array<WallTopLeft>();
+		wall_bottomright = new Array<WallBottomRight>();
+		wall_topright = new Array<WallTopRight>();
 		
 		//player character
 		knight = null;
@@ -150,6 +163,34 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					knight = (Knight)obj;
 				}
+				else if (BLOCK_TYPE.WALL_BOTTOMRIGHT.sameColor(currentPixel))
+				{
+					obj = new WallBottomRight();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_bottomright.add((WallBottomRight)obj);
+				}
+				else if (BLOCK_TYPE.WALL_TOPRIGHT.sameColor(currentPixel))
+				{
+					obj = new WallTopRight();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_topright.add((WallTopRight)obj);
+				}
+				else if (BLOCK_TYPE.WALL_TOPLEFT.sameColor(currentPixel))
+				{
+					obj = new WallTopLeft();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_topleft.add((WallTopLeft)obj);
+				}
+				else if (BLOCK_TYPE.WALL_BOTTOMLEFT.sameColor(currentPixel))
+				{
+					obj = new WallBottomLeft();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					wall_bottomleft.add((WallBottomLeft)obj);
+				}
 				else
 				{
 					int r = 0xff & (currentPixel >>> 24); //red color channel
@@ -186,6 +227,14 @@ public class Level {
 			wall_left.render(batch);
 		for(WallRight wall_right : wall_right)
 			wall_right.render(batch);
+		for(WallTopRight wall_topright : wall_topright)
+			wall_topright.render(batch);
+		for(WallBottomRight wall_bottomright : wall_bottomright)
+			wall_bottomright.render(batch);
+		for(WallTopLeft wall_topleft : wall_topleft)
+			wall_topleft.render(batch);
+		for(WallBottomLeft wall_bottomleft : wall_bottomleft)
+			wall_bottomleft.render(batch);
 	}
 	
 	public void update(float deltaTime)

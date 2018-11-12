@@ -87,11 +87,9 @@ public class WorldController extends InputAdapter
 		polygonShape.setAsBox(knight.bounds.width / 2.0f, knight.bounds.height / 2.0f,origin,0);
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
-		//fixtureDef.density = 50;
 		fixtureDef.restitution = 0f;
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
 		
 		for(WallUp wall_up : level.wall_up)
 		{
@@ -106,6 +104,7 @@ public class WorldController extends InputAdapter
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
+			polygonShape.dispose();
 		}
 		for(WallDown wall_down : level.wall_down)
 		{
@@ -114,12 +113,13 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_down.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_down.bounds.width /2.0f;
-			origin.y = wall_down.bounds.height/2.0f;
+			origin.x = wall_down.bounds.width /2.0f + Constants.OFFSET;
+			origin.y = wall_down.bounds.height/2.0f + Constants.OFFSET;
 			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
+			polygonShape.dispose();
 		}
 		for(WallRight wall_right : level.wall_right)
 		{
@@ -134,6 +134,8 @@ public class WorldController extends InputAdapter
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
 		}
 		for(WallLeft wall_left : level.wall_left)
 		{
@@ -142,12 +144,14 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_left.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_left.bounds.width /2.0f;
-			origin.y = wall_left.bounds.height/2.0f;
+			origin.x = wall_left.bounds.width /2.0f+Constants.OFFSET;
+			origin.y = wall_left.bounds.height/2.0f+Constants.OFFSET;
 			polygonShape.setAsBox(wall_left.bounds.width/2.0f,wall_left.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
 		}
 		
 	}

@@ -1,54 +1,82 @@
 
 dangerdungeon.pack.png
-size: 128,32
+size: 256,32
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 chest
   rotate: false
-  xy: 20, 5
+  xy: 120, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 38, 5
+  xy: 138, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 knight
   rotate: false
-  xy: 110, 5
+  xy: 210, 9
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
+wall_bottomleft
+  rotate: false
+  xy: 2, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+wall_bottomright
+  rotate: false
+  xy: 27, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
 wall_down
   rotate: false
-  xy: 56, 5
+  xy: 156, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 wall_left
   rotate: false
-  xy: 74, 5
+  xy: 174, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 wall_right
   rotate: false
-  xy: 92, 5
+  xy: 192, 9
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
+wall_topleft
+  rotate: false
+  xy: 52, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
+wall_topright
+  rotate: false
+  xy: 77, 2
+  size: 23, 23
+  orig: 23, 23
+  offset: 0, 0
+  index: -1
 wall_up
   rotate: false
-  xy: 2, 2
+  xy: 102, 6
   size: 16, 19
   orig: 16, 19
   offset: 0, 0
