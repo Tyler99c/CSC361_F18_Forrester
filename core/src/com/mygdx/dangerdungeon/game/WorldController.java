@@ -15,6 +15,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallDown;
 import com.mygdx.dangerdungeon.objects.WallLeft;
 import com.mygdx.dangerdungeon.objects.WallRight;
@@ -113,8 +114,8 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_down.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_down.bounds.width /2.0f + Constants.OFFSET;
-			origin.y = wall_down.bounds.height/2.0f + Constants.OFFSET;
+			origin.x = wall_down.bounds.width /2.0f;
+			origin.y = wall_down.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
@@ -144,9 +145,25 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_left.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_left.bounds.width /2.0f+Constants.OFFSET;
-			origin.y = wall_left.bounds.height/2.0f+Constants.OFFSET;
+			origin.x = wall_left.bounds.width /2.0f;
+			origin.y = wall_left.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_left.bounds.width/2.0f,wall_left.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallBottomLeft wall_bottomleft : level.wall_bottomleft)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_bottomleft.position);
+			body = b2world.createBody(bodyDef);
+			wall_bottomleft.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_bottomleft.bounds.width /2.0f;
+			origin.y = wall_bottomleft.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_bottomleft.bounds.width/2.0f,wall_bottomleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);

@@ -31,6 +31,10 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallDown wall_down;
 	public AssetWallRight wall_right;
 	public AssetWallLeft wall_left;
+	public AssetWallTopLeft wall_topleft;
+	public AssetWallBottomLeft wall_bottomleft;
+	public AssetWallBottomRight wall_bottomright;
+	public AssetWallTopRight wall_topright;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -78,7 +82,10 @@ public class Assets implements Disposable, AssetErrorListener
 		wall_down = new AssetWallDown(atlas);
 		wall_left = new AssetWallLeft(atlas);
 		wall_right = new AssetWallRight(atlas);
-		
+		wall_topleft = new AssetWallTopLeft(atlas);
+		wall_bottomleft = new AssetWallBottomLeft(atlas);
+		wall_topright = new AssetWallTopRight(atlas);
+		wall_bottomright = new AssetWallBottomRight(atlas);
 	}
 	
 

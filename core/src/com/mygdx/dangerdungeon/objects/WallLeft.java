@@ -26,7 +26,8 @@ public class WallLeft extends AbstractGameObject
 		
 		wall = Assets.instance.wall_left.wall_left;
 	
-		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	/**

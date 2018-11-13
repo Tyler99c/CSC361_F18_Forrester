@@ -26,7 +26,8 @@ public class WallDown extends AbstractGameObject
 		
 		wall = Assets.instance.wall_down.wall_down;
 	
-		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	/**

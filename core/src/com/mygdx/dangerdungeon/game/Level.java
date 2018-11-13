@@ -216,8 +216,6 @@ public class Level {
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);
-		//Draw Player Character
-		knight.render(batch);
 		//Draws the walls
 		for(WallUp wall_up : wall_up)
 			wall_up.render(batch);
@@ -235,6 +233,8 @@ public class Level {
 			wall_topleft.render(batch);
 		for(WallBottomLeft wall_bottomleft : wall_bottomleft)
 			wall_bottomleft.render(batch);
+		//Draw Player Character
+		knight.render(batch);
 	}
 	
 	public void update(float deltaTime)

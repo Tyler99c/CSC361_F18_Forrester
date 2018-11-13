@@ -26,7 +26,8 @@ public class WallUp extends AbstractGameObject
 		
 		wall = Assets.instance.wall_up.wall_up;
 	
-		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	/**

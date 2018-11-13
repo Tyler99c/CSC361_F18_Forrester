@@ -24,9 +24,10 @@ public class WallBottomLeft extends AbstractGameObject
 	{
 		dimension.set(1,1);
 		
-		wall = Assets.instance.wall_up.wall_up;
+		wall = Assets.instance.wall_bottomleft.wall_bottomleft;
 	
-		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	/**
