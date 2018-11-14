@@ -22,4 +22,6 @@ public class Constants
 	
 	//Visible game world is 5 meters tall
 	public static final float VIEWPORT_HEIGHT = 25.0f;
+	
+	public static final float OFFSET = 1f;
 }

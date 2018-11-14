@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
-public class WallRight extends AbstractGameObject
+public class WallBottomRight extends AbstractGameObject
 {
 	private TextureRegion wall;
 
@@ -12,7 +12,7 @@ public class WallRight extends AbstractGameObject
 	/**
 	 * Creates a new floor instance
 	 */
-	public WallRight() 
+	public WallBottomRight() 
 	{
 		init();
 	}
@@ -24,7 +24,7 @@ public class WallRight extends AbstractGameObject
 	{
 		dimension.set(1,1);
 		
-		wall = Assets.instance.wall_right.wall_right;
+		wall = Assets.instance.wall_bottomright.wall_bottomright;
 	
 		bounds.set(0,0,dimension.x,dimension.y);
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
