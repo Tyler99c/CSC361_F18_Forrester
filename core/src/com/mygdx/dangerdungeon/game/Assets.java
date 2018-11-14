@@ -153,6 +153,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the wallup asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallUp
 	{
 		public final AtlasRegion wall_up;
@@ -163,6 +168,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the walldown asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallDown
 	{
 		public final AtlasRegion wall_down;
@@ -173,6 +183,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the wallright asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallRight
 	{
 		public final AtlasRegion wall_right;
