@@ -165,6 +165,14 @@ public class Level {
 				}
 				else if (BLOCK_TYPE.WALL_BOTTOMRIGHT.sameColor(currentPixel))
 				{
+					if(BLOCK_TYPE.WALL_UP.sameColor(lastPixel))
+					{
+						obj = new Floor();
+						offsetHeight = 0f;
+						obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+						floor.add((Floor)obj);
+						System.out.println("Founds a floor pixel");
+					}
 					obj = new WallBottomRight();
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
@@ -172,6 +180,14 @@ public class Level {
 				}
 				else if (BLOCK_TYPE.WALL_TOPRIGHT.sameColor(currentPixel))
 				{
+					if(BLOCK_TYPE.WALL_DOWN.sameColor(lastPixel))
+					{
+						obj = new Floor();
+						offsetHeight = 0f;
+						obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+						floor.add((Floor)obj);
+						System.out.println("Founds a floor pixel");
+					}
 					obj = new WallTopRight();
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
@@ -179,6 +195,14 @@ public class Level {
 				}
 				else if (BLOCK_TYPE.WALL_TOPLEFT.sameColor(currentPixel))
 				{
+					if(BLOCK_TYPE.FLOOR.sameColor(lastPixel))
+					{
+						obj = new Floor();
+						offsetHeight = 0f;
+						obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+						floor.add((Floor)obj);
+						System.out.println("Founds a floor pixel");
+					}
 					obj = new WallTopLeft();
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
@@ -186,6 +210,15 @@ public class Level {
 				}
 				else if (BLOCK_TYPE.WALL_BOTTOMLEFT.sameColor(currentPixel))
 				{
+
+					if(BLOCK_TYPE.FLOOR.sameColor(lastPixel))
+					{
+						obj = new Floor();
+						offsetHeight = 0f;
+						obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+						floor.add((Floor)obj);
+						System.out.println("Founds a floor pixel");
+					}
 					obj = new WallBottomLeft();
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
@@ -199,6 +232,7 @@ public class Level {
 					int a = 0xff & currentPixel; //Alpha Channel
 					Gdx.app.error(TAG, "Unkonw objec at x<" + pixelX + "> y<" + pixelY + ">: r<" + r+ "> g<" + g + "> b<" + b + "> a<" + a + ">");
 				}
+				lastPixel = currentPixel;
 			}
 		}
 		

@@ -30,6 +30,7 @@ public class WallUp extends AbstractGameObject
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
+	
 	/**
 	 * Draws the object
 	 */
