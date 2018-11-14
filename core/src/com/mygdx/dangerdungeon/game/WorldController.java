@@ -68,6 +68,9 @@ public class WorldController extends InputAdapter
 		initPhysics();
 	}
 	
+	/**
+	 * Creates physics for the objects
+	 */
 	private void initPhysics() 
 	{
 		if(b2world != null)

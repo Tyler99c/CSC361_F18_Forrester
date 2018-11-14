@@ -153,6 +153,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallUp
 	{
 		public final AtlasRegion wall_up;
@@ -163,6 +168,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallDown
 	{
 		public final AtlasRegion wall_down;
@@ -173,6 +183,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallRight
 	{
 		public final AtlasRegion wall_right;
@@ -183,6 +198,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallLeft
 	{
 		public final AtlasRegion wall_left;
@@ -193,7 +213,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallTopLeft
 	{
 		public final AtlasRegion wall_topleft;
@@ -204,6 +228,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallBottomLeft
 	{
 		public final AtlasRegion wall_bottomleft;
@@ -214,6 +243,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallTopRight
 	{
 		public final AtlasRegion wall_topright;
@@ -224,6 +258,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetWallBottomRight
 	{
 		public final AtlasRegion wall_bottomright;
