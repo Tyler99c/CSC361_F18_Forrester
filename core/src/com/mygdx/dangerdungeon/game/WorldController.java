@@ -16,9 +16,12 @@ import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
+import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
 import com.mygdx.dangerdungeon.objects.WallLeft;
 import com.mygdx.dangerdungeon.objects.WallRight;
+import com.mygdx.dangerdungeon.objects.WallTopLeft;
+import com.mygdx.dangerdungeon.objects.WallTopRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -129,7 +132,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_right.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_right.bounds.width /2.0f;
+			origin.x = wall_right.bounds.width /2.0f + .4f;
 			origin.y = wall_right.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_right.bounds.width/2.0f,wall_right.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -145,7 +148,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_left.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_left.bounds.width /2.0f;
+			origin.x = wall_left.bounds.width /2.0f - .4f;
 			origin.y = wall_left.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_left.bounds.width/2.0f,wall_left.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -161,9 +164,57 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_bottomleft.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_bottomleft.bounds.width /2.0f;
+			origin.x = wall_bottomleft.bounds.width /2.0f + .5f;
 			origin.y = wall_bottomleft.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_bottomleft.bounds.width/2.0f,wall_bottomleft.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallBottomRight wall_bottomright : level.wall_bottomright)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_bottomright.position);
+			body = b2world.createBody(bodyDef);
+			wall_bottomright.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_bottomright.bounds.width /2.0f -.5f;
+			origin.y = wall_bottomright.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_bottomright.bounds.width/2.0f,wall_bottomright.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallTopRight wall_topright : level.wall_topright)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_topright.position);
+			body = b2world.createBody(bodyDef);
+			wall_topright.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_topright.bounds.width /2.0f - .5f;
+			origin.y = wall_topright.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_topright.bounds.width/2.0f,wall_topright.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallTopLeft wall_topleft : level.wall_topleft)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_topleft.position);
+			body = b2world.createBody(bodyDef);
+			wall_topleft.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_topleft.bounds.width /2.0f + .5f;
+			origin.y = wall_topleft.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_topleft.bounds.width/2.0f,wall_topleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
