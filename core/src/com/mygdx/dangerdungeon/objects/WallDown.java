@@ -4,20 +4,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
-/**
- *  Creates the floor unwhich the player walk, mearly a decoration
- * @author Tyler Forrester
- *
- */
-public class Floor extends AbstractGameObject
+public class WallDown extends AbstractGameObject
 {
-	private TextureRegion tile;
+	private TextureRegion wall;
 
 	
 	/**
 	 * Creates a new floor instance
 	 */
-	public Floor() 
+	public WallDown() 
 	{
 		init();
 	}
@@ -29,9 +24,10 @@ public class Floor extends AbstractGameObject
 	{
 		dimension.set(1,1);
 		
-		tile = Assets.instance.floor.floor;
+		wall = Assets.instance.wall_down.wall_down;
 	
-		
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
 	/**
@@ -42,8 +38,9 @@ public class Floor extends AbstractGameObject
 		TextureRegion reg = null;
 		
 		//Draw
-		reg = tile;
+		reg = wall;
 		batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
 	}
 
 }
+

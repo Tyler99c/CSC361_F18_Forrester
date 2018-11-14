@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -13,7 +14,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.WallBottomLeft;
+import com.mygdx.dangerdungeon.objects.WallBottomRight;
+import com.mygdx.dangerdungeon.objects.WallDown;
+import com.mygdx.dangerdungeon.objects.WallLeft;
+import com.mygdx.dangerdungeon.objects.WallRight;
+import com.mygdx.dangerdungeon.objects.WallTopLeft;
+import com.mygdx.dangerdungeon.objects.WallTopRight;
+import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+import com.badlogic.gdx.physics.box2d.World;
 
 /**
  * Class that Handles the inputs in the world
@@ -30,6 +46,9 @@ public class WorldController extends InputAdapter
 	public int health;
 	public int score;
 	
+	private boolean goalReached;
+	public World b2world;
+	
 	/**
 	 * Cresates the worldController instance
 	 */
@@ -45,6 +64,167 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		level = new Level(Constants.LEVEL_01);
+		cameraHelper.setTarget(level.knight);
+		initPhysics();
+	}
+	
+	/**
+	 * Creates physics for the objects
+	 */
+	private void initPhysics() 
+	{
+		if(b2world != null)
+		{
+			b2world.dispose();
+		}
+		
+		b2world = new World(new Vector2(0,0), true);
+		
+		
+		Vector2 origin = new Vector2();
+		Knight knight = level.knight;
+		BodyDef bodyDef = new BodyDef();
+		bodyDef.type = BodyType.DynamicBody;
+		bodyDef.position.set(knight.position);
+		Body body = b2world.createBody(bodyDef);
+		knight.body = body;
+		PolygonShape polygonShape = new PolygonShape();
+		origin.x = knight.bounds.width / 2.0f;
+		origin.y = knight.bounds.height / 2.0f;
+		polygonShape.setAsBox(knight.bounds.width / 2.0f, knight.bounds.height / 2.0f,origin,0);
+		FixtureDef fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		fixtureDef.restitution = 0f;
+		body.createFixture(fixtureDef);
+		polygonShape.dispose();
+		
+		for(WallUp wall_up : level.wall_up)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_up.position);
+			body = b2world.createBody(bodyDef);
+			wall_up.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_up.bounds.width /2.0f;
+			origin.y = wall_up.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_up.bounds.width/2.0f,wall_up.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		for(WallDown wall_down : level.wall_down)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_down.position);
+			body = b2world.createBody(bodyDef);
+			wall_down.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_down.bounds.width /2.0f;
+			origin.y = wall_down.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		for(WallRight wall_right : level.wall_right)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_right.position);
+			body = b2world.createBody(bodyDef);
+			wall_right.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_right.bounds.width /2.0f + .4f;
+			origin.y = wall_right.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_right.bounds.width/2.0f,wall_right.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallLeft wall_left : level.wall_left)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_left.position);
+			body = b2world.createBody(bodyDef);
+			wall_left.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_left.bounds.width /2.0f - .4f;
+			origin.y = wall_left.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_left.bounds.width/2.0f,wall_left.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallBottomLeft wall_bottomleft : level.wall_bottomleft)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_bottomleft.position);
+			body = b2world.createBody(bodyDef);
+			wall_bottomleft.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_bottomleft.bounds.width /2.0f + .5f;
+			origin.y = wall_bottomleft.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_bottomleft.bounds.width/2.0f,wall_bottomleft.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallBottomRight wall_bottomright : level.wall_bottomright)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_bottomright.position);
+			body = b2world.createBody(bodyDef);
+			wall_bottomright.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_bottomright.bounds.width /2.0f -.5f;
+			origin.y = wall_bottomright.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_bottomright.bounds.width/2.0f,wall_bottomright.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallTopRight wall_topright : level.wall_topright)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_topright.position);
+			body = b2world.createBody(bodyDef);
+			wall_topright.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_topright.bounds.width /2.0f - .5f;
+			origin.y = wall_topright.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_topright.bounds.width/2.0f,wall_topright.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		for(WallTopLeft wall_topleft : level.wall_topleft)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(wall_topleft.position);
+			body = b2world.createBody(bodyDef);
+			wall_topleft.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = wall_topleft.bounds.width /2.0f + .5f;
+			origin.y = wall_topleft.bounds.height/2.0f;
+			polygonShape.setAsBox(wall_topleft.bounds.width/2.0f,wall_topleft.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+
+		}
+		
 	}
 	
 	/**
@@ -115,8 +295,11 @@ public class WorldController extends InputAdapter
 	 */
 	public void update (float deltaTime) 
 	{
+		handleInputGame(deltaTime);
 		handleDebugInput(deltaTime);
 		//updateTestObjects(deltaTime);
+		level.update(deltaTime);
+		b2world.step(deltaTime, 8, 3);
 		cameraHelper.update(deltaTime);
 	}
 	
@@ -127,7 +310,7 @@ public class WorldController extends InputAdapter
 	private void handleDebugInput (float deltaTime)
 	{
 		if (Gdx.app.getType() != ApplicationType.Desktop) return;
-		
+	
 		//Camera Controls (move)
 		float camMoveSpeed = 5 * deltaTime;
 		float camMoveSpeedAccelerationFactor = 5;
@@ -180,5 +363,51 @@ public class WorldController extends InputAdapter
 			Gdx.app.debug(TAG, "Game world resetted");
 		}
 		return false;
+	}
+	
+	private void handleInputGame(float deltaTime)
+	{
+		if(Gdx.input.isKeyPressed(Keys.A))
+		{
+			if(Gdx.input.isKeyPressed(Keys.W))
+			{
+				level.knight.body.setLinearVelocity(-5,5);
+			}
+			else if(Gdx.input.isKeyPressed(Keys.S))
+			{
+				level.knight.body.setLinearVelocity(-5,-5);
+			}
+			else
+			{
+				level.knight.body.setLinearVelocity(-5,0);
+			}
+		}
+		else if (Gdx.input.isKeyPressed(Keys.D))
+		{
+			if(Gdx.input.isKeyPressed(Keys.S))
+			{
+				level.knight.body.setLinearVelocity(5,-5);
+			}
+			else if(Gdx.input.isKeyPressed(Keys.W))
+			{
+				level.knight.body.setLinearVelocity(5,5);
+			}
+			else
+			{
+			level.knight.body.setLinearVelocity(5,0);
+			}
+		}
+		else if (Gdx.input.isKeyPressed(Keys.S))
+		{
+			level.knight.body.setLinearVelocity(0,-5);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.W))
+		{
+			level.knight.body.setLinearVelocity(0,5);
+		}
+		else
+		{
+			level.knight.body.setLinearVelocity(0,0);
+		}
 	}
 }

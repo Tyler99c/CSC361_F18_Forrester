@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 /**
  * Draws the world and the images in it
@@ -17,6 +18,8 @@ public class WorldRenderer implements Disposable
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private WorldController worldController;
+	private static final boolean DEBUG_DRAW_BOX2D_WORLD = false;
+	private Box2DDebugRenderer b2debugRenderer;
 	
 	/**
 	 * Creastes the world renderer class our scenes use
@@ -41,6 +44,7 @@ public class WorldRenderer implements Disposable
 		cameraGui.position.set(0,0,0);
 		cameraGui.setToOrtho(true);
 		cameraGui.update();
+		b2debugRenderer = new Box2DDebugRenderer();
 	}
 	
 	/**
@@ -98,5 +102,9 @@ public class WorldRenderer implements Disposable
 		batch.begin();
 		worldController.level.render(batch);
 		batch.end();
+		if (DEBUG_DRAW_BOX2D_WORLD)
+		{
+			b2debugRenderer.render(worldController.b2world, camera.combined);
+		}
 	}
 }

@@ -27,6 +27,14 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetKnight knight;
 	public AssetChest chest;
 	public AssetFloor floor;
+	public AssetWallUp wall_up;
+	public AssetWallDown wall_down;
+	public AssetWallRight wall_right;
+	public AssetWallLeft wall_left;
+	public AssetWallTopLeft wall_topleft;
+	public AssetWallBottomLeft wall_bottomleft;
+	public AssetWallBottomRight wall_bottomright;
+	public AssetWallTopRight wall_topright;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -70,6 +78,14 @@ public class Assets implements Disposable, AssetErrorListener
 		knight = new AssetKnight(atlas);
 		chest = new AssetChest(atlas);
 		floor = new AssetFloor(atlas);
+		wall_up = new AssetWallUp(atlas);
+		wall_down = new AssetWallDown(atlas);
+		wall_left = new AssetWallLeft(atlas);
+		wall_right = new AssetWallRight(atlas);
+		wall_topleft = new AssetWallTopLeft(atlas);
+		wall_bottomleft = new AssetWallBottomLeft(atlas);
+		wall_topright = new AssetWallTopRight(atlas);
+		wall_bottomright = new AssetWallBottomRight(atlas);
 	}
 	
 
@@ -134,6 +150,126 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetChest(TextureAtlas atlas)
 		{
 			chest = atlas.findRegion("chest");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallUp
+	{
+		public final AtlasRegion wall_up;
+		
+		public AssetWallUp(TextureAtlas atlas)
+		{
+			wall_up = atlas.findRegion("wall_up");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallDown
+	{
+		public final AtlasRegion wall_down;
+		
+		public AssetWallDown(TextureAtlas atlas)
+		{
+			wall_down = atlas.findRegion("wall_down");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallRight
+	{
+		public final AtlasRegion wall_right;
+		
+		public AssetWallRight(TextureAtlas atlas)
+		{
+			wall_right = atlas.findRegion("wall_right");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallLeft
+	{
+		public final AtlasRegion wall_left;
+		
+		public AssetWallLeft(TextureAtlas atlas)
+		{
+			wall_left = atlas.findRegion("wall_left");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallTopLeft
+	{
+		public final AtlasRegion wall_topleft;
+		
+		public AssetWallTopLeft(TextureAtlas atlas)
+		{
+			wall_topleft = atlas.findRegion("wall_topleft");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallBottomLeft
+	{
+		public final AtlasRegion wall_bottomleft;
+		
+		public AssetWallBottomLeft(TextureAtlas atlas)
+		{
+			wall_bottomleft = atlas.findRegion("wall_bottomleft");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallTopRight
+	{
+		public final AtlasRegion wall_topright;
+		
+		public AssetWallTopRight(TextureAtlas atlas)
+		{
+			wall_topright = atlas.findRegion("wall_topright");
+		}
+	}
+	
+	/**
+	 * Handles the one of the wall asset
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetWallBottomRight
+	{
+		public final AtlasRegion wall_bottomright;
+		
+		public AssetWallBottomRight(TextureAtlas atlas)
+		{
+			wall_bottomright = atlas.findRegion("wall_bottomright");
 		}
 	}
 	
