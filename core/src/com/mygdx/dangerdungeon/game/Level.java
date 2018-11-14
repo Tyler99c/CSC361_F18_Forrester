@@ -271,6 +271,10 @@ public class Level {
 		knight.render(batch);
 	}
 	
+	/**
+	 * Updates the knight in the level
+	 * @param deltaTime
+	 */
 	public void update(float deltaTime)
 	{
 		knight.update(deltaTime);

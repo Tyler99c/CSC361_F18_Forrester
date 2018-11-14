@@ -28,7 +28,9 @@ public class Knight extends AbstractGameObject{
 		init();
 	}
 	
-	
+	/**
+	 * Makes the knight class
+	 */
 	public void init()
 	{
 		dimension.set(1,1);
@@ -39,11 +41,18 @@ public class Knight extends AbstractGameObject{
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
 	
+	/**
+	 * Updates the knight
+	 */
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
 		System.out.println(body.getLinearVelocity());
 	}
+	
+	/**
+	 * Draws the knight into the scene
+	 */
 	@Override
 	public void render(SpriteBatch batch) {
 		TextureRegion reg = null;
