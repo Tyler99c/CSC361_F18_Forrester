@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
+import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -32,7 +33,7 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0);
 		
 		private int color;
 		
@@ -63,6 +64,7 @@ public class Level {
 	public Array<WallTopRight> wall_topright;
 	public Array<WallBottomLeft> wall_bottomleft;
 	public Array<WallTopLeft> wall_topleft;
+	public Array<Chest> chest;
 
 	
 	/**
@@ -89,6 +91,7 @@ public class Level {
 		wall_topleft = new Array<WallTopLeft>();
 		wall_bottomright = new Array<WallBottomRight>();
 		wall_topright = new Array<WallTopRight>();
+		chest = new Array<Chest>();
 		
 		//player character
 		knight = null;
@@ -180,7 +183,7 @@ public class Level {
 				}
 				else if (BLOCK_TYPE.WALL_TOPRIGHT.sameColor(currentPixel))
 				{
-					if(BLOCK_TYPE.WALL_DOWN.sameColor(lastPixel))
+					if(BLOCK_TYPE.WALL_DOWN.sameColor(lastPixel) || BLOCK_TYPE.WALL_BOTTOMLEFT.sameColor(lastPixel))
 					{
 						obj = new Floor();
 						offsetHeight = 0f;
@@ -223,6 +226,13 @@ public class Level {
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_bottomleft.add((WallBottomLeft)obj);
+				}
+				else if (BLOCK_TYPE.CHEST.sameColor(currentPixel))
+				{
+					obj= new Chest();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					chest.add((Chest)obj);
 				}
 				else
 				{
@@ -269,6 +279,8 @@ public class Level {
 			wall_bottomleft.render(batch);
 		//Draw Player Character
 		knight.render(batch);
+		for(Chest chest : chest)
+			chest.render(batch);
 	}
 	
 	/**
