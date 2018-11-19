@@ -167,7 +167,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_bottomleft.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_bottomleft.bounds.width /2.0f + .5f;
+			origin.x = wall_bottomleft.bounds.width /2.0f + .4f;
 			origin.y = wall_bottomleft.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_bottomleft.bounds.width/2.0f,wall_bottomleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -183,7 +183,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_bottomright.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_bottomright.bounds.width /2.0f -.5f;
+			origin.x = wall_bottomright.bounds.width /2.0f -.4f;
 			origin.y = wall_bottomright.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_bottomright.bounds.width/2.0f,wall_bottomright.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -199,7 +199,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_topright.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_topright.bounds.width /2.0f - .5f;
+			origin.x = wall_topright.bounds.width /2.0f - .4f;
 			origin.y = wall_topright.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_topright.bounds.width/2.0f,wall_topright.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -215,7 +215,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_topleft.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_topleft.bounds.width /2.0f + .5f;
+			origin.x = wall_topleft.bounds.width /2.0f + .4f;
 			origin.y = wall_topleft.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_topleft.bounds.width/2.0f,wall_topleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
