@@ -10,6 +10,7 @@ import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
@@ -46,6 +47,7 @@ public class WorldController extends InputAdapter
 	public Level level;
 	public int health;
 	public int score;
+	private Game game;
 	
 	private boolean goalReached;
 	public World b2world;
@@ -53,8 +55,9 @@ public class WorldController extends InputAdapter
 	/**
 	 * Cresates the worldController instance
 	 */
-	public WorldController() 
+	public WorldController(Game game) 
 	{
+		this.game = game;
 		init();
 	}
 	
