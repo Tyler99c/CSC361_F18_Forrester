@@ -13,6 +13,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -97,6 +98,18 @@ public class WorldController extends InputAdapter
 		fixtureDef.restitution = 0f;
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
+		
+		for(Chest chest: level.chest)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(chest.position);
+			body = b2world.createBody(bodyDef);
+			chest.body = body;
+			chest = new Chest();
+			origin.x = chest.bounds.width/2.0f;
+			origin.y = chest.bounds.height/2.0f;
+			polygonShape.setAsBox(chest.bounds.width/2.0f, chest.bounds.height/2.0f,origin,0);
+		}
 		
 		for(WallUp wall_up : level.wall_up)
 		{
