@@ -61,15 +61,25 @@ public class GameScreen extends AbstractGameScreen
 	}
 
 	@Override
-	public void hide() {
-		// TODO Auto-generated method stub
+	public void hide() 
+	{
+		worldRenderer.dispose();
+		Gdx.input.setCatchBackKey(false);
 		
 	}
 
 	@Override
-	public void pause() {
-		// TODO Auto-generated method stub
+	public void pause() 
+	{
+		paused = true;
 		
+	}
+	
+	@Override
+	public void resume()
+	{
+		super.resume();
+		paused = false;
 	}
 
 

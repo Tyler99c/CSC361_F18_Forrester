@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
@@ -425,5 +426,10 @@ public class WorldController extends InputAdapter
 		{
 			level.knight.body.setLinearVelocity(0,0);
 		}
+	}
+	
+	private void backToMenu()
+	{
+		game.setScreen(new MenuScreen(game));
 	}
 }
