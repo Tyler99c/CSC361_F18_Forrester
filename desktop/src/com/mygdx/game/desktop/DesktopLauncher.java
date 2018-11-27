@@ -27,6 +27,7 @@ public class DesktopLauncher
 			settings.duplicatePadding = true;
 			settings.debug = drawDebugOutline;
 			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images", "dangerdungeon.pack");
+			TexturePacker.process(settings, "assets-raw/images-ui", "../core/assets/images", "dangerdungeon-ui.pack");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();

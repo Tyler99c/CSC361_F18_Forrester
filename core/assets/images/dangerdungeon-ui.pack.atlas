@@ -1,0 +1,75 @@
+
+dangerdungeon-ui.pack.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+bunny
+  rotate: false
+  xy: 1, 1
+  size: 700, 1000
+  orig: 700, 1000
+  offset: 0, 0
+  index: -1
+options-dn
+  rotate: false
+  xy: 703, 851
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+options-up
+  rotate: false
+  xy: 703, 699
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+play-dn
+  rotate: false
+  xy: 855, 851
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+play-up
+  rotate: false
+  xy: 703, 547
+  size: 150, 150
+  orig: 150, 150
+  offset: 0, 0
+  index: -1
+
+dangerdungeon-ui.pack2.png
+size: 1024,1024
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+background
+  rotate: false
+  xy: 1, 481
+  size: 801, 481
+  orig: 801, 481
+  offset: 0, 0
+  index: -1
+coins
+  rotate: false
+  xy: 1, 122
+  size: 510, 357
+  orig: 510, 357
+  offset: 0, 0
+  index: -1
+info
+  rotate: false
+  xy: 513, 397
+  size: 329, 82
+  orig: 329, 82
+  offset: 0, 0
+  index: -1
+logo
+  rotate: false
+  xy: 1, 1
+  size: 340, 119
+  orig: 340, 119
+  offset: 0, 0
+  index: -1

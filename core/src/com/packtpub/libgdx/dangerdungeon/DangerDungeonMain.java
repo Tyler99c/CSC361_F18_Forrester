@@ -9,6 +9,7 @@ import com.mygdx.dangerdungeon.game.Assets;
 import com.mygdx.dangerdungeon.game.WorldController;
 import com.mygdx.dangerdungeon.game.WorldRenderer;
 import com.packtpub.libgdx.dangerdungeon.screens.GameScreen;
+import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 
 /**
  * A main class that starts and handles the game
@@ -27,7 +28,7 @@ public class DangerDungeonMain extends Game
 		//Load assets
 		Assets.instance.init(new AssetManager());
 		//Start game at menu screen
-		setScreen(new GameScreen(this));
+		setScreen(new MenuScreen(this));
 	}
 //	/**
 //	 * Draws objects
