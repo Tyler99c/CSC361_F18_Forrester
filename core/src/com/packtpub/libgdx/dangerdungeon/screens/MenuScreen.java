@@ -149,7 +149,7 @@ public class MenuScreen extends AbstractGameScreen
 		// + Bunny
 		imgBunny = new Image(skinCanyonBunny, "bunny");
 		layer.addActor(imgBunny);
-		imgBunny.addAction(sequence(moveTo(655,510),delay(4.0f),moveBy(-70,-100,0.5f, Interpolation.fade),moveBy(-100,-50,0.5f,Interpolation.fade),moveBy(-150,-300,1.0f,Interpolation.elasticIn)));
+		imgBunny.addAction(sequence(moveTo(-500,-500),delay(4.0f),moveBy(500,0,0.5f, Interpolation.fade)));
 		//imgBunny.setPosition(355, 40);
 		return layer;
 	}
