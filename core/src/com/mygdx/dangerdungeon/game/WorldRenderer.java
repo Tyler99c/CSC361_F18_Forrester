@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Disposable;
+import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
@@ -48,11 +49,34 @@ public class WorldRenderer implements Disposable
 	}
 	
 	/**
+	 * Renders the GUI
+	 */
+	public void renderGuiScore (SpriteBatch batch)
+	{
+		float x = -15;
+		float y = -15;
+		batch.draw(Assets.instance.chest.chest,x,y,50,50,100,100,0.35f,-0.35f,0);
+		Assets.instance.fonts.defaultBig.draw(batch, "" + worldController.score, x + 75, y + 37);
+	
+	}
+	
+	private void renderGui(SpriteBatch batch)
+	{
+		batch.setProjectionMatrix(cameraGui.combined);
+		batch.begin();
+		// draw collected gold coins icokn + text
+		// (anchored to top left edge)
+		renderGuiScore(batch);
+		batch.end();
+	}
+	
+	/**
 	 * Renders objects
 	 */
 	public void render() 
 	{
 		renderWorld(batch);
+		renderGui(batch);
 	}
 	
 	/**

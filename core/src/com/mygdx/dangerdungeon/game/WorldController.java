@@ -6,13 +6,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -45,6 +48,7 @@ public class WorldController extends InputAdapter
 	public Level level;
 	public int health;
 	public int score;
+	private Game game;
 	
 	private boolean goalReached;
 	public World b2world;
@@ -52,8 +56,9 @@ public class WorldController extends InputAdapter
 	/**
 	 * Cresates the worldController instance
 	 */
-	public WorldController() 
+	public WorldController(Game game) 
 	{
+		this.game = game;
 		init();
 	}
 	
@@ -97,6 +102,18 @@ public class WorldController extends InputAdapter
 		fixtureDef.restitution = 0f;
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
+		
+		for(Chest chest: level.chest)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(chest.position);
+			body = b2world.createBody(bodyDef);
+			chest.body = body;
+			chest = new Chest();
+			origin.x = chest.bounds.width/2.0f;
+			origin.y = chest.bounds.height/2.0f;
+			polygonShape.setAsBox(chest.bounds.width/2.0f, chest.bounds.height/2.0f,origin,0);
+		}
 		
 		for(WallUp wall_up : level.wall_up)
 		{
@@ -167,7 +184,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_bottomleft.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_bottomleft.bounds.width /2.0f + .5f;
+			origin.x = wall_bottomleft.bounds.width /2.0f + .4f;
 			origin.y = wall_bottomleft.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_bottomleft.bounds.width/2.0f,wall_bottomleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -183,7 +200,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_bottomright.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_bottomright.bounds.width /2.0f -.5f;
+			origin.x = wall_bottomright.bounds.width /2.0f -.4f;
 			origin.y = wall_bottomright.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_bottomright.bounds.width/2.0f,wall_bottomright.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -199,7 +216,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_topright.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_topright.bounds.width /2.0f - .5f;
+			origin.x = wall_topright.bounds.width /2.0f - .4f;
 			origin.y = wall_topright.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_topright.bounds.width/2.0f,wall_topright.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -215,7 +232,7 @@ public class WorldController extends InputAdapter
 			body = b2world.createBody(bodyDef);
 			wall_topleft.body = body;
 			polygonShape = new PolygonShape();
-			origin.x = wall_topleft.bounds.width /2.0f + .5f;
+			origin.x = wall_topleft.bounds.width /2.0f + .4f;
 			origin.y = wall_topleft.bounds.height/2.0f;
 			polygonShape.setAsBox(wall_topleft.bounds.width/2.0f,wall_topleft.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
@@ -409,5 +426,10 @@ public class WorldController extends InputAdapter
 		{
 			level.knight.body.setLinearVelocity(0,0);
 		}
+	}
+	
+	private void backToMenu()
+	{
+		game.setScreen(new MenuScreen(game));
 	}
 }

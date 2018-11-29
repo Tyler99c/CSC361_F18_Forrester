@@ -24,9 +24,10 @@ public class DesktopLauncher
 			Settings settings = new Settings();
 			settings.maxWidth = 1024;
 			settings.maxHeight = 1024;
-			settings.duplicatePadding = false;
+			settings.duplicatePadding = true;
 			settings.debug = drawDebugOutline;
 			TexturePacker.process(settings, "assets-raw/images", "../core/assets/images", "dangerdungeon.pack");
+			TexturePacker.process(settings, "assets-raw/images-ui", "../core/assets/images", "dangerdungeon-ui.pack");
 		}
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
