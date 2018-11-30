@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
+/**
+ * Right Wall
+ * @author Tyler Forrester
+ *
+ */
 public class WallRight extends AbstractGameObject
 {
 	private TextureRegion wall;
@@ -22,7 +27,7 @@ public class WallRight extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(1,1);
+		dimension.set(2.0f,2.0f);
 		
 		wall = Assets.instance.wall_right.wall_right;
 	

@@ -143,12 +143,50 @@ public class Assets implements Disposable, AssetErrorListener
 	 */
 	public class AssetKnight
 	{
-		public final AtlasRegion knight;
+		public final AtlasRegion knightFront;
+		public final Animation<AtlasRegion> animFront;
+		public final Animation<AtlasRegion> animBack;
+		public final Animation<AtlasRegion> animSide;
+		public final Animation<AtlasRegion> animOtherSide;
+		public final AtlasRegion knightBack;
+		public final AtlasRegion knightSide;
+		public final AtlasRegion knightOtherSide;
+		
+	
 		
 		public AssetKnight(TextureAtlas atlas)
 		{
-			knight = atlas.findRegion("knight");
+			knightFront = atlas.findRegion("Knightoofront_01");
+			knightBack = atlas.findRegion("Knightooback_01");
+			knightSide = atlas.findRegion("KnightSide_01");
+			knightOtherSide = atlas.findRegion("KnightOtherSide_01");
+			
+			
+			Array<AtlasRegion> regions = null;
+			//AtlasRegion region = null;
+			
+			//Animation: Front
+			regions = atlas.findRegions("Knightoofront");
+			animFront = new Animation<AtlasRegion>(1.0f/ 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
+			
+			//Animation: Back
+			regions = atlas.findRegions("Knightooback");
+			animBack = new Animation<AtlasRegion>(1.0f/10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
+			
+			//Animation: Side
+			regions = atlas.findRegions("Knightooside");
+			animSide = new Animation<AtlasRegion>(1.0f/ 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
+			
+			//Animation: OtherSide
+			regions = atlas.findRegions("Knightoosideother");
+			animOtherSide = new Animation<AtlasRegion>(1.0f/ 10.0f, regions, Animation.PlayMode.LOOP_PINGPONG);
+			
+			//Animation: OtherSide
 		}
+		
+
+		
+
 	}
 	
 	/**

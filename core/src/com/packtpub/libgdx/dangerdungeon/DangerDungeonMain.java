@@ -28,7 +28,7 @@ public class DangerDungeonMain extends Game
 		//Load assets
 		Assets.instance.init(new AssetManager());
 		//Start game at menu screen
-		setScreen(new MenuScreen(this));
+		setScreen(new GameScreen(this));
 	}
 //	/**
 //	 * Draws objects

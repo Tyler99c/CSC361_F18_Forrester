@@ -28,6 +28,9 @@ public class GameScreen extends AbstractGameScreen
 		super(game);
 	}
 
+	/**
+	 * Draws game
+	 */
 	@Override
 	public void render(float deltaTime) 
 	{
@@ -46,12 +49,18 @@ public class GameScreen extends AbstractGameScreen
 		worldRenderer.render();
 	}
 
+	/**
+	 * Resizes the window
+	 */
 	@Override
 	public void resize(int width, int height) 
 	{
 		worldRenderer.resize(width, height);	
 	}
 
+	/**
+	 * Shows things on the screen
+	 */
 	@Override
 	public void show() 
 	{
@@ -60,6 +69,9 @@ public class GameScreen extends AbstractGameScreen
 		Gdx.input.setCatchBackKey(true);
 	}
 
+	/**
+	 * Hides things on the screen
+	 */
 	@Override
 	public void hide() 
 	{
@@ -68,6 +80,10 @@ public class GameScreen extends AbstractGameScreen
 		
 	}
 
+	/**
+	 * Pauses the game
+	 *
+	 */
 	@Override
 	public void pause() 
 	{
@@ -75,6 +91,9 @@ public class GameScreen extends AbstractGameScreen
 		
 	}
 	
+	/**
+	 * Resumes the game
+	 */
 	@Override
 	public void resume()
 	{

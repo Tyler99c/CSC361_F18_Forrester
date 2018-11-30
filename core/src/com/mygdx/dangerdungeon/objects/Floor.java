@@ -27,7 +27,7 @@ public class Floor extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(1,1);
+		dimension.set(2.0f,2.0f);
 		
 		tile = Assets.instance.floor.floor;
 	
