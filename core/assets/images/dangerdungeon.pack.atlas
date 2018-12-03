@@ -6,154 +6,161 @@ filter: Nearest,Nearest
 repeat: none
 Knightooback
   rotate: false
-  xy: 273, 224
+  xy: 273, 222
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 1
 Knightooback
   rotate: false
-  xy: 273, 224
+  xy: 273, 222
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 3
 Knightooback
   rotate: false
-  xy: 283, 626
+  xy: 283, 624
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 2
 Knightooback
   rotate: false
-  xy: 525, 229
+  xy: 525, 227
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 4
 Knightoobackslash
   rotate: false
-  xy: 535, 626
+  xy: 535, 624
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: -1
 Knightoofront
   rotate: false
-  xy: 777, 232
+  xy: 777, 230
   size: 246, 392
   orig: 246, 392
   offset: 0, 0
   index: 1
 Knightoofront
   rotate: false
-  xy: 777, 232
+  xy: 777, 230
   size: 246, 392
   orig: 246, 392
   offset: 0, 0
   index: 3
 Knightooside
   rotate: false
-  xy: 787, 634
+  xy: 787, 632
   size: 217, 387
   orig: 217, 387
   offset: 0, 0
   index: 1
 Knightooside
   rotate: false
-  xy: 787, 634
+  xy: 787, 632
   size: 217, 387
   orig: 217, 387
   offset: 0, 0
   index: 3
 Knightoosideslash
   rotate: false
-  xy: 1, 219
+  xy: 1, 217
   size: 270, 400
   orig: 270, 400
   offset: 0, 0
   index: -1
 Knightoosideslashother
   rotate: false
-  xy: 1, 621
+  xy: 1, 619
   size: 280, 400
   orig: 280, 400
   offset: 0, 0
   index: -1
+Spikes
+  rotate: false
+  xy: 1, 183
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
 chest
   rotate: false
-  xy: 1, 19
+  xy: 27, 165
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 1, 1
+  xy: 35, 199
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 knight
   rotate: false
-  xy: 19, 19
+  xy: 27, 147
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
 wall_bottomleft
   rotate: false
-  xy: 1, 193
+  xy: 1, 157
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_bottomright
   rotate: false
-  xy: 1, 167
+  xy: 1, 131
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_down
   rotate: false
-  xy: 1, 141
+  xy: 1, 105
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_up
   rotate: false
-  xy: 1, 141
+  xy: 1, 105
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_left
   rotate: false
-  xy: 1, 115
+  xy: 1, 79
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_right
   rotate: false
-  xy: 1, 89
+  xy: 1, 53
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_topleft
   rotate: false
-  xy: 1, 63
+  xy: 1, 27
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_topright
   rotate: false
-  xy: 1, 37
+  xy: 1, 1
   size: 24, 24
   orig: 24, 24
   offset: 0, 0

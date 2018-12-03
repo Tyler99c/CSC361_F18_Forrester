@@ -8,6 +8,7 @@ import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -65,6 +66,9 @@ public class Level {
 	public Array<WallBottomLeft> wall_bottomleft;
 	public Array<WallTopLeft> wall_topleft;
 	public Array<Chest> chest;
+	
+	//Decorations
+	public Spikes spikes;
 
 	
 	/**
@@ -245,6 +249,9 @@ public class Level {
 				lastPixel = currentPixel;
 			}
 		}
+
+		//Decorations
+		spikes = new Spikes(pixmap.getWidth(),pixmap.getHeight());
 		
 		//free memoery
 		pixmap.dispose();
@@ -257,6 +264,7 @@ public class Level {
 	 */
 	public void render(SpriteBatch batch) 
 	{ 
+		spikes.render(batch);
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);

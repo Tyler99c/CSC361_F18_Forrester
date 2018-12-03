@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +37,8 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallBottomRight wall_bottomright;
 	public AssetWallTopRight wall_topright;
 	public AssetFonts fonts;
+	
+	public AssetLevelDecoration levelDecoration;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -88,9 +91,10 @@ public class Assets implements Disposable, AssetErrorListener
 		wall_topright = new AssetWallTopRight(atlas);
 		wall_bottomright = new AssetWallBottomRight(atlas);
 		fonts = new AssetFonts();
+		levelDecoration = new AssetLevelDecoration(atlas);
 	}
 	
-
+	
 	public class AssetFonts
 	{
 		public final BitmapFont defaultSmall;
@@ -348,11 +352,12 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion floor;
-		
+		public final AtlasRegion spikes;
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
 			floor = atlas.findRegion("floor");
+			spikes = atlas.findRegion("spikes");
 		}
 	}
 	
