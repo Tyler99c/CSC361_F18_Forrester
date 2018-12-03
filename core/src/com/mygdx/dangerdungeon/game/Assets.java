@@ -357,7 +357,7 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
 			floor = atlas.findRegion("floor");
-			spikes = atlas.findRegion("spikes");
+			spikes = atlas.findRegion("Spikes");
 		}
 	}
 	

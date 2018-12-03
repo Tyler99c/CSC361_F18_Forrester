@@ -13,96 +13,59 @@ import com.badlogic.gdx.math.Vector2;
  */
 public class Spikes extends AbstractGameObject
 {
+	private TextureRegion spikes;
 
-	private TextureRegion regSpikes;
-
-	private int length;
-	private int height;
-
+	
 	/**
-	 * Constructor that calls init, keeps track of the background's width and length
+	 * Creates a  new spikes instance
 	 */
-	public Spikes(int length,int height)
+	public Spikes() 
 	{
-		this.length = length;
-		this.height = height;
 		init();
 	}
-
+	
 	/**
-	 * Initailizes spikes
+	 * Initiates the floor class
 	 */
-	private void init()
+	private void init() 
 	{
-		dimension.set(1, 1);
-
-		regSpikes = Assets.instance.levelDecoration.spikes;
-
-		// shift mountain and extend length
-		origin.x = -dimension.x * 2;
-		length += dimension.x * 2;
-	}
-
-	/**
-	 * Draws the spikes on the background
-	 * @param batch
-	 * @param offsetX
-	 * @param offsetY
-	 * @param tintColor
-	 * @param parallaxSpeedX
-	 */
-	private void drawSpikes(SpriteBatch batch, float offsetX, float offsetY, float tintColor, float parallaxSpeedX)
-	{
-		TextureRegion reg = regSpikes;
-		batch.setColor(tintColor, tintColor, tintColor, 1);
-		float xRel = dimension.x * offsetX;
-		float yRel = dimension.y * offsetY;
-
-		// mountains span the whole level
-		int spikeLength = 0;
-		spikeLength += MathUtils.ceil(length / (2 * dimension.x) * (1 - parallaxSpeedX));
-		spikeLength += MathUtils.ceil(0.5f + offsetX);
+		dimension.set(3,3);
 		
-		int spikeHeight = 0;
-		spikeHeight += MathUtils.ceil(length / (2 * dimension.x) * (1 - parallaxSpeedX));
-		spikeHeight += MathUtils.ceil(0.5f + offsetX);
-		/*for (int i = 0; i < spikeLength; i++)
-		{
-			for(int j = 0; j < spikeHeight; j++)
-			{
-				// spikes
-				reg = regMountainLeft;
-				batch.draw(reg.getTexture(), origin.x + xRel + position.x * parallaxSpeedX, origin.y + yRel + position.y,
-						origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(),
-						reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
-				xRel += dimension.x;
-			}
-		}*/
-		/*batch.draw(reg.getTexture(), origin.x + xRel + position.x * parallaxSpeedX, origin.y + yRel + position.y,
-				origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(),
-				reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);*/
-
-		// reset color to white
+		spikes = Assets.instance.levelDecoration.spikes;
+	
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
+	}
+	
+	/**
+	 * We call upon this class to draw the spikes
+	 */
+	private void drawSpikes(SpriteBatch batch, float parallaxSpeedX)
+	{
+		TextureRegion reg = null;
+		
+		//Draw
+		reg = spikes;
+		batch.setColor(0.5f, 0.5f, 0.5f, 1f);
+		batch.draw(reg.getTexture(), position.x * parallaxSpeedX, position.y * parallaxSpeedX, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
 		batch.setColor(1, 1, 1, 1);
 	}
-
+	
 	/**
-	 * Calls the draw mountain method, has 3 tints
-	 * 
-	 * @param batch
+	 * Draws the object
 	 */
 	@Override
-	public void render(SpriteBatch batch)
+	public void render(SpriteBatch batch) {
+		drawSpikes(batch, 0.8f);
+		
+	}
+	
+	/**
+	 * Updates position based on camera
+	 */
+	public void updateScrollPosition (Vector2 camPosition)
 	{
-		// distant spikes (dark gray)
-		drawSpikes(batch, 0.5f, 0.5f, 0.5f, 0.8f);
+		position.set(position.x - camPosition.x,position.y - camPosition.y);
 	}
 
-	/**
-	 * Updates the scrolling of the mountains
-	 */
-	public void updateScrollPosition(Vector2 camPosition)
-	{
-		position.set(camPosition.x, position.y);
-	}
 }

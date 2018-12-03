@@ -68,7 +68,7 @@ public class Level {
 	public Array<Chest> chest;
 	
 	//Decorations
-	public Spikes spikes;
+	public Array<Spikes> spikes;
 
 	
 	/**
@@ -96,7 +96,8 @@ public class Level {
 		wall_bottomright = new Array<WallBottomRight>();
 		wall_topright = new Array<WallTopRight>();
 		chest = new Array<Chest>();
-		
+		//spikes = new Array<Spikes>();
+		spikes = new Array<Spikes>();
 		//player character
 		knight = null;
 		
@@ -251,7 +252,16 @@ public class Level {
 		}
 
 		//Decorations
-		spikes = new Spikes(pixmap.getWidth(),pixmap.getHeight());
+		AbstractGameObject obj = null;
+		for(int i = 0; i < pixmap.getHeight(); i++)
+		{
+			for(int j = 0; j < pixmap.getWidth(); j++)
+			{
+				obj = new Spikes();
+				obj.position.set(i, j);
+				spikes.add((Spikes)obj);
+			}
+		}
 		
 		//free memoery
 		pixmap.dispose();
@@ -264,7 +274,8 @@ public class Level {
 	 */
 	public void render(SpriteBatch batch) 
 	{ 
-		spikes.render(batch);
+		for(Spikes spikes: spikes)
+			spikes.render(batch);
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);
