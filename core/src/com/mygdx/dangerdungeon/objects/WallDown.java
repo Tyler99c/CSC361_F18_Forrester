@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
+/**
+ * Wall bottom
+ * @author Tyler Forrester
+ *
+ */
 public class WallDown extends AbstractGameObject
 {
 	private TextureRegion wall;

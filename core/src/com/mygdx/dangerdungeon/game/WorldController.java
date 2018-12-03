@@ -251,7 +251,7 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		initTestObjects();
+		//initTestObjects();
 		initLevel();
 	}
 	
@@ -264,7 +264,7 @@ public class WorldController extends InputAdapter
 		testSprites = new Sprite[5];
 		//create a list of texture regions
 		Array<TextureRegion> regions = new Array<TextureRegion>();
-		regions.add(Assets.instance.knight.knight);
+		regions.add(Assets.instance.knight.knightFront);
 		regions.add(Assets.instance.chest.chest);
 		//Create new sprites using the just created texture
 		for (int i = 0; i < testSprites.length; i++)

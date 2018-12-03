@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
+/**
+ * Left Wall 
+ * @author Tyler Forrester
+ *
+ */
 public class WallLeft extends AbstractGameObject
 {
 	private TextureRegion wall;
