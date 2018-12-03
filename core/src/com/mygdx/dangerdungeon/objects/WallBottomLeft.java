@@ -27,7 +27,7 @@ public class WallBottomLeft extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(2.0f,2.0f);
+		dimension.set(1,1);
 		
 		wall = Assets.instance.wall_bottomleft.wall_bottomleft;
 	

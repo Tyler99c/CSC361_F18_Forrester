@@ -27,7 +27,7 @@ public class Chest extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(2.0f,2.0f);
+		dimension.set(1,1);
 		
 		tile = Assets.instance.chest.chest;
 	

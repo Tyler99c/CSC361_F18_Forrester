@@ -13,6 +13,13 @@ Knightooback
   index: 1
 Knightooback
   rotate: false
+  xy: 273, 224
+  size: 250, 395
+  orig: 250, 395
+  offset: 0, 0
+  index: 3
+Knightooback
+  rotate: false
   xy: 283, 626
   size: 250, 395
   orig: 250, 395
@@ -24,7 +31,7 @@ Knightooback
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
-  index: 3
+  index: 4
 Knightoobackslash
   rotate: false
   xy: 535, 626
@@ -39,6 +46,13 @@ Knightoofront
   orig: 246, 392
   offset: 0, 0
   index: 1
+Knightoofront
+  rotate: false
+  xy: 777, 232
+  size: 246, 392
+  orig: 246, 392
+  offset: 0, 0
+  index: 3
 Knightooside
   rotate: false
   xy: 787, 634
@@ -46,6 +60,13 @@ Knightooside
   orig: 217, 387
   offset: 0, 0
   index: 1
+Knightooside
+  rotate: false
+  xy: 787, 634
+  size: 217, 387
+  orig: 217, 387
+  offset: 0, 0
+  index: 3
 Knightoosideslash
   rotate: false
   xy: 1, 219
@@ -156,7 +177,7 @@ Knightoofront
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
-  index: 3
+  index: 4
 Knightooside
   rotate: false
   xy: 253, 6
@@ -170,7 +191,7 @@ Knightooside
   size: 220, 400
   orig: 220, 400
   offset: 0, 0
-  index: 3
+  index: 4
 Knightoosideother
   rotate: false
   xy: 727, 403
@@ -184,7 +205,7 @@ Knightoosideother
   size: 220, 400
   orig: 220, 400
   offset: 0, 0
-  index: 3
+  index: 4
 Knightoosideother
   rotate: false
   xy: 697, 14
@@ -192,6 +213,13 @@ Knightoosideother
   orig: 217, 387
   offset: 0, 0
   index: 1
+Knightoosideother
+  rotate: false
+  xy: 697, 14
+  size: 217, 387
+  orig: 217, 387
+  offset: 0, 0
+  index: 3
 Knightooslash
   rotate: false
   xy: 253, 408

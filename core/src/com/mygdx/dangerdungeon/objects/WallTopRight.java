@@ -27,7 +27,7 @@ public class WallTopRight extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(2.0f,2.0f);
+		dimension.set(1,1);
 		
 		wall = Assets.instance.wall_topright.wall_topright;
 	

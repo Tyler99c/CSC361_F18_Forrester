@@ -36,6 +36,7 @@ public class Knight extends AbstractGameObject{
 	private Animation<AtlasRegion> animBack;
 	private Animation<AtlasRegion> animSide;
 	private Animation<AtlasRegion> animOtherSide;
+	private Animation<AtlasRegion> standFront;
 	
 	public Knight()
 	{
@@ -47,12 +48,13 @@ public class Knight extends AbstractGameObject{
 	 */
 	public void init()
 	{
-		dimension.set(2.0f,2.0f);
+		dimension.set(1,1);
 		
 		animFront = Assets.instance.knight.animFront;
 		animBack = Assets.instance.knight.animBack;
 		animSide = Assets.instance.knight.animSide;
 		animOtherSide = Assets.instance.knight.animOtherSide;
+		standFront = Assets.instance.knight.standFront;
 		regKnight = Assets.instance.knight.knightFront;
 		setAnimation(animFront);
 		//regKnight = Assets.instance.knight.knight;

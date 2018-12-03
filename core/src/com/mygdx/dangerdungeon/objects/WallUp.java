@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
 /**
- * Top Wall
+ * Wall bottom
  * @author Tyler Forrester
  *
  */
@@ -27,14 +27,13 @@ public class WallUp extends AbstractGameObject
 	 */
 	private void init() 
 	{
-		dimension.set(2.0f,2.0f);
+		dimension.set(1,1);
 		
 		wall = Assets.instance.wall_up.wall_up;
 	
 		bounds.set(0,0,dimension.x,dimension.y);
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 	}
-	
 	
 	/**
 	 * Draws the object
@@ -49,3 +48,4 @@ public class WallUp extends AbstractGameObject
 	}
 
 }
+
