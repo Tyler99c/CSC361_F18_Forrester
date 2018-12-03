@@ -388,39 +388,39 @@ public class WorldController extends InputAdapter
 		{
 			if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(-5,5);
+				level.knight.body.setLinearVelocity(-3,3);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(-5,-5);
+				level.knight.body.setLinearVelocity(-3,-3);
 			}
 			else
 			{
-				level.knight.body.setLinearVelocity(-5,0);
+				level.knight.body.setLinearVelocity(-3,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.D))
 		{
 			if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(5,-5);
+				level.knight.body.setLinearVelocity(3,-3);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(5,5);
+				level.knight.body.setLinearVelocity(3,3);
 			}
 			else
 			{
-			level.knight.body.setLinearVelocity(5,0);
+			level.knight.body.setLinearVelocity(3,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.S))
 		{
-			level.knight.body.setLinearVelocity(0,-5);
+			level.knight.body.setLinearVelocity(0,-3);
 		}
 		else if (Gdx.input.isKeyPressed(Keys.W))
 		{
-			level.knight.body.setLinearVelocity(0,5);
+			level.knight.body.setLinearVelocity(0,3);
 		}
 		else
 		{

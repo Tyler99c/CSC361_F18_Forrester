@@ -148,7 +148,6 @@ public class Assets implements Disposable, AssetErrorListener
 		public final Animation<AtlasRegion> animBack;
 		public final Animation<AtlasRegion> animSide;
 		public final Animation<AtlasRegion> animOtherSide;
-		public final Animation<AtlasRegion> standFront;
 		public final AtlasRegion knightBack;
 		public final AtlasRegion knightSide;
 		public final AtlasRegion knightOtherSide;
@@ -168,22 +167,20 @@ public class Assets implements Disposable, AssetErrorListener
 			
 			//Animation: Front
 			regions = atlas.findRegions("Knightoofront");
-			animFront = new Animation<AtlasRegion>(1.0f/4.0f, regions, Animation.PlayMode.LOOP);
+			animFront = new Animation<AtlasRegion>(1.0f/6.0f, regions, Animation.PlayMode.LOOP);
 			
 			//Animation: Back
 			regions = atlas.findRegions("Knightooback");
-			animBack = new Animation<AtlasRegion>(1.0f/4.0f, regions, Animation.PlayMode.LOOP);
+			animBack = new Animation<AtlasRegion>(1.0f/6.0f, regions, Animation.PlayMode.LOOP);
 			
 			//Animation: Side
 			regions = atlas.findRegions("Knightooside");
-			animSide = new Animation<AtlasRegion>(1.0f/ 4.0f, regions, Animation.PlayMode.LOOP);
+			animSide = new Animation<AtlasRegion>(1.0f/ 6.0f, regions, Animation.PlayMode.LOOP);
 			
 			//Animation: OtherSide
 			regions = atlas.findRegions("Knightoosideother");
-			animOtherSide = new Animation<AtlasRegion>(1.0f/ 4.0f, regions, Animation.PlayMode.LOOP);
+			animOtherSide = new Animation<AtlasRegion>(1.0f/ 6.0f, regions, Animation.PlayMode.LOOP);
 			
-			regions = atlas.findRegions("Knightoofront_01");
-			standFront = new Animation<AtlasRegion>(1.0f/4.0f, regions, Animation.PlayMode.LOOP);
 			
 		}
 		

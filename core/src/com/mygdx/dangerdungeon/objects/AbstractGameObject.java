@@ -43,6 +43,14 @@ public abstract class AbstractGameObject
 	}
 	
 	/**
+	 * Updates the motion of an object
+	 * @param deltaTime
+	 */
+	protected void updateMotion(float deltaTime)
+	{
+	}
+	
+	/**
 	 * Allows the objects to update
 	 * @param deltaTime
 	 */
@@ -51,6 +59,7 @@ public abstract class AbstractGameObject
 		stateTime += deltaTime;
 		position.set(body.getPosition());
 		rotation = body.getAngle() * MathUtils.radiansToDegrees;
+		updateMotion(deltaTime);
 	}
 	/**
 	 * Draws the game object
