@@ -4,9 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.dangerdungeon.game.Assets;
 import com.mygdx.dangerdungeon.game.WorldController;
 import com.mygdx.dangerdungeon.game.WorldRenderer;
 import com.packtpub.libgdx.dangerdungeon.DangerDungeonMain;
+import com.packtpub.libgdx.dangerdungeon.util.AudioManager;
 
 
 /**
@@ -66,6 +68,7 @@ public class GameScreen extends AbstractGameScreen
 	{
 		worldController = new WorldController(game);
 		worldRenderer = new WorldRenderer(worldController);
+		AudioManager.instance.play(Assets.instance.music.songGame);
 		Gdx.input.setCatchBackKey(true);
 	}
 
@@ -76,6 +79,7 @@ public class GameScreen extends AbstractGameScreen
 	public void hide() 
 	{
 		worldRenderer.dispose();
+		AudioManager.instance.stopMusic();
 		Gdx.input.setCatchBackKey(false);
 		
 	}

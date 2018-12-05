@@ -517,6 +517,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		stage = new Stage(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT));
 		Gdx.input.setInputProcessor(stage);
+		AudioManager.instance.play(Assets.instance.music.songMenu);
 		rebuildStage();
 	}
 
@@ -528,6 +529,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		stage.dispose();
 		skinCanyonBunny.dispose();
+		AudioManager.instance.stopMusic();
 		skinLibgdx.dispose();
 	}
 

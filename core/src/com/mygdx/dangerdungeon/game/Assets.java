@@ -16,6 +16,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 /**
  * Handles the textures for the assets
@@ -39,7 +41,12 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFonts fonts;
 	public AssetBackground background;
 	
+
 	public AssetLevelDecoration levelDecoration;
+	
+	public AssetSounds sounds;
+	public AssetMusic music;
+	
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -64,6 +71,11 @@ public class Assets implements Disposable, AssetErrorListener
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
 		assetManager.load("clouds.png", Texture.class);
+		//load sounds
+		assetManager.load("sounds/collect.wav", Sound.class);
+		assetManager.load("sounds/damage.wave", Sound.class);
+		assetManager.load("music/soundtrack1.mp3",Music.class);
+		assetManager.load("music/soundtrack2.mp3",Music.class);
 		//start loading assets and wait until finished
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
@@ -95,6 +107,8 @@ public class Assets implements Disposable, AssetErrorListener
 		fonts = new AssetFonts();
 		levelDecoration = new AssetLevelDecoration(atlas);
 		background = new AssetBackground();
+		sounds = new AssetSounds(assetManager);
+		music = new AssetMusic(assetManager);
 	}
 	
 	
@@ -365,6 +379,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handes the Background
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetBackground
 	{
 		public final Texture background;
@@ -375,5 +394,35 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-
+	/**
+	* Handles sound effects
+	* @Author Tyler Forrester
+	**/
+	public class AssetSounds
+	{
+		public final Sound collect;
+		//public final Sound damage;
+		public AssetSounds(AssetManager am)
+		{
+			collect = am.get("sounds/collect.wav",Sound.class);
+			//damage = am.get("sounds/damage.wav",Sound.class);
+		}
+	}
+	
+	/**
+	 * Handles the game Music
+	 * @Author Tyler Forrester
+	 */
+	public class AssetMusic
+	{
+		public final Music songGame;
+		public final Music songMenu;
+		
+		public AssetMusic (AssetManager am)
+		{
+			songGame = am.get("music/soundtrack1.mp3");
+			songMenu = am.get("music/soundtrack2.mp3");
+		}
+	}
+	
 }
