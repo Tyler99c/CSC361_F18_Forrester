@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.utils.Array;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
+import com.mygdx.dangerdungeon.objects.Clouds;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
@@ -66,9 +67,10 @@ public class Level {
 	public Array<WallBottomLeft> wall_bottomleft;
 	public Array<WallTopLeft> wall_topleft;
 	public Array<Chest> chest;
+	public Clouds clouds;
 	
 	//Decorations
-	public Array<Spikes> spikes;
+	public Spikes spikes;
 
 	
 	/**
@@ -97,9 +99,10 @@ public class Level {
 		wall_topright = new Array<WallTopRight>();
 		chest = new Array<Chest>();
 		//spikes = new Array<Spikes>();
-		spikes = new Array<Spikes>();
+		spikes = null;
 		//player character
 		knight = null;
+		clouds = null;
 		
 		//load image file that represents the elvel data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -253,15 +256,20 @@ public class Level {
 
 		//Decorations
 		AbstractGameObject obj = null;
-		for(int i = 0; i < pixmap.getHeight(); i++)
-		{
-			for(int j = 0; j < pixmap.getWidth(); j++)
-			{
-				obj = new Spikes();
-				obj.position.set(i, j);
-				spikes.add((Spikes)obj);
-			}
-		}
+		//for(int i = 0; i < pixmap.getHeight(); i++)
+		//{
+		//	for(int j = 0; j < pixmap.getWidth(); j++)
+		//	{
+		//		obj = new Spikes();
+		//		obj.position.set(i, j);
+		//		spikes.add((Spikes)obj);
+		//	}
+		//}
+		//spikes = new Spikes(pixmap.getHeight(),pixmap.getWidth());
+		//spikes.position.set(1,-1);
+		
+		clouds = new Clouds();
+		clouds.position.set(1,-100000);
 		
 		//free memoery
 		pixmap.dispose();
@@ -274,8 +282,10 @@ public class Level {
 	 */
 	public void render(SpriteBatch batch) 
 	{ 
-		for(Spikes spikes: spikes)
-			spikes.render(batch);
+		clouds.render(batch);
+		//for(Spikes spikes: spikes)
+		//	spikes.render(batch);
+		//spikes.render(batch);
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);
@@ -300,6 +310,7 @@ public class Level {
 		knight.render(batch);
 		for(Chest chest : chest)
 			chest.render(batch);
+
 	}
 	
 	/**

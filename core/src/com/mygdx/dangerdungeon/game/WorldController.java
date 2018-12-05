@@ -319,8 +319,8 @@ public class WorldController extends InputAdapter
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
 		cameraHelper.update(deltaTime);
-		for(Spikes spikes: level.spikes)
-			spikes.updateScrollPosition(cameraHelper.getPosition());
+		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
+		level.clouds.updateScrollPosition(cameraHelper.getPosition());
 	}
 	
 	/**

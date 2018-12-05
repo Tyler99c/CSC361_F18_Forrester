@@ -14,13 +14,18 @@ import com.badlogic.gdx.math.Vector2;
 public class Spikes extends AbstractGameObject
 {
 	private TextureRegion spikes;
-
+	private int height;
+	private int length;
+	
+	
 	
 	/**
 	 * Creates a  new spikes instance
 	 */
-	public Spikes() 
+	public Spikes(int height, int width) 
 	{
+		this.height = height;
+		this.length = width;
 		init();
 	}
 	
@@ -43,12 +48,38 @@ public class Spikes extends AbstractGameObject
 	private void drawSpikes(SpriteBatch batch, float parallaxSpeedX)
 	{
 		TextureRegion reg = null;
-		
-		//Draw
 		reg = spikes;
 		batch.setColor(0.5f, 0.5f, 0.5f, 1f);
-		batch.draw(reg.getTexture(), position.x * parallaxSpeedX, position.y * parallaxSpeedX, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
+		
+		float xRel = dimension.x;
+		float yRel = dimension.y;
+
+		// mountains span the whole level
+		int mountainLength = 0;
+		mountainLength += MathUtils.ceil(length / (2 * dimension.x) * (1 - parallaxSpeedX));
+		int mountainHeight = 0;
+		mountainHeight += MathUtils.ceil(height / (2 * dimension.y) * (1-parallaxSpeedX));
+		for(int j = 0; j < mountainHeight; j++)
+		{
+			for (int i = 0; i < mountainLength; i++)
+			{
+			
+				batch.draw(reg.getTexture(), origin.x + xRel + position.x * parallaxSpeedX, origin.y + yRel + position.y,
+						origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation, reg.getRegionX(),
+						reg.getRegionY(), reg.getRegionWidth(), reg.getRegionHeight(), false, false);
+				xRel += dimension.x;
+				System.out.println("Spike Drawn");
+			}
+			yRel += dimension.y;
+		}
+		
+		//Draw
+		//reg = spikes;
+		//batch.setColor(0.5f, 0.5f, 0.5f, 1f);
+		//batch.draw(reg.getTexture(), position.x * parallaxSpeedX, position.y * parallaxSpeedX, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
 		batch.setColor(1, 1, 1, 1);
+		
+	
 	}
 	
 	/**
@@ -65,7 +96,10 @@ public class Spikes extends AbstractGameObject
 	 */
 	public void updateScrollPosition (Vector2 camPosition)
 	{
-		position.set(position.x - camPosition.x,position.y - camPosition.y);
+		//camPosition.x = camPosition.x - position.x;
+		//camPosition.y = camPosition.y - position.y;
+		//position.set(camPosition.x, camPosition.y); 
+
 	}
 
 }
