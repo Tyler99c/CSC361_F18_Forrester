@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
@@ -15,6 +16,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 /**
  * Handles the textures for the assets
@@ -36,6 +39,14 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallBottomRight wall_bottomright;
 	public AssetWallTopRight wall_topright;
 	public AssetFonts fonts;
+	public AssetBackground background;
+	
+
+	public AssetLevelDecoration levelDecoration;
+	
+	public AssetSounds sounds;
+	public AssetMusic music;
+	
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -59,6 +70,12 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.setErrorListener(this);
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
+		assetManager.load("clouds.png", Texture.class);
+		//load sounds
+		assetManager.load("sounds/collect.wav", Sound.class);
+		assetManager.load("sounds/damage.wave", Sound.class);
+		assetManager.load("music/soundtrack1.mp3",Music.class);
+		assetManager.load("music/soundtrack2.mp3",Music.class);
 		//start loading assets and wait until finished
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
@@ -88,9 +105,13 @@ public class Assets implements Disposable, AssetErrorListener
 		wall_topright = new AssetWallTopRight(atlas);
 		wall_bottomright = new AssetWallBottomRight(atlas);
 		fonts = new AssetFonts();
+		levelDecoration = new AssetLevelDecoration(atlas);
+		background = new AssetBackground();
+		sounds = new AssetSounds(assetManager);
+		music = new AssetMusic(assetManager);
 	}
 	
-
+	
 	public class AssetFonts
 	{
 		public final BitmapFont defaultSmall;
@@ -143,12 +164,50 @@ public class Assets implements Disposable, AssetErrorListener
 	 */
 	public class AssetKnight
 	{
-		public final AtlasRegion knight;
+		public final AtlasRegion knightFront;
+		public final Animation<AtlasRegion> animFront;
+		public final Animation<AtlasRegion> animBack;
+		public final Animation<AtlasRegion> animSide;
+		public final Animation<AtlasRegion> animOtherSide;
+		public final AtlasRegion knightBack;
+		public final AtlasRegion knightSide;
+		public final AtlasRegion knightOtherSide;
+		
+	
 		
 		public AssetKnight(TextureAtlas atlas)
 		{
-			knight = atlas.findRegion("knight");
+			knightFront = atlas.findRegion("Knightoofront_01");
+			knightBack = atlas.findRegion("Knightooback_01");
+			knightSide = atlas.findRegion("KnightSide_01");
+			knightOtherSide = atlas.findRegion("KnightOtherSide_01");
+			
+			
+			Array<AtlasRegion> regions = null;
+			//AtlasRegion region = null;
+			
+			//Animation: Front
+			regions = atlas.findRegions("Knightoofront");
+			animFront = new Animation<AtlasRegion>(1.0f/6.0f, regions, Animation.PlayMode.LOOP);
+			
+			//Animation: Back
+			regions = atlas.findRegions("Knightooback");
+			animBack = new Animation<AtlasRegion>(1.0f/6.0f, regions, Animation.PlayMode.LOOP);
+			
+			//Animation: Side
+			regions = atlas.findRegions("Knightooside");
+			animSide = new Animation<AtlasRegion>(1.0f/ 6.0f, regions, Animation.PlayMode.LOOP);
+			
+			//Animation: OtherSide
+			regions = atlas.findRegions("Knightoosideother");
+			animOtherSide = new Animation<AtlasRegion>(1.0f/ 6.0f, regions, Animation.PlayMode.LOOP);
+			
+			
 		}
+		
+
+		
+
 	}
 	
 	/**
@@ -310,13 +369,60 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion floor;
-		
+		public final AtlasRegion spikes;
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
 			floor = atlas.findRegion("floor");
+			spikes = atlas.findRegion("Spikes");
+			
 		}
 	}
 	
-
+	/**
+	 * Handes the Background
+	 * @author Tyler Forrester
+	 *
+	 */
+	public class AssetBackground
+	{
+		public final Texture background;
+		public AssetBackground () 
+		{
+			background = new Texture(Gdx.files.internal("images/clouds.png"),true);
+			
+		}
+	}
+	
+	/**
+	* Handles sound effects
+	* @Author Tyler Forrester
+	**/
+	public class AssetSounds
+	{
+		public final Sound collect;
+		//public final Sound damage;
+		public AssetSounds(AssetManager am)
+		{
+			collect = am.get("sounds/collect.wav",Sound.class);
+			//damage = am.get("sounds/damage.wav",Sound.class);
+		}
+	}
+	
+	/**
+	 * Handles the game Music
+	 * @Author Tyler Forrester
+	 */
+	public class AssetMusic
+	{
+		public final Music songGame;
+		public final Music songMenu;
+		
+		public AssetMusic (AssetManager am)
+		{
+			songGame = am.get("music/soundtrack1.mp3");
+			songMenu = am.get("music/soundtrack2.mp3");
+		}
+	}
+	
 }

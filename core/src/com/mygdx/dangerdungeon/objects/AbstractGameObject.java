@@ -1,6 +1,9 @@
 package com.mygdx.dangerdungeon.objects;
 
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -23,6 +26,7 @@ public abstract class AbstractGameObject
 	public Rectangle bounds;
 	
 	public float stateTime;
+	public Animation<AtlasRegion> animation;
 	
 	
 	/**
@@ -39,17 +43,37 @@ public abstract class AbstractGameObject
 	}
 	
 	/**
+	 * Updates the motion of an object
+	 * @param deltaTime
+	 */
+	protected void updateMotion(float deltaTime)
+	{
+	}
+	
+	/**
 	 * Allows the objects to update
 	 * @param deltaTime
 	 */
 	public void update (float deltaTime)
 	{
+		stateTime += deltaTime;
 		position.set(body.getPosition());
 		rotation = body.getAngle() * MathUtils.radiansToDegrees;
+		updateMotion(deltaTime);
 	}
 	/**
 	 * Draws the game object
 	 * @param batch
 	 */
 	public abstract void render (SpriteBatch batch);
+	
+	/**
+	 * Sets the animtion for an object
+	 */
+	public void setAnimation(Animation animation)
+	{
+		this.animation = animation;
+		stateTime = 0;
+	}
+	
 }

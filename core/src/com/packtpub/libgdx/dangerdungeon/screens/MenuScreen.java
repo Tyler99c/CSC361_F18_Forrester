@@ -312,7 +312,7 @@ public class MenuScreen extends AbstractGameScreen
 		});
 		tbl.add(selCharSkin).width(120).padRight(20);
 		// + Skin preview image
-		imgCharSkin = new Image(Assets.instance.knight.knight);
+		imgCharSkin = new Image(Assets.instance.chest.chest);
 		tbl.add(imgCharSkin).width(50).height(50);
 		return tbl;
 	}
@@ -517,6 +517,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		stage = new Stage(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT));
 		Gdx.input.setInputProcessor(stage);
+		AudioManager.instance.play(Assets.instance.music.songMenu);
 		rebuildStage();
 	}
 
@@ -528,6 +529,7 @@ public class MenuScreen extends AbstractGameScreen
 	{
 		stage.dispose();
 		skinCanyonBunny.dispose();
+		AudioManager.instance.stopMusic();
 		skinLibgdx.dispose();
 	}
 

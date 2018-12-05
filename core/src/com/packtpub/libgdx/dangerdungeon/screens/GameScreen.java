@@ -4,9 +4,11 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.mygdx.dangerdungeon.game.Assets;
 import com.mygdx.dangerdungeon.game.WorldController;
 import com.mygdx.dangerdungeon.game.WorldRenderer;
 import com.packtpub.libgdx.dangerdungeon.DangerDungeonMain;
+import com.packtpub.libgdx.dangerdungeon.util.AudioManager;
 
 
 /**
@@ -28,6 +30,9 @@ public class GameScreen extends AbstractGameScreen
 		super(game);
 	}
 
+	/**
+	 * Draws game
+	 */
 	@Override
 	public void render(float deltaTime) 
 	{
@@ -46,28 +51,43 @@ public class GameScreen extends AbstractGameScreen
 		worldRenderer.render();
 	}
 
+	/**
+	 * Resizes the window
+	 */
 	@Override
 	public void resize(int width, int height) 
 	{
 		worldRenderer.resize(width, height);	
 	}
 
+	/**
+	 * Shows things on the screen
+	 */
 	@Override
 	public void show() 
 	{
 		worldController = new WorldController(game);
 		worldRenderer = new WorldRenderer(worldController);
+		AudioManager.instance.play(Assets.instance.music.songGame);
 		Gdx.input.setCatchBackKey(true);
 	}
 
+	/**
+	 * Hides things on the screen
+	 */
 	@Override
 	public void hide() 
 	{
 		worldRenderer.dispose();
+		AudioManager.instance.stopMusic();
 		Gdx.input.setCatchBackKey(false);
 		
 	}
 
+	/**
+	 * Pauses the game
+	 *
+	 */
 	@Override
 	public void pause() 
 	{
@@ -75,6 +95,9 @@ public class GameScreen extends AbstractGameScreen
 		
 	}
 	
+	/**
+	 * Resumes the game
+	 */
 	@Override
 	public void resume()
 	{

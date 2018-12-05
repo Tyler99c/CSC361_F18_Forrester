@@ -18,6 +18,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -251,7 +252,7 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
-		initTestObjects();
+		//initTestObjects();
 		initLevel();
 	}
 	
@@ -264,7 +265,7 @@ public class WorldController extends InputAdapter
 		testSprites = new Sprite[5];
 		//create a list of texture regions
 		Array<TextureRegion> regions = new Array<TextureRegion>();
-		regions.add(Assets.instance.knight.knight);
+		regions.add(Assets.instance.knight.knightFront);
 		regions.add(Assets.instance.chest.chest);
 		//Create new sprites using the just created texture
 		for (int i = 0; i < testSprites.length; i++)
@@ -318,6 +319,8 @@ public class WorldController extends InputAdapter
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
 		cameraHelper.update(deltaTime);
+		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
+		level.clouds.updateScrollPosition(cameraHelper.getPosition());
 	}
 	
 	/**
@@ -388,39 +391,39 @@ public class WorldController extends InputAdapter
 		{
 			if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(-5,5);
+				level.knight.body.setLinearVelocity(-3,3);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(-5,-5);
+				level.knight.body.setLinearVelocity(-3,-3);
 			}
 			else
 			{
-				level.knight.body.setLinearVelocity(-5,0);
+				level.knight.body.setLinearVelocity(-3,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.D))
 		{
 			if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(5,-5);
+				level.knight.body.setLinearVelocity(3,-3);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(5,5);
+				level.knight.body.setLinearVelocity(3,3);
 			}
 			else
 			{
-			level.knight.body.setLinearVelocity(5,0);
+			level.knight.body.setLinearVelocity(3,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.S))
 		{
-			level.knight.body.setLinearVelocity(0,-5);
+			level.knight.body.setLinearVelocity(0,-3);
 		}
 		else if (Gdx.input.isKeyPressed(Keys.W))
 		{
-			level.knight.body.setLinearVelocity(0,5);
+			level.knight.body.setLinearVelocity(0,3);
 		}
 		else
 		{

@@ -18,10 +18,10 @@ public class Constants
 	//Location of image file for level 01
 	public static final String LEVEL_01 = "levels/level-01.png";
 	//Visible game world is 5 meters wide
-	public static final float VIEWPORT_WIDTH = 25.0f;
-	
+	public static final float VIEWPORT_WIDTH = 12.5f;
+
 	//Visible game world is 5 meters tall
-	public static final float VIEWPORT_HEIGHT = 25.0f;
+	public static final float VIEWPORT_HEIGHT = 12.5f;
 	
 	public static final float OFFSET = 1f;
 	
