@@ -18,6 +18,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -318,6 +319,8 @@ public class WorldController extends InputAdapter
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
 		cameraHelper.update(deltaTime);
+		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
+		level.clouds.updateScrollPosition(cameraHelper.getPosition());
 	}
 	
 	/**

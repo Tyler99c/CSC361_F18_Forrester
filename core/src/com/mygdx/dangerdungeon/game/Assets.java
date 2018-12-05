@@ -7,6 +7,7 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.mygdx.dangerdungeon.objects.Spikes;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +37,9 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallBottomRight wall_bottomright;
 	public AssetWallTopRight wall_topright;
 	public AssetFonts fonts;
+	public AssetBackground background;
+	
+	public AssetLevelDecoration levelDecoration;
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -59,6 +63,7 @@ public class Assets implements Disposable, AssetErrorListener
 		assetManager.setErrorListener(this);
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
+		assetManager.load("clouds.png", Texture.class);
 		//start loading assets and wait until finished
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
@@ -88,9 +93,11 @@ public class Assets implements Disposable, AssetErrorListener
 		wall_topright = new AssetWallTopRight(atlas);
 		wall_bottomright = new AssetWallBottomRight(atlas);
 		fonts = new AssetFonts();
+		levelDecoration = new AssetLevelDecoration(atlas);
+		background = new AssetBackground();
 	}
 	
-
+	
 	public class AssetFonts
 	{
 		public final BitmapFont defaultSmall;
@@ -348,11 +355,23 @@ public class Assets implements Disposable, AssetErrorListener
 	public class AssetLevelDecoration
 	{
 		public final AtlasRegion floor;
-		
+		public final AtlasRegion spikes;
 		
 		public AssetLevelDecoration (TextureAtlas atlas)
 		{
 			floor = atlas.findRegion("floor");
+			spikes = atlas.findRegion("Spikes");
+			
+		}
+	}
+	
+	public class AssetBackground
+	{
+		public final Texture background;
+		public AssetBackground () 
+		{
+			background = new Texture(Gdx.files.internal("images/clouds.png"),true);
+			
 		}
 	}
 	

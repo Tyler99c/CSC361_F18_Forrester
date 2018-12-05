@@ -312,7 +312,7 @@ public class MenuScreen extends AbstractGameScreen
 		});
 		tbl.add(selCharSkin).width(120).padRight(20);
 		// + Skin preview image
-		imgCharSkin = new Image(Assets.instance.knight.knightFront);
+		imgCharSkin = new Image(Assets.instance.chest.chest);
 		tbl.add(imgCharSkin).width(50).height(50);
 		return tbl;
 	}
