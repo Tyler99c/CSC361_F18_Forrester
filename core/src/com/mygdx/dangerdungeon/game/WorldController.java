@@ -31,9 +31,14 @@ import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
 
 /**
  * Class that Handles the inputs in the world
@@ -86,6 +91,7 @@ public class WorldController extends InputAdapter
 		
 		b2world = new World(new Vector2(0,0), true);
 		
+		createCollisionListener();
 		
 		Vector2 origin = new Vector2();
 		Knight knight = level.knight;
@@ -103,18 +109,6 @@ public class WorldController extends InputAdapter
 		fixtureDef.restitution = 0f;
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
-		for(Chest chest: level.chest)
-		{
-			bodyDef.type = BodyType.StaticBody;
-			bodyDef.position.set(chest.position);
-			body = b2world.createBody(bodyDef);
-			chest.body = body;
-			chest = new Chest();
-			origin.x = chest.bounds.width/2.0f;
-			origin.y = chest.bounds.height/2.0f;
-			polygonShape.setAsBox(chest.bounds.width/2.0f, chest.bounds.height/2.0f,origin,0);
-		}
 		
 		for(WallUp wall_up : level.wall_up)
 		{
@@ -240,8 +234,62 @@ public class WorldController extends InputAdapter
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
-
 		}
+		for(Chest chest : level.chest)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(chest.position);
+			body = b2world.createBody(bodyDef);
+			chest.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = chest.bounds.width /2.0f;
+			origin.y = chest.bounds.height/2.0f;
+			polygonShape.setAsBox(chest.bounds.width/2.0f,chest.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		
+		
+	}
+	
+	/**
+	 * Handles collisions in box2d
+	 */
+	private void createCollisionListener()
+	{
+		b2world.setContactListener(new ContactListener()
+		{
+			@Override
+			public void beginContact(Contact contact)
+			{
+				Fixture fixtureA = contact.getFixtureA();
+				Fixture fixtureB = contact.getFixtureB();
+				
+				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
+				
+			}
+			
+			@Override
+			public void endContact(Contact contact)
+			{
+				Fixture fixtureA = contact.getFixtureA();
+				Fixture fixtureB = contact.getFixtureB();
+				Gdx.app.log("endContact", "between " + fixtureA.toString() + " and "  + fixtureB.toString());
+			}
+			
+			@Override
+			public void preSolve(Contact contact, Manifold oldManifold)
+			{
+				
+			}
+			
+			@Override
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+				
+			}
+		});
 		
 	}
 	
@@ -252,9 +300,19 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+
 		//initTestObjects();
 		initLevel();
 	}
+	
+	/**
+	 * Test for collisions in the game
+	 */
+	private void testCollision()
+	{
+		
+	}
+	
 	
 	/**
 	 * Creates test objects for debugging purposes

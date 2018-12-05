@@ -31,6 +31,8 @@ public class Chest extends AbstractGameObject
 		
 		tile = Assets.instance.chest.chest;
 	
+		bounds.set(0,0,dimension.x,dimension.y);
+		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
 		
 	}
 	
