@@ -16,6 +16,8 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 
 /**
  * Handles the textures for the assets
@@ -39,7 +41,12 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFonts fonts;
 	public AssetBackground background;
 	
+
 	public AssetLevelDecoration levelDecoration;
+	
+	public AssetSounds sounds;
+	public AssetMusic music;
+	
 	
 	public static final String TAG = Assets.class.getName();
 	
@@ -365,6 +372,11 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
+	/**
+	 * Handes the Background
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetBackground
 	{
 		public final Texture background;
@@ -375,5 +387,33 @@ public class Assets implements Disposable, AssetErrorListener
 		}
 	}
 	
-
+	/**
+	*
+	**/
+	public class AssetSounds
+	{
+		public final Sound collect;
+		public final Sound damage;
+		public AssetSounds(AssetManager am)
+		{
+			collect = am.get("sounds/collect.wave",Sound.class);
+			damage = am.get("sounds/damage.wave",Sound.class);
+		}
+	}
+	
+	/**
+	 * Handles the game Music
+	 */
+	public class AssetMusic
+	{
+		public final Music songGame;
+		public final Music songMenu;
+		
+		public AssetMusic (AssetManager am)
+		{
+			songGame = am.get("music/soundtrack1.mp3");
+			songMenu = am.get("music/soundtrack2.mp3");
+		}
+	}
+	
 }
