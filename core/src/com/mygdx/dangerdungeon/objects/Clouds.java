@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.dangerdungeon.game.Assets;
 
 /**
- *  Creates the floor unwhich the player walk, mearly a decoration
+ *  Creates the background
  * @author Tyler Forrester
  *
  */
@@ -17,7 +17,7 @@ public class Clouds extends AbstractGameObject
 
 	
 	/**
-	 * Creates a new floor instance
+	 * Creates a new background
 	 */
 	public Clouds() 
 	{
@@ -25,7 +25,7 @@ public class Clouds extends AbstractGameObject
 	}
 	
 	/**
-	 * Initiates the floor class
+	 * Initiates the background class
 	 */
 	private void init() 
 	{

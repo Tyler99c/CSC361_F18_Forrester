@@ -71,6 +71,11 @@ public class Assets implements Disposable, AssetErrorListener
 		// load texture atlas
 		assetManager.load(Constants.TEXTURE_ATLAS_OBJECTS, TextureAtlas.class);
 		assetManager.load("clouds.png", Texture.class);
+		//load sounds
+		assetManager.load("sounds/collect.wav", Sound.class);
+		assetManager.load("sounds/damage.wave", Sound.class);
+		assetManager.load("music/soundtrack1.mp3",Music.class);
+		assetManager.load("music/soundtrack2.mp3",Music.class);
 		//start loading assets and wait until finished
 		assetManager.finishLoading();
 		Gdx.app.debug(TAG, "# of assets loaded: " + assetManager.getAssetNames());
@@ -102,6 +107,8 @@ public class Assets implements Disposable, AssetErrorListener
 		fonts = new AssetFonts();
 		levelDecoration = new AssetLevelDecoration(atlas);
 		background = new AssetBackground();
+		sounds = new AssetSounds(assetManager);
+		music = new AssetMusic(assetManager);
 	}
 	
 	
@@ -388,21 +395,23 @@ public class Assets implements Disposable, AssetErrorListener
 	}
 	
 	/**
-	*
+	* Handles sound effects
+	* @Author Tyler Forrester
 	**/
 	public class AssetSounds
 	{
 		public final Sound collect;
-		public final Sound damage;
+		//public final Sound damage;
 		public AssetSounds(AssetManager am)
 		{
-			collect = am.get("sounds/collect.wave",Sound.class);
-			damage = am.get("sounds/damage.wave",Sound.class);
+			collect = am.get("sounds/collect.wav",Sound.class);
+			//damage = am.get("sounds/damage.wav",Sound.class);
 		}
 	}
 	
 	/**
 	 * Handles the game Music
+	 * @Author Tyler Forrester
 	 */
 	public class AssetMusic
 	{

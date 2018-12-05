@@ -96,13 +96,16 @@ public class Knight extends AbstractGameObject{
 		{
 			if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				if(animation != animBack) {
-				setAnimation(animBack);
+				if(animation != animOtherSide) {
+				setAnimation(animOtherSide);
 				}
 			}
 			else if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				setAnimation(animFront);
+				if(animation != animOtherSide)
+				{
+					setAnimation(animOtherSide);
+				}
 			}
 			else
 			{
@@ -116,16 +119,16 @@ public class Knight extends AbstractGameObject{
 		{
 			if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				if(animation != animFront) 
+				if(animation != animSide) 
 				{
-					setAnimation(animFront);
+					setAnimation(animSide);
 				}
 			}
 			else if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				if(animation != animBack) 
+				if(animation != animSide) 
 				{
-					setAnimation(animBack);
+					setAnimation(animSide);
 				}
 			}
 			else

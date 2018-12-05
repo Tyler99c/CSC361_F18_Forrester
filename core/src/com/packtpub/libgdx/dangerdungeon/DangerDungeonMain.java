@@ -10,6 +10,8 @@ import com.mygdx.dangerdungeon.game.WorldController;
 import com.mygdx.dangerdungeon.game.WorldRenderer;
 import com.packtpub.libgdx.dangerdungeon.screens.GameScreen;
 import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
+import com.packtpub.libgdx.dangerdungeon.util.AudioManager;
+import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 
 /**
  * A main class that starts and handles the game
@@ -27,6 +29,8 @@ public class DangerDungeonMain extends Game
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		//Load assets
 		Assets.instance.init(new AssetManager());
+		//Load preferences for audio settings and start playing music
+		GamePreferences.instance.load();
 		//Start game at menu screen
 		setScreen(new MenuScreen(this));
 	}
