@@ -27,6 +27,7 @@ public abstract class AbstractGameObject
 	
 	public float stateTime;
 	public Animation<AtlasRegion> animation;
+	public boolean destroyed = false;
 	
 	
 	/**
@@ -76,4 +77,11 @@ public abstract class AbstractGameObject
 		stateTime = 0;
 	}
 	
+	/**
+	 * Deals with destroying an object
+	 */
+	public void destroy()
+	{
+		destroyed = true;
+	}
 }

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.packtpub.libgdx.dangerdungeon.screens.GameScreen;
 import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -15,10 +16,13 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
+import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -31,9 +35,15 @@ import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.Contact;
+import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.Manifold;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.ContactListener;
+import com.badlogic.gdx.physics.box2d.Fixture;
+import com.packtpub.libgdx.dangerdungeon.util.AudioManager;
 
 /**
  * Class that Handles the inputs in the world
@@ -50,9 +60,14 @@ public class WorldController extends InputAdapter
 	public int health;
 	public int score;
 	private Game game;
+	private Body destroy;
 	
 	private boolean goalReached;
 	public World b2world;
+	public Array<Object> activeEntities;
+	public Array<Fixture> destroyEntities;
+	public AbstractGameObject entity;
+	
 	
 	/**
 	 * Cresates the worldController instance
@@ -86,6 +101,7 @@ public class WorldController extends InputAdapter
 		
 		b2world = new World(new Vector2(0,0), true);
 		
+		createCollisionListener();
 		
 		Vector2 origin = new Vector2();
 		Knight knight = level.knight;
@@ -101,20 +117,9 @@ public class WorldController extends InputAdapter
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.restitution = 0f;
+		body.setUserData(knight);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
-		for(Chest chest: level.chest)
-		{
-			bodyDef.type = BodyType.StaticBody;
-			bodyDef.position.set(chest.position);
-			body = b2world.createBody(bodyDef);
-			chest.body = body;
-			chest = new Chest();
-			origin.x = chest.bounds.width/2.0f;
-			origin.y = chest.bounds.height/2.0f;
-			polygonShape.setAsBox(chest.bounds.width/2.0f, chest.bounds.height/2.0f,origin,0);
-		}
 		
 		for(WallUp wall_up : level.wall_up)
 		{
@@ -143,6 +148,7 @@ public class WorldController extends InputAdapter
 			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
+			body.setUserData(wall_down);
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
@@ -240,8 +246,143 @@ public class WorldController extends InputAdapter
 			fixtureDef.shape = polygonShape;
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
-
 		}
+		for(Chest chest : level.chest)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(chest.position);
+			body = b2world.createBody(bodyDef);
+			chest.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = chest.bounds.width /2.0f;
+			origin.y = chest.bounds.height/2.0f;
+			polygonShape.setAsBox(chest.bounds.width/2.0f,chest.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.setUserData(chest);
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		for(Statue statue : level.statue)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(statue.position);
+			body = b2world.createBody(bodyDef);
+			statue.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = statue.bounds.width /2.0f;
+			origin.y = statue.bounds.height/2.0f;
+			polygonShape.setAsBox(statue.bounds.width/2.0f,statue.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.setUserData(statue);
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		bodyDef.type = BodyType.StaticBody;
+		bodyDef.position.set(level.goal.position);
+		body = b2world.createBody(bodyDef);
+		level.goal.body = body;
+		polygonShape = new PolygonShape();
+		origin.x = level.goal.bounds.width /2.0f;
+		origin.y = level.goal.bounds.height/2.0f;
+		polygonShape.setAsBox(level.goal.bounds.width/1.5f,level.goal.bounds.height/1.5f,origin,0);
+		fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		body.setUserData(level.goal);
+		body.createFixture(fixtureDef);
+		polygonShape.dispose();
+		
+		
+	}
+	
+	/**
+	 * Handles collisions in box2d
+	 */
+	private void createCollisionListener()
+	{
+		b2world.setContactListener(new ContactListener()
+		{
+			/**
+			 * Detects when contect begins
+			 */
+			@Override
+			public void beginContact(Contact contact)
+			{
+				Fixture fixtureA = contact.getFixtureA();
+				Fixture fixtureB = contact.getFixtureB();
+				
+				System.out.println(fixtureA.getBody().getUserData());
+				//Checks to see if the player collected a treaure chest
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Chest )
+				{
+					for(Chest chest : level.chest)
+					{
+						if(chest.body == fixtureB.getBody())
+						{
+							//destroyEntities.add(fixtureA);
+							AudioManager.instance.play(Assets.instance.sounds.collect, 1, MathUtils.random(.5f, .6f));
+							entity = chest;
+							score = score + 10;
+						}
+					}
+				}
+				//Checks to see if the player collected a powerup
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Statue )
+				{
+					for(Statue statue: level.statue)
+					{
+						if(statue.body == fixtureB.getBody())
+						{
+							//destroyEntities.add(fixtureA);
+							entity = statue;
+							level.knight.setStatue(true);
+						}
+					}
+				}
+				
+				//Checks to see if the player reached the goal
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Goal)
+				{
+					System.out.println("You are colliding with the goal");
+					if(level.goal.body == fixtureB.getBody())
+					{
+						game.setScreen(new MenuScreen(game));
+					}
+				}
+				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
+			}
+			
+			/**
+			 * Detects when contact ends
+			 */
+			@Override
+			public void endContact(Contact contact)
+			{
+				Fixture fixtureA = contact.getFixtureA();
+				Fixture fixtureB = contact.getFixtureB();
+				Gdx.app.log("endContact", "between " + fixtureA.toString() + " and "  + fixtureB.toString());
+			}
+			
+			
+			/**
+			 * No modification needed
+			 */
+			@Override
+			public void preSolve(Contact contact, Manifold oldManifold)
+			{
+				
+			}
+			
+			
+			/**
+			 * No modification needed
+			 */
+			@Override
+			public void postSolve(Contact contact, ContactImpulse impulse) {
+				
+			}
+		});
 		
 	}
 	
@@ -252,9 +393,25 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+
 		//initTestObjects();
 		initLevel();
 	}
+	
+	/**
+	 * Test for collisions in the game
+	 */
+	private void testCollision()
+	{
+		if(entity != null)
+		{
+			b2world.destroyBody(entity.body);
+			entity.destroy();
+			entity.body.setUserData(null);
+			entity = null;
+		}
+	}
+	
 	
 	/**
 	 * Creates test objects for debugging purposes
@@ -318,6 +475,7 @@ public class WorldController extends InputAdapter
 		//updateTestObjects(deltaTime);
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
+		testCollision();
 		cameraHelper.update(deltaTime);
 		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
 		level.clouds.updateScrollPosition(cameraHelper.getPosition());
@@ -391,39 +549,39 @@ public class WorldController extends InputAdapter
 		{
 			if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(-3,3);
+				level.knight.body.setLinearVelocity(-level.knight.speed,level.knight.speed);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(-3,-3);
+				level.knight.body.setLinearVelocity(-level.knight.speed,-level.knight.speed);
 			}
 			else
 			{
-				level.knight.body.setLinearVelocity(-3,0);
+				level.knight.body.setLinearVelocity(-level.knight.speed,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.D))
 		{
 			if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(3,-3);
+				level.knight.body.setLinearVelocity(level.knight.speed,-level.knight.speed);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(3,3);
+				level.knight.body.setLinearVelocity(level.knight.speed,level.knight.speed);
 			}
 			else
 			{
-			level.knight.body.setLinearVelocity(3,0);
+			level.knight.body.setLinearVelocity(level.knight.speed,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.S))
 		{
-			level.knight.body.setLinearVelocity(0,-3);
+			level.knight.body.setLinearVelocity(0,-level.knight.speed);
 		}
 		else if (Gdx.input.isKeyPressed(Keys.W))
 		{
-			level.knight.body.setLinearVelocity(0,3);
+			level.knight.body.setLinearVelocity(0,level.knight.speed);
 		}
 		else
 		{
@@ -435,4 +593,8 @@ public class WorldController extends InputAdapter
 	{
 		game.setScreen(new MenuScreen(game));
 	}
+	
+	/**
+	 * A public class tha
+	 */
 }

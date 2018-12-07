@@ -25,6 +25,9 @@ public class Constants
 	
 	public static final float OFFSET = 1f;
 	
+	// Duration of statue power-up in seconds
+		public static final float ITEM_STATUE_POWERUP_DURATION = 9;
+	
 	// Information for displaying ui elements
 	public static final String TEXTURE_ATLAS_UI = "images/dangerdungeon-ui.pack.atlas";
 	public static final String TEXTURE_ATLAS_LIBGDX_UI = "images/uiskin.atlas";
