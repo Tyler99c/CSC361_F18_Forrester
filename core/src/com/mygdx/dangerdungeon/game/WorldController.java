@@ -15,10 +15,12 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputAdapter;
+import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
+import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -55,9 +57,14 @@ public class WorldController extends InputAdapter
 	public int health;
 	public int score;
 	private Game game;
+	private Body destroy;
 	
 	private boolean goalReached;
 	public World b2world;
+	public Array<Object> activeEntities;
+	public Array<Fixture> destroyEntities;
+	public AbstractGameObject entity;
+	
 	
 	/**
 	 * Cresates the worldController instance
@@ -107,6 +114,7 @@ public class WorldController extends InputAdapter
 		FixtureDef fixtureDef = new FixtureDef();
 		fixtureDef.shape = polygonShape;
 		fixtureDef.restitution = 0f;
+		body.setUserData(knight);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
 		
@@ -137,6 +145,7 @@ public class WorldController extends InputAdapter
 			polygonShape.setAsBox(wall_down.bounds.width/2.0f,wall_down.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
+			body.setUserData(wall_down);
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
@@ -247,6 +256,23 @@ public class WorldController extends InputAdapter
 			polygonShape.setAsBox(chest.bounds.width/2.0f,chest.bounds.height/2.0f,origin,0);
 			fixtureDef = new FixtureDef();
 			fixtureDef.shape = polygonShape;
+			body.setUserData(chest);
+			body.createFixture(fixtureDef);
+			polygonShape.dispose();
+		}
+		for(Statue statue : level.statue)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(statue.position);
+			body = b2world.createBody(bodyDef);
+			statue.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = statue.bounds.width /2.0f;
+			origin.y = statue.bounds.height/2.0f;
+			polygonShape.setAsBox(statue.bounds.width/2.0f,statue.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.setUserData(statue);
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
@@ -261,16 +287,53 @@ public class WorldController extends InputAdapter
 	{
 		b2world.setContactListener(new ContactListener()
 		{
+			/**
+			 * Detects when contect begins
+			 */
 			@Override
 			public void beginContact(Contact contact)
 			{
 				Fixture fixtureA = contact.getFixtureA();
 				Fixture fixtureB = contact.getFixtureB();
 				
+				System.out.println(fixtureA.getBody().getUserData());
+				if(fixtureA.getBody().getUserData() instanceof Knight)
+				{
+					System.out.println("PLayer is fixture 1");
+				}
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Chest )
+				{
+					for(Chest chest : level.chest)
+					{
+						if(chest.body == fixtureB.getBody())
+						{
+							//destroyEntities.add(fixtureA);
+							System.out.println("ZooWeeMamma");
+							entity = chest;
+							score = score + 10;
+						}
+					}
+				}
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Statue )
+				{
+					for(Statue statue: level.statue)
+					{
+						if(statue.body == fixtureB.getBody())
+						{
+							//destroyEntities.add(fixtureA);
+							System.out.println("ZooWeeMamma");
+							entity = statue;
+							level.knight.setStatue(true);
+						}
+					}
+				}
 				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
 				
 			}
 			
+			/**
+			 * Detects when contact ends
+			 */
 			@Override
 			public void endContact(Contact contact)
 			{
@@ -279,12 +342,20 @@ public class WorldController extends InputAdapter
 				Gdx.app.log("endContact", "between " + fixtureA.toString() + " and "  + fixtureB.toString());
 			}
 			
+			
+			/**
+			 * No modification needed
+			 */
 			@Override
 			public void preSolve(Contact contact, Manifold oldManifold)
 			{
 				
 			}
 			
+			
+			/**
+			 * No modification needed
+			 */
 			@Override
 			public void postSolve(Contact contact, ContactImpulse impulse) {
 				
@@ -310,7 +381,13 @@ public class WorldController extends InputAdapter
 	 */
 	private void testCollision()
 	{
-		
+		if(entity != null)
+		{
+			b2world.destroyBody(entity.body);
+			entity.destroy();
+			entity.body.setUserData(null);
+			entity = null;
+		}
 	}
 	
 	
@@ -376,6 +453,7 @@ public class WorldController extends InputAdapter
 		//updateTestObjects(deltaTime);
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
+		testCollision();
 		cameraHelper.update(deltaTime);
 		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
 		level.clouds.updateScrollPosition(cameraHelper.getPosition());
@@ -449,39 +527,39 @@ public class WorldController extends InputAdapter
 		{
 			if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(-3,3);
+				level.knight.body.setLinearVelocity(-level.knight.speed,level.knight.speed);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(-3,-3);
+				level.knight.body.setLinearVelocity(-level.knight.speed,-level.knight.speed);
 			}
 			else
 			{
-				level.knight.body.setLinearVelocity(-3,0);
+				level.knight.body.setLinearVelocity(-level.knight.speed,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.D))
 		{
 			if(Gdx.input.isKeyPressed(Keys.S))
 			{
-				level.knight.body.setLinearVelocity(3,-3);
+				level.knight.body.setLinearVelocity(level.knight.speed,-level.knight.speed);
 			}
 			else if(Gdx.input.isKeyPressed(Keys.W))
 			{
-				level.knight.body.setLinearVelocity(3,3);
+				level.knight.body.setLinearVelocity(level.knight.speed,level.knight.speed);
 			}
 			else
 			{
-			level.knight.body.setLinearVelocity(3,0);
+			level.knight.body.setLinearVelocity(level.knight.speed,0);
 			}
 		}
 		else if (Gdx.input.isKeyPressed(Keys.S))
 		{
-			level.knight.body.setLinearVelocity(0,-3);
+			level.knight.body.setLinearVelocity(0,-level.knight.speed);
 		}
 		else if (Gdx.input.isKeyPressed(Keys.W))
 		{
-			level.knight.body.setLinearVelocity(0,3);
+			level.knight.body.setLinearVelocity(0,level.knight.speed);
 		}
 		else
 		{
@@ -493,4 +571,8 @@ public class WorldController extends InputAdapter
 	{
 		game.setScreen(new MenuScreen(game));
 	}
+	
+	/**
+	 * A public class tha
+	 */
 }

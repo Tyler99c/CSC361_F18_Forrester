@@ -10,6 +10,7 @@ import com.mygdx.dangerdungeon.objects.Clouds;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
+import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
 import com.mygdx.dangerdungeon.objects.WallBottomRight;
 import com.mygdx.dangerdungeon.objects.WallDown;
@@ -35,7 +36,7 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0), STATUE(255,201,14);
 		
 		private int color;
 		
@@ -68,6 +69,7 @@ public class Level {
 	public Array<WallTopLeft> wall_topleft;
 	public Array<Chest> chest;
 	public Clouds clouds;
+	public Array<Statue> statue;
 	
 	//Decorations
 	public Spikes spikes;
@@ -98,6 +100,7 @@ public class Level {
 		wall_bottomright = new Array<WallBottomRight>();
 		wall_topright = new Array<WallTopRight>();
 		chest = new Array<Chest>();
+		statue = new Array<Statue>();
 		//spikes = new Array<Spikes>();
 		spikes = null;
 		//player character
@@ -241,6 +244,21 @@ public class Level {
 					offsetHeight = 0;
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					chest.add((Chest)obj);
+					obj = new Floor();
+					offsetHeight = 0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					floor.add((Floor)obj);
+				}
+				else if (BLOCK_TYPE.STATUE.sameColor(currentPixel))
+				{
+					obj= new Statue();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					statue.add((Statue)obj);
+					obj = new Floor();
+					offsetHeight = 0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					floor.add((Floor)obj);
 				}
 				else
 				{
@@ -310,6 +328,8 @@ public class Level {
 		knight.render(batch);
 		for(Chest chest : chest)
 			chest.render(batch);
+		for(Statue statue : statue)
+			statue.render(batch);
 
 	}
 	

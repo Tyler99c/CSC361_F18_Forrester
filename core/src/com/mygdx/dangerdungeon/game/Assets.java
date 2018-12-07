@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.dangerdungeon.objects.Spikes;
+import com.mygdx.dangerdungeon.objects.Statue;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,7 +41,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallTopRight wall_topright;
 	public AssetFonts fonts;
 	public AssetBackground background;
-	
+	public AssetStatue statue;
 
 	public AssetLevelDecoration levelDecoration;
 	
@@ -109,6 +110,7 @@ public class Assets implements Disposable, AssetErrorListener
 		background = new AssetBackground();
 		sounds = new AssetSounds(assetManager);
 		music = new AssetMusic(assetManager);
+		statue = new AssetStatue(atlas);
 	}
 	
 	
@@ -420,9 +422,20 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		public AssetMusic (AssetManager am)
 		{
-			songGame = am.get("music/soundtrack1.mp3");
-			songMenu = am.get("music/soundtrack2.mp3");
+			songGame = am.get("music/soundtrack2.mp3");
+			songMenu = am.get("music/soundtrack1.mp3");
 		}
 	}
 	
+	/**
+	 * Handles the statues image
+	 */
+	public class AssetStatue
+	{
+		public final AtlasRegion statue;
+		public AssetStatue(TextureAtlas atlas)
+		{
+			statue = atlas.findRegion("knight");
+		}
+	}
 }
