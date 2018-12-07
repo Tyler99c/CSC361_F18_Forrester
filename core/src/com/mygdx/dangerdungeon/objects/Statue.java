@@ -15,7 +15,7 @@ public class Statue extends AbstractGameObject
 
 	
 	/**
-	 * Creates a new floor instance
+	 * Creates a new Statue instance
 	 */
 	public Statue() 
 	{
@@ -23,7 +23,7 @@ public class Statue extends AbstractGameObject
 	}
 	
 	/**
-	 * Initiates the floor class
+	 * Initiates the statue class
 	 */
 	private void init() 
 	{

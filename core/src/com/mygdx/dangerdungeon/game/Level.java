@@ -8,6 +8,7 @@ import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Clouds;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.Statue;
@@ -36,7 +37,8 @@ public class Level {
 	 */
 	public enum BLOCK_TYPE
 	{
-		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0), STATUE(255,201,14);
+		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),
+		WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0), STATUE(255,201,14), GOAL(185,122,87);
 		
 		private int color;
 		
@@ -70,6 +72,7 @@ public class Level {
 	public Array<Chest> chest;
 	public Clouds clouds;
 	public Array<Statue> statue;
+	public Goal goal;
 	
 	//Decorations
 	public Spikes spikes;
@@ -106,6 +109,7 @@ public class Level {
 		//player character
 		knight = null;
 		clouds = null;
+		goal = null;
 		
 		//load image file that represents the elvel data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -260,6 +264,13 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 				}
+				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel))
+				{
+					obj = new Goal();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					goal = (Goal)obj;
+				}
 				else
 				{
 					int r = 0xff & (currentPixel >>> 24); //red color channel
@@ -272,20 +283,7 @@ public class Level {
 			}
 		}
 
-		//Decorations
-		AbstractGameObject obj = null;
-		//for(int i = 0; i < pixmap.getHeight(); i++)
-		//{
-		//	for(int j = 0; j < pixmap.getWidth(); j++)
-		//	{
-		//		obj = new Spikes();
-		//		obj.position.set(i, j);
-		//		spikes.add((Spikes)obj);
-		//	}
-		//}
-		//spikes = new Spikes(pixmap.getHeight(),pixmap.getWidth());
-		//spikes.position.set(1,-1);
-		
+		//Sets the background
 		clouds = new Clouds();
 		clouds.position.set(1,-100000);
 		
@@ -301,9 +299,6 @@ public class Level {
 	public void render(SpriteBatch batch) 
 	{ 
 		clouds.render(batch);
-		//for(Spikes spikes: spikes)
-		//	spikes.render(batch);
-		//spikes.render(batch);
 		//Draws the floor
 		for(Floor floor : floor)
 			floor.render(batch);
@@ -326,10 +321,14 @@ public class Level {
 			wall_bottomleft.render(batch);
 		//Draw Player Character
 		knight.render(batch);
+		//Draws the chests
 		for(Chest chest : chest)
 			chest.render(batch);
+		//Draws the powerup
 		for(Statue statue : statue)
 			statue.render(batch);
+		//Draws the Exit
+		goal.render(batch);
 
 	}
 	

@@ -42,6 +42,7 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetFonts fonts;
 	public AssetBackground background;
 	public AssetStatue statue;
+	public AssetGoal goal;
 
 	public AssetLevelDecoration levelDecoration;
 	
@@ -111,6 +112,7 @@ public class Assets implements Disposable, AssetErrorListener
 		sounds = new AssetSounds(assetManager);
 		music = new AssetMusic(assetManager);
 		statue = new AssetStatue(atlas);
+		goal = new AssetGoal(atlas);
 	}
 	
 	
@@ -436,6 +438,18 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetStatue(TextureAtlas atlas)
 		{
 			statue = atlas.findRegion("knight");
+		}
+	}
+	
+	/**
+	 * Handles the Goal
+	 */
+	public class AssetGoal
+	{
+		public final AtlasRegion goal;
+		public AssetGoal(TextureAtlas atlas)
+		{
+			goal = atlas.findRegion("goal");
 		}
 	}
 }

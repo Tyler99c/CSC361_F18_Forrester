@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
+import com.packtpub.libgdx.dangerdungeon.screens.GameScreen;
 import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 import com.packtpub.libgdx.dangerdungeon.util.CameraHelper;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +19,7 @@ import com.badlogic.gdx.InputAdapter;
 import com.mygdx.dangerdungeon.objects.AbstractGameObject;
 import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
+import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
 import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.Statue;
@@ -276,6 +278,19 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		bodyDef.type = BodyType.StaticBody;
+		bodyDef.position.set(level.goal.position);
+		body = b2world.createBody(bodyDef);
+		level.goal.body = body;
+		polygonShape = new PolygonShape();
+		origin.x = level.goal.bounds.width /2.0f;
+		origin.y = level.goal.bounds.height/2.0f;
+		polygonShape.setAsBox(level.goal.bounds.width/1.5f,level.goal.bounds.height/1.5f,origin,0);
+		fixtureDef = new FixtureDef();
+		fixtureDef.shape = polygonShape;
+		body.setUserData(level.goal);
+		body.createFixture(fixtureDef);
+		polygonShape.dispose();
 		
 		
 	}
@@ -297,10 +312,7 @@ public class WorldController extends InputAdapter
 				Fixture fixtureB = contact.getFixtureB();
 				
 				System.out.println(fixtureA.getBody().getUserData());
-				if(fixtureA.getBody().getUserData() instanceof Knight)
-				{
-					System.out.println("PLayer is fixture 1");
-				}
+				//Checks to see if the player collected a treaure chest
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Chest )
 				{
 					for(Chest chest : level.chest)
@@ -314,6 +326,7 @@ public class WorldController extends InputAdapter
 						}
 					}
 				}
+				//Checks to see if the player collected a powerup
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Statue )
 				{
 					for(Statue statue: level.statue)
@@ -327,8 +340,17 @@ public class WorldController extends InputAdapter
 						}
 					}
 				}
-				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
 				
+				//Checks to see if the player reached the goal
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Goal)
+				{
+					System.out.println("You are colliding with the goal");
+					if(level.goal.body == fixtureB.getBody())
+					{
+						game.setScreen(new MenuScreen(game));
+					}
+				}
+				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
 			}
 			
 			/**
