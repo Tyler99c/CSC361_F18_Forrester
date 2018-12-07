@@ -43,6 +43,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.packtpub.libgdx.dangerdungeon.util.AudioManager;
 
 /**
  * Class that Handles the inputs in the world
@@ -320,7 +321,7 @@ public class WorldController extends InputAdapter
 						if(chest.body == fixtureB.getBody())
 						{
 							//destroyEntities.add(fixtureA);
-							System.out.println("ZooWeeMamma");
+							AudioManager.instance.play(Assets.instance.sounds.collect, 1, MathUtils.random(.5f, .6f));
 							entity = chest;
 							score = score + 10;
 						}
@@ -334,7 +335,6 @@ public class WorldController extends InputAdapter
 						if(statue.body == fixtureB.getBody())
 						{
 							//destroyEntities.add(fixtureA);
-							System.out.println("ZooWeeMamma");
 							entity = statue;
 							level.knight.setStatue(true);
 						}
