@@ -21,6 +21,7 @@ import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Slime;
 import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -36,6 +37,7 @@ import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -62,6 +64,7 @@ public class WorldController extends InputAdapter
 	public int score;
 	private Game game;
 	private Body destroy;
+	public int lives;
 	
 	public World b2world;
 	public Array<Object> activeEntities;
@@ -86,6 +89,7 @@ public class WorldController extends InputAdapter
 	private void initLevel()
 	{
 		score = 0;
+		lives = 2;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.knight);
 		initPhysics();
@@ -294,7 +298,29 @@ public class WorldController extends InputAdapter
 		body.setUserData(level.goal);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
+		for(Slime slime : level.slime)
+		{
+			bodyDef.type = BodyType.StaticBody;
+			bodyDef.position.set(slime.position);
+			body = b2world.createBody(bodyDef);
+			slime.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = slime.bounds.width /2.0f;
+			origin.y = slime.bounds.height/2.0f;
+			polygonShape.setAsBox(slime.bounds.width/2.0f,slime.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.setUserData(slime);
+			body.createFixture(fixtureDef);
+			CircleShape circleShape = new CircleShape();
+			circleShape.setRadius(8);
+			fixtureDef.shape = circleShape;
+			fixtureDef.isSensor = true;
+			body.createFixture(fixtureDef);
+			
+			
+			polygonShape.dispose();
+		}
 		
 	}
 	
@@ -314,7 +340,6 @@ public class WorldController extends InputAdapter
 				Fixture fixtureA = contact.getFixtureA();
 				Fixture fixtureB = contact.getFixtureB();
 				
-				System.out.println(fixtureA.getBody().getUserData());
 				//Checks to see if the player collected a treaure chest
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Chest )
 				{
@@ -346,12 +371,63 @@ public class WorldController extends InputAdapter
 				//Checks to see if the player reached the goal
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Goal)
 				{
-					System.out.println("You are colliding with the goal");
 					if(level.goal.body == fixtureB.getBody())
 					{
 						goalReached = 1;
 					}
 				}
+				
+				//Checks to see if the player is hit by a slime
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Slime)
+				{
+					for(Slime slime: level.slime)
+					{
+						boolean sensor = fixtureB.isSensor();
+						if(!sensor)
+						{
+							if(slime.body == fixtureB.getBody())
+							{
+								//destroyEntities.add(fixtureA);
+								System.out.println("AHHHHHHH");
+								entity = slime;
+								lives = 2;
+							}
+						}
+					}
+				}
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Slime)
+				{
+					for(Slime slime: level.slime)
+					{
+						if(slime.body == fixtureB.getBody())
+						{
+							float vert = 0;
+							float horiz = 0;
+							//destroyEntities.add(fixtureA);
+							if(slime.position.x > level.knight.position.x)
+							{
+								
+								horiz = -3;
+							}
+							else if(slime.position.y > level.knight.position.y)
+							{
+								vert = -3;
+							}
+							if(slime.position.x < level.knight.position.x)
+							{
+								System.out.println("The slime is to the left of the player");
+								horiz = 3;
+							}
+							if(slime.position.y < level.knight.position.y)
+							{
+								vert = 3;
+							}
+							System.out.println(vert + "," + horiz);
+							slime.body.setLinearVelocity(vert,horiz);
+						}
+					}
+				}
+				
 				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
 			}
 			
@@ -617,13 +693,14 @@ public class WorldController extends InputAdapter
 			level.knight.body.setLinearVelocity(0,0);
 		}
 	}
-	
+
+	/**
+	 * Send the play back where he came from
+	 */
 	private void backToMenu()
 	{
 		game.setScreen(new MenuScreen(game));
 	}
 	
-	/**
-	 * A public class tha
-	 */
+
 }

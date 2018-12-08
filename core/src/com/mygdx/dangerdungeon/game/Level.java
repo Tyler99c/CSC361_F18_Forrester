@@ -10,6 +10,7 @@ import com.mygdx.dangerdungeon.objects.Clouds;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Slime;
 import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -38,7 +39,7 @@ public class Level {
 	public enum BLOCK_TYPE
 	{
 		EMPTY(0,0,0), FLOOR(255,174,201), KNIGHT(255,255,255), WALL_UP(255,204,201), WALL_DOWN(255,254,201),WALL_RIGHT(255,50,201),WALL_LEFT(50,50,201),WALL_TOPRIGHT(128,255,0),WALL_TOPLEFT(181,230,29),WALL_BOTTOMLEFT(0,128,64),
-		WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0), STATUE(255,201,14), GOAL(185,122,87);
+		WALL_BOTTOMRIGHT(34,177,76), CHEST(255,0,0), STATUE(255,201,14), GOAL(185,122,87), SLIME(64,0,128);
 		
 		private int color;
 		
@@ -73,6 +74,7 @@ public class Level {
 	public Clouds clouds;
 	public Array<Statue> statue;
 	public Goal goal;
+	public Array<Slime> slime;
 	
 	//Decorations
 	public Spikes spikes;
@@ -110,6 +112,7 @@ public class Level {
 		knight = null;
 		clouds = null;
 		goal = null;
+		slime = new Array<Slime>();
 		
 		//load image file that represents the elvel data
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
@@ -271,6 +274,17 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					goal = (Goal)obj;
 				}
+				else if (BLOCK_TYPE.SLIME.sameColor(currentPixel))
+				{
+					obj = new Slime();
+					offsetHeight = 0;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					slime.add((Slime)obj);
+					obj = new Floor();
+					offsetHeight = 0f;
+					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
+					floor.add((Floor)obj);
+				}
 				else
 				{
 					int r = 0xff & (currentPixel >>> 24); //red color channel
@@ -329,6 +343,8 @@ public class Level {
 			statue.render(batch);
 		//Draws the Exit
 		goal.render(batch);
+		for(Slime slime : slime)
+			slime.render(batch);
 
 	}
 	
@@ -339,5 +355,7 @@ public class Level {
 	public void update(float deltaTime)
 	{
 		knight.update(deltaTime);
+		for(Slime slime : slime)
+			slime.update(deltaTime);
 	}
 }

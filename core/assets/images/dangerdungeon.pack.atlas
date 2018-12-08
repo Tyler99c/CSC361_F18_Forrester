@@ -116,6 +116,13 @@ knight
   orig: 13, 16
   offset: 0, 0
   index: -1
+slime
+  rotate: false
+  xy: 35, 187
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
 wall_bottomleft
   rotate: false
   xy: 1, 131

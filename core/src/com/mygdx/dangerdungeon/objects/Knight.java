@@ -172,7 +172,6 @@ public class Knight extends AbstractGameObject{
 		
 		//Updates particle effect
 		dustParticles.update(deltaTime);
-		//System.out.println(body.getLinearVelocity());
 	}
 	
 	/**
