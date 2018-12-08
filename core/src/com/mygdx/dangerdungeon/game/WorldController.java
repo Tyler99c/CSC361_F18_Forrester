@@ -32,6 +32,7 @@ import com.mygdx.dangerdungeon.objects.WallTopLeft;
 import com.mygdx.dangerdungeon.objects.WallTopRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
+import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
@@ -62,11 +63,12 @@ public class WorldController extends InputAdapter
 	private Game game;
 	private Body destroy;
 	
-	private boolean goalReached;
 	public World b2world;
 	public Array<Object> activeEntities;
 	public Array<Fixture> destroyEntities;
 	public AbstractGameObject entity;
+	private int goalReached = 0;
+	public boolean displayHigh = false;
 	
 	
 	/**
@@ -347,7 +349,7 @@ public class WorldController extends InputAdapter
 					System.out.println("You are colliding with the goal");
 					if(level.goal.body == fixtureB.getBody())
 					{
-						game.setScreen(new MenuScreen(game));
+						goalReached = 1;
 					}
 				}
 				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
@@ -472,7 +474,26 @@ public class WorldController extends InputAdapter
 	{
 		handleInputGame(deltaTime);
 		handleDebugInput(deltaTime);
-		//updateTestObjects(deltaTime);
+		if(goalReached == 1)
+		{
+			GamePreferences prefs = GamePreferences.instance;
+			prefs.load();
+			for(int i = 0; i < 10; i++) {
+				if(prefs.highscore[i] <= score)
+				{
+					int j = 8;
+					while(j >= i)
+					{
+						prefs.highscore[j+1] = prefs.highscore[j];
+						j--;
+					}
+					prefs.highscore[i] = score;
+					break;
+				}
+			}
+			prefs.save();
+			game.setScreen(new MenuScreen(game));
+		}
 		level.update(deltaTime);
 		b2world.step(deltaTime, 8, 3);
 		testCollision();
@@ -582,6 +603,14 @@ public class WorldController extends InputAdapter
 		else if (Gdx.input.isKeyPressed(Keys.W))
 		{
 			level.knight.body.setLinearVelocity(0,level.knight.speed);
+		}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_1))
+		{
+			displayHigh = true;
+		}
+		else if (Gdx.input.isKeyPressed(Keys.NUM_2))
+		{
+			displayHigh = false;
 		}
 		else
 		{

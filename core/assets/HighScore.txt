@@ -1,0 +1,5 @@
+Tyler 120
+Dwayne 100
+Micheal 20
+Carl 10
+George 0

@@ -29,6 +29,7 @@ import com.packtpub.libgdx.dangerdungeon.screens.AbstractGameScreen;
 import com.packtpub.libgdx.dangerdungeon.screens.GameScreen;
 import com.packtpub.libgdx.dangerdungeon.screens.MenuScreen;
 import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
+import com.packtpub.libgdx.dangerdungeon.util.HighScoreReader;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.*;
 import com.badlogic.gdx.math.Interpolation;
@@ -71,6 +72,9 @@ public class MenuScreen extends AbstractGameScreen
 	private SelectBox<CharacterSkin> selCharSkin;
 	private Image imgCharSkin;
 	private CheckBox chkShowFpsCounter;
+	
+	//Highscore
+	private int highscore;
 
 	// debug
 	private final float DEBUG_REBUILD_INTERVAL = 5.0f;
@@ -103,6 +107,7 @@ public class MenuScreen extends AbstractGameScreen
 		Table layerBackground = buildBackgroundLayer();
 		Table layerObjects = buildObjectsLayer();
 		Table layerLogos = buildLogosLayer();
+
 		Table layerControls = buildControlsLayer();
 		Table layerOptionsWindow = buildOptionsWindowLayer();
 
@@ -152,6 +157,15 @@ public class MenuScreen extends AbstractGameScreen
 		imgBunny.addAction(sequence(moveTo(-500,-500),delay(4.0f),moveBy(500,0,0.5f, Interpolation.fade)));
 		//imgBunny.setPosition(355, 40);
 		return layer;
+	}
+	
+	/**
+	 * Creates the objects layer of the menu with the high score list
+	 */
+	private Table buildHighScoresTable()
+	{
+		return null;
+
 	}
 
 	/**
@@ -518,6 +532,11 @@ public class MenuScreen extends AbstractGameScreen
 		stage = new Stage(new StretchViewport(Constants.VIEWPORT_GUI_WIDTH, Constants.VIEWPORT_GUI_HEIGHT));
 		Gdx.input.setInputProcessor(stage);
 		AudioManager.instance.play(Assets.instance.music.songMenu);
+		GamePreferences prefs = GamePreferences.instance;
+		prefs.load();
+		
+		//prefs.save();
+		System.out.println(prefs.highscore);
 		rebuildStage();
 	}
 

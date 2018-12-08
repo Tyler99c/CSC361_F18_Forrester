@@ -22,7 +22,7 @@ public class WorldRenderer implements Disposable
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	private WorldController worldController;
-	private static final boolean DEBUG_DRAW_BOX2D_WORLD = true;
+	private static final boolean DEBUG_DRAW_BOX2D_WORLD = false;
 	private Box2DDebugRenderer b2debugRenderer;
 	
 	/**
@@ -49,6 +49,7 @@ public class WorldRenderer implements Disposable
 		cameraGui.setToOrtho(true);
 		cameraGui.update();
 		b2debugRenderer = new Box2DDebugRenderer();
+		
 	}
 	
 	/**
@@ -89,6 +90,10 @@ public class WorldRenderer implements Disposable
 		fpsFont.setColor(1, 1, 1, 1); // white
 	}
 	
+	/**
+	 * Renders how long the player has the statue powerup
+	 * @param batch
+	 */
 	private void renderGuiStatue(SpriteBatch batch)
 	{
 		float x = -15;
@@ -116,6 +121,26 @@ public class WorldRenderer implements Disposable
 	}
 	
 	/**
+	 * Displayes the current highscore
+	 */
+	public void renderGuiHigh (SpriteBatch batch)
+	{
+		float x = -15;
+		float y = -15;
+		GamePreferences prefs = GamePreferences.instance;
+		prefs.load();
+		Assets.instance.fonts.defaultBig.draw(batch, "HighScore: " + prefs.highscore[0], x + 200, y + 37);
+		boolean displayHigh = worldController.displayHigh;
+		if(displayHigh)
+		{
+			for(int i = 1; i < 10; i++)
+			{
+				Assets.instance.fonts.defaultBig.draw(batch, "" + prefs.highscore[i], x + 200, y + 37 + (i * 30));
+			}
+		}
+	}
+	
+	/**
 	 * Rends the gui
 	 * @param batch
 	 */
@@ -128,6 +153,7 @@ public class WorldRenderer implements Disposable
 		renderGuiScore(batch);
 		renderGuiFPS(batch);
 		renderGuiStatue(batch);
+		renderGuiHigh(batch);
 		batch.end();
 	}
 	
