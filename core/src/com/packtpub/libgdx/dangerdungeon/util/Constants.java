@@ -35,4 +35,7 @@ public class Constants
 	public static final String SKIN_DANGERDUNGEON_UI = "images/dangerdungeon-ui.json";
 	
 	public static final String PREFERENCES = "dangerdungeon.prefs";
+	
+	// Amount of extra lives at level start
+	public static final int LIVES_START = 2;
 }

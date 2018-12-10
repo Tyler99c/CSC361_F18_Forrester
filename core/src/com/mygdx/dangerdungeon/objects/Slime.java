@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.dangerdungeon.game.Assets;
 
+
 /**
  * Cretes a slime enemy to blitz at the player
  * @author Tyler Forrester
@@ -16,6 +17,7 @@ import com.mygdx.dangerdungeon.game.Assets;
 public class Slime extends AbstractGameObject
 {
 	private TextureRegion tile;
+	public boolean moving = false;
 	
 		
 	/**
@@ -60,6 +62,7 @@ public class Slime extends AbstractGameObject
 	 */
 	public void update(float deltaTime)
 	{
+		
 		super.update(deltaTime);
 	}
 }

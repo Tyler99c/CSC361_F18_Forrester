@@ -32,6 +32,7 @@ import com.mygdx.dangerdungeon.objects.WallRight;
 import com.mygdx.dangerdungeon.objects.WallTopLeft;
 import com.mygdx.dangerdungeon.objects.WallTopRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
+import com.mygdx.dangerdungeon.game.Assets;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -72,6 +73,7 @@ public class WorldController extends InputAdapter
 	public AbstractGameObject entity;
 	private int goalReached = 0;
 	public boolean displayHigh = false;
+	public float livesVisual;
 	
 	
 	/**
@@ -90,6 +92,7 @@ public class WorldController extends InputAdapter
 	{
 		score = 0;
 		lives = 2;
+		livesVisual = lives;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.knight);
 		initPhysics();
@@ -300,7 +303,7 @@ public class WorldController extends InputAdapter
 		polygonShape.dispose();
 		for(Slime slime : level.slime)
 		{
-			bodyDef.type = BodyType.StaticBody;
+			bodyDef.type = BodyType.DynamicBody;
 			bodyDef.position.set(slime.position);
 			body = b2world.createBody(bodyDef);
 			slime.body = body;
@@ -390,7 +393,7 @@ public class WorldController extends InputAdapter
 								//destroyEntities.add(fixtureA);
 								System.out.println("AHHHHHHH");
 								entity = slime;
-								lives = 2;
+								lives = lives-1;
 							}
 						}
 					}
@@ -401,29 +404,7 @@ public class WorldController extends InputAdapter
 					{
 						if(slime.body == fixtureB.getBody())
 						{
-							float vert = 0;
-							float horiz = 0;
-							//destroyEntities.add(fixtureA);
-							if(slime.position.x > level.knight.position.x)
-							{
-								
-								horiz = -3;
-							}
-							else if(slime.position.y > level.knight.position.y)
-							{
-								vert = -3;
-							}
-							if(slime.position.x < level.knight.position.x)
-							{
-								System.out.println("The slime is to the left of the player");
-								horiz = 3;
-							}
-							if(slime.position.y < level.knight.position.y)
-							{
-								vert = 3;
-							}
-							System.out.println(vert + "," + horiz);
-							slime.body.setLinearVelocity(vert,horiz);
+							slime.moving = true;
 						}
 					}
 				}
@@ -471,6 +452,7 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		livesVisual = lives;
 
 		//initTestObjects();
 		initLevel();
@@ -546,7 +528,7 @@ public class WorldController extends InputAdapter
 	 * Updates the scene when called upon
 	 * @param deltaTime
 	 */
-	public void update (float deltaTime) 
+	public void update (float deltaTime)
 	{
 		handleInputGame(deltaTime);
 		handleDebugInput(deltaTime);
@@ -576,6 +558,39 @@ public class WorldController extends InputAdapter
 		cameraHelper.update(deltaTime);
 		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
 		level.clouds.updateScrollPosition(cameraHelper.getPosition());
+		if (isGameOver()) {
+			game.setScreen(new MenuScreen(game));
+		}
+		if (livesVisual > lives)
+			livesVisual = Math.max(lives, livesVisual - 1 * deltaTime);
+		for(Slime slime : level.slime)
+		{
+			if(slime.moving == true)
+			{
+				float vert = 0;
+				float horiz = 0;
+				//destroyEntities.add(fixtureA);
+				if(slime.position.x > level.knight.position.x)
+				{
+					
+					horiz = -2;
+				}
+				if(slime.position.y > level.knight.position.y)
+				{
+					vert = -2;
+				}
+				if(slime.position.x < level.knight.position.x)
+				{
+					horiz = 2;
+				}
+				if(slime.position.y < level.knight.position.y)
+				{
+					vert = 2;
+				}
+				System.out.println(vert + "," + horiz);
+				slime.body.setLinearVelocity(horiz,vert);
+			}
+		}
 	}
 	
 	/**
@@ -640,6 +655,20 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
+	/**
+	 * Check if the player is out of lives, and the game is over.
+	 * 
+	 * @return True if player is out of lives, false if not.
+	 */
+	public boolean isGameOver()
+	{
+		return lives < 0;
+	}
+	
+	/**\
+	 * Handles the input from the user
+	 * @param deltaTime
+	 */
 	private void handleInputGame(float deltaTime)
 	{
 		if(Gdx.input.isKeyPressed(Keys.A))
@@ -692,6 +721,7 @@ public class WorldController extends InputAdapter
 		{
 			level.knight.body.setLinearVelocity(0,0);
 		}
+		
 	}
 
 	/**
