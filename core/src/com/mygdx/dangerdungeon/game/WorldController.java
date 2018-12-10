@@ -587,7 +587,7 @@ public class WorldController extends InputAdapter
 				{
 					vert = 2;
 				}
-				System.out.println(vert + "," + horiz);
+				//System.out.println(vert + "," + horiz);
 				slime.body.setLinearVelocity(horiz,vert);
 			}
 		}
