@@ -9,7 +9,7 @@ import com.mygdx.dangerdungeon.objects.Knight;
 
 /**
  * Lets us move and update the camera
- * @author Tyler99c
+ * @author Tyler Forrester
  *
  */
 public class CameraHelper 

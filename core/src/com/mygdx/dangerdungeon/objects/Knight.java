@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
+import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.Gdx;
@@ -28,10 +29,9 @@ public class Knight extends AbstractGameObject{
 	private final float FLOAT_CYCLE_TIME = 2.0f;
 	private final float FLOAT_AMPLITUDE = 0.25f;
 	
-	private float floatCycleTimeLeft;
-	private boolean floatingDownwards;
-	private Vector2 floatTargetPositon;
-	private int length;
+	public int speed;
+	public boolean hasStatue;
+	public float timeLeftStatue;
 	
 	public ParticleEffect dustParticles = new ParticleEffect();
 	
@@ -66,6 +66,7 @@ public class Knight extends AbstractGameObject{
 		
 		bounds.set(0,0,dimension.x,dimension.y);
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
+		speed = 3;
 	}
 	
 	/**
@@ -91,6 +92,17 @@ public class Knight extends AbstractGameObject{
 	public void update(float deltaTime)
 	{
 		super.update(deltaTime);
+		if (timeLeftStatue > 0)
+		{
+			timeLeftStatue -= deltaTime;
+		}
+		if (timeLeftStatue < 0)
+		{
+			// disable power-up
+			speed = 3;
+			timeLeftStatue = 0;
+			setStatue(false);
+		}
 		//Has the Player look as if they are walking left
 		if(Gdx.input.isKeyPressed(Keys.A))
 		{
@@ -160,7 +172,6 @@ public class Knight extends AbstractGameObject{
 		
 		//Updates particle effect
 		dustParticles.update(deltaTime);
-		//System.out.println(body.getLinearVelocity());
 	}
 	
 	/**
@@ -175,6 +186,19 @@ public class Knight extends AbstractGameObject{
 		batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(), reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),viewDirection == VIEW_DIRECTION.LEFT, false);
 		dustParticles.draw(batch);
 		
+	}
+	
+	/**
+	 * If the player picks up the statue it will increase his speed temporarily
+	 */
+	public void setStatue(boolean pickedup)
+	{
+		hasStatue = pickedup;
+		if (pickedup)
+		{
+			timeLeftStatue = Constants.ITEM_STATUE_POWERUP_DURATION;
+			speed = 5;
+		}
 	}
 
 }

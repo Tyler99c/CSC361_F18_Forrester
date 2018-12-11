@@ -4,163 +4,191 @@ size: 1024,1024
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Knightoo
+  rotate: false
+  xy: 777, 232
+  size: 246, 392
+  orig: 246, 392
+  offset: 0, 0
+  index: -1
+Knightoofront
+  rotate: false
+  xy: 777, 232
+  size: 246, 392
+  orig: 246, 392
+  offset: 0, 0
+  index: 3
+Knightoofront
+  rotate: false
+  xy: 777, 232
+  size: 246, 392
+  orig: 246, 392
+  offset: 0, 0
+  index: 1
 Knightooback
   rotate: false
-  xy: 273, 222
+  xy: 273, 224
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 1
 Knightooback
   rotate: false
-  xy: 273, 222
+  xy: 273, 224
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 3
 Knightooback
   rotate: false
-  xy: 283, 624
+  xy: 283, 626
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 2
 Knightooback
   rotate: false
-  xy: 525, 227
+  xy: 525, 229
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: 4
 Knightoobackslash
   rotate: false
-  xy: 535, 624
+  xy: 535, 626
   size: 250, 395
   orig: 250, 395
   offset: 0, 0
   index: -1
-Knightoofront
-  rotate: false
-  xy: 777, 230
-  size: 246, 392
-  orig: 246, 392
-  offset: 0, 0
-  index: 1
-Knightoofront
-  rotate: false
-  xy: 777, 230
-  size: 246, 392
-  orig: 246, 392
-  offset: 0, 0
-  index: 3
 Knightooside
   rotate: false
-  xy: 787, 632
+  xy: 787, 634
   size: 217, 387
   orig: 217, 387
   offset: 0, 0
   index: 1
 Knightooside
   rotate: false
-  xy: 787, 632
+  xy: 787, 634
   size: 217, 387
   orig: 217, 387
   offset: 0, 0
   index: 3
 Knightoosideslash
   rotate: false
-  xy: 1, 217
+  xy: 1, 219
   size: 270, 400
   orig: 270, 400
   offset: 0, 0
   index: -1
 Knightoosideslashother
   rotate: false
-  xy: 1, 619
+  xy: 1, 621
   size: 280, 400
   orig: 280, 400
   offset: 0, 0
   index: -1
 Spikes
   rotate: false
-  xy: 1, 183
+  xy: 1, 5
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 chest
   rotate: false
-  xy: 27, 165
+  xy: 181, 149
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
 floor
   rotate: false
-  xy: 35, 199
+  xy: 181, 131
   size: 16, 16
   orig: 16, 16
   offset: 0, 0
   index: -1
+goal
+  rotate: false
+  xy: 35, 13
+  size: 24, 24
+  orig: 24, 24
+  offset: 0, 0
+  index: -1
+heart
+  rotate: false
+  xy: 1, 39
+  size: 178, 178
+  orig: 178, 178
+  offset: 0, 0
+  index: -1
 knight
   rotate: false
-  xy: 27, 147
+  xy: 181, 113
   size: 13, 16
   orig: 13, 16
   offset: 0, 0
   index: -1
+slime
+  rotate: false
+  xy: 35, 1
+  size: 10, 10
+  orig: 10, 10
+  offset: 0, 0
+  index: -1
 wall_bottomleft
   rotate: false
-  xy: 1, 157
+  xy: 61, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_bottomright
   rotate: false
-  xy: 1, 131
+  xy: 87, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_down
   rotate: false
-  xy: 1, 105
+  xy: 113, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_up
   rotate: false
-  xy: 1, 105
+  xy: 113, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_left
   rotate: false
-  xy: 1, 79
+  xy: 139, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_right
   rotate: false
-  xy: 1, 53
+  xy: 165, 13
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_topleft
   rotate: false
-  xy: 1, 27
+  xy: 181, 193
   size: 24, 24
   orig: 24, 24
   offset: 0, 0
   index: -1
 wall_topright
   rotate: false
-  xy: 1, 1
+  xy: 181, 167
   size: 24, 24
   orig: 24, 24
   offset: 0, 0

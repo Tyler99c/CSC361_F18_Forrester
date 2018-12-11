@@ -5,31 +5,31 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
 /**
- * Wall bottom
+ * The goal in which the game will end
  * @author Tyler Forrester
  *
  */
-public class WallDown extends AbstractGameObject
-{
-	private TextureRegion wall;
+public class Goal extends AbstractGameObject{
+
+	private TextureRegion tile;
 
 	
 	/**
-	 * Creates a new wall instance
+	 * Creates a new Goal isntance
 	 */
-	public WallDown() 
+	public Goal() 
 	{
 		init();
 	}
 	
 	/**
-	 * Initiates the wall class
+	 * Initiates the Goal class
 	 */
 	private void init() 
 	{
 		dimension.set(1,1);
 		
-		wall = Assets.instance.wall_down.wall_down;
+		tile = Assets.instance.goal.goal;
 	
 		bounds.set(0,0,dimension.x,dimension.y);
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
@@ -43,9 +43,8 @@ public class WallDown extends AbstractGameObject
 		TextureRegion reg = null;
 		
 		//Draw
-		reg = wall;
+		reg = tile;
 		batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
 	}
 
 }
-

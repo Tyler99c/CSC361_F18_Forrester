@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.dangerdungeon.objects.Spikes;
+import com.mygdx.dangerdungeon.objects.Statue;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,7 +41,10 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetWallTopRight wall_topright;
 	public AssetFonts fonts;
 	public AssetBackground background;
-	
+	public AssetStatue statue;
+	public AssetGoal goal;
+	public AssetSlime slime;
+	public AssetHeart heart;
 
 	public AssetLevelDecoration levelDecoration;
 	
@@ -109,9 +113,17 @@ public class Assets implements Disposable, AssetErrorListener
 		background = new AssetBackground();
 		sounds = new AssetSounds(assetManager);
 		music = new AssetMusic(assetManager);
+		statue = new AssetStatue(atlas);
+		goal = new AssetGoal(atlas);
+		slime = new AssetSlime(atlas);
+		heart = new AssetHeart(atlas);
 	}
 	
-	
+	/**
+	 * This handles the asset needed to have fonts in the game
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetFonts
 	{
 		public final BitmapFont defaultSmall;
@@ -172,6 +184,7 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion knightBack;
 		public final AtlasRegion knightSide;
 		public final AtlasRegion knightOtherSide;
+		public final AtlasRegion knight;
 		
 	
 		
@@ -181,6 +194,7 @@ public class Assets implements Disposable, AssetErrorListener
 			knightBack = atlas.findRegion("Knightooback_01");
 			knightSide = atlas.findRegion("KnightSide_01");
 			knightOtherSide = atlas.findRegion("KnightOtherSide_01");
+			knight = atlas.findRegion("Knightoo");
 			
 			
 			Array<AtlasRegion> regions = null;
@@ -420,9 +434,56 @@ public class Assets implements Disposable, AssetErrorListener
 		
 		public AssetMusic (AssetManager am)
 		{
-			songGame = am.get("music/soundtrack1.mp3");
-			songMenu = am.get("music/soundtrack2.mp3");
+			songGame = am.get("music/soundtrack2.mp3");
+			songMenu = am.get("music/soundtrack1.mp3");
 		}
 	}
 	
+	/**
+	 * Handles the statues image
+	 */
+	public class AssetStatue
+	{
+		public final AtlasRegion statue;
+		public AssetStatue(TextureAtlas atlas)
+		{
+			statue = atlas.findRegion("knight");
+		}
+	}
+	
+	/**
+	 * Handles the Goal
+	 */
+	public class AssetGoal
+	{
+		public final AtlasRegion goal;
+		public AssetGoal(TextureAtlas atlas)
+		{
+			goal = atlas.findRegion("goal");
+		}
+	}
+	
+	/**
+	 * Handles the slime asset
+	 */
+	public class AssetSlime
+	{
+		public final AtlasRegion slime;
+		public AssetSlime(TextureAtlas atlas)
+		{
+			slime = atlas.findRegion("slime");
+		}
+	}
+	
+	/**
+	 * Handles the heart asset
+	 */
+	public class AssetHeart
+	{
+		public final AtlasRegion heart;
+		public AssetHeart(TextureAtlas atlas)
+		{
+			heart = atlas.findRegion("heart");
+		}
+	}
 }

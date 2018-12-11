@@ -7,6 +7,7 @@ import com.badlogic.gdx.Preferences;
 /**
 *
 * Place to store the game's pref's as avious by the title
+* @Author Tyler Forrester
  */
 public class GamePreferences
 {
@@ -18,6 +19,8 @@ public class GamePreferences
 	public float volSound, volMusic;
 	public int charSkin;
 	public boolean showFpsCounter;
+	//ITs time to make THE WORST ARRAY EVVVVVVVVVAAAAAAAAARRRRRRR
+	public int[] highscore = new int[10];
 
 	private Preferences prefs;
 
@@ -41,6 +44,12 @@ public class GamePreferences
 		charSkin = com.badlogic.gdx.math.MathUtils.clamp(prefs.getInteger("charSkin", 0), 0, 2);
 
 		showFpsCounter = prefs.getBoolean("showFpsCounter", false);
+		
+		for(int i = 0; i < 10; i++)
+		{
+			String overload = "highscore" + i;
+			highscore[i] = prefs.getInteger(overload);
+		}
 	}
 
 	/**
@@ -54,6 +63,11 @@ public class GamePreferences
 		prefs.putFloat("volMusic", volMusic);
 		prefs.putInteger("charSkin", charSkin);
 		prefs.putBoolean("showFpsCounter", showFpsCounter);
+		for(int i = 0; i < 10; i++)
+		{
+			String overload = "highscore" + i;
+			prefs.putInteger(overload, highscore[i]);
+		}
 		prefs.flush();
 	}
 }
