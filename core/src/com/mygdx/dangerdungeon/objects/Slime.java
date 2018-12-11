@@ -8,33 +8,34 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.mygdx.dangerdungeon.game.Assets;
 
+
 /**
- *  Creates the chest which the player picks up to collect score
+ * Cretes a slime enemy to blitz at the player
  * @author Tyler Forrester
  *
  */
-public class Chest extends AbstractGameObject
+public class Slime extends AbstractGameObject
 {
 	private TextureRegion tile;
+	public boolean moving = false;
 	
-
-	
+		
 	/**
-	 * Creates a new chest instance
+	 * Creates a new slime instance
 	 */
-	public Chest() 
+	public Slime() 
 	{
 		init();
 	}
 	
 	/**
-	 * Initiates the chest class
+	 * Initiates the slime class
 	 */
 	private void init() 
 	{
 		dimension.set(1,1);
 		
-		tile = Assets.instance.chest.chest;
+		tile = Assets.instance.slime.slime;
 		
 		bounds.set(0,0,dimension.x,dimension.y);
 		origin.set(dimension.x / 2.0f, dimension.y / 2.0f);
@@ -55,5 +56,13 @@ public class Chest extends AbstractGameObject
 			batch.draw(reg.getTexture(), position.x, position.y, origin.x, origin.y, dimension.x, dimension.y, scale.x, scale.y, rotation,reg.getRegionX(),reg.getRegionY(),reg.getRegionWidth(),reg.getRegionHeight(),false,false);
 		}
 	}
-
+	
+	/**
+	 * Updates the slime
+	 */
+	public void update(float deltaTime)
+	{
+		
+		super.update(deltaTime);
+	}
 }

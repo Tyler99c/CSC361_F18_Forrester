@@ -4,6 +4,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
+/**
+ * The goal in which the game will end
+ * @author Tyler Forrester
+ *
+ */
 public class Goal extends AbstractGameObject{
 
 	private TextureRegion tile;

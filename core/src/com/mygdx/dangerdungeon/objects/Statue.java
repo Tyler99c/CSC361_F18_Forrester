@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.mygdx.dangerdungeon.game.Assets;
 
 /**
- *  Creates the floor unwhich the player walk, mearly a decoration
+ *  A statue the player can pick up for a speed boost
  * @author Tyler Forrester
  *
  */

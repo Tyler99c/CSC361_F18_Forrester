@@ -21,6 +21,7 @@ import com.mygdx.dangerdungeon.objects.Chest;
 import com.mygdx.dangerdungeon.objects.Floor;
 import com.mygdx.dangerdungeon.objects.Goal;
 import com.mygdx.dangerdungeon.objects.Knight;
+import com.mygdx.dangerdungeon.objects.Slime;
 import com.mygdx.dangerdungeon.objects.Spikes;
 import com.mygdx.dangerdungeon.objects.Statue;
 import com.mygdx.dangerdungeon.objects.WallBottomLeft;
@@ -31,11 +32,13 @@ import com.mygdx.dangerdungeon.objects.WallRight;
 import com.mygdx.dangerdungeon.objects.WallTopLeft;
 import com.mygdx.dangerdungeon.objects.WallTopRight;
 import com.mygdx.dangerdungeon.objects.WallUp;
+import com.mygdx.dangerdungeon.game.Assets;
 import com.packtpub.libgdx.dangerdungeon.util.Constants;
 import com.packtpub.libgdx.dangerdungeon.util.GamePreferences;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
+import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
@@ -62,6 +65,7 @@ public class WorldController extends InputAdapter
 	public int score;
 	private Game game;
 	private Body destroy;
+	public int lives;
 	
 	public World b2world;
 	public Array<Object> activeEntities;
@@ -69,6 +73,7 @@ public class WorldController extends InputAdapter
 	public AbstractGameObject entity;
 	private int goalReached = 0;
 	public boolean displayHigh = false;
+	public float livesVisual;
 	
 	
 	/**
@@ -86,6 +91,8 @@ public class WorldController extends InputAdapter
 	private void initLevel()
 	{
 		score = 0;
+		lives = 2;
+		livesVisual = lives;
 		level = new Level(Constants.LEVEL_01);
 		cameraHelper.setTarget(level.knight);
 		initPhysics();
@@ -105,6 +112,7 @@ public class WorldController extends InputAdapter
 		
 		createCollisionListener();
 		
+		//Knight's Physics
 		Vector2 origin = new Vector2();
 		Knight knight = level.knight;
 		BodyDef bodyDef = new BodyDef();
@@ -122,7 +130,7 @@ public class WorldController extends InputAdapter
 		body.setUserData(knight);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
+		//Walls
 		for(WallUp wall_up : level.wall_up)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -249,6 +257,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Create's physics for chests
 		for(Chest chest : level.chest)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -265,6 +274,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Creates physics for statues
 		for(Statue statue : level.statue)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -281,6 +291,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Creates physics for the goal
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(level.goal.position);
 		body = b2world.createBody(bodyDef);
@@ -294,7 +305,30 @@ public class WorldController extends InputAdapter
 		body.setUserData(level.goal);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
+		//Creates physics for the slimes
+		for(Slime slime : level.slime)
+		{
+			bodyDef.type = BodyType.DynamicBody;
+			bodyDef.position.set(slime.position);
+			body = b2world.createBody(bodyDef);
+			slime.body = body;
+			polygonShape = new PolygonShape();
+			origin.x = slime.bounds.width /2.0f;
+			origin.y = slime.bounds.height/2.0f;
+			polygonShape.setAsBox(slime.bounds.width/2.0f,slime.bounds.height/2.0f,origin,0);
+			fixtureDef = new FixtureDef();
+			fixtureDef.shape = polygonShape;
+			body.setUserData(slime);
+			body.createFixture(fixtureDef);
+			CircleShape circleShape = new CircleShape();
+			circleShape.setRadius(8);
+			fixtureDef.shape = circleShape;
+			fixtureDef.isSensor = true;
+			body.createFixture(fixtureDef);
+			
+			
+			polygonShape.dispose();
+		}
 		
 	}
 	
@@ -314,7 +348,6 @@ public class WorldController extends InputAdapter
 				Fixture fixtureA = contact.getFixtureA();
 				Fixture fixtureB = contact.getFixtureB();
 				
-				System.out.println(fixtureA.getBody().getUserData());
 				//Checks to see if the player collected a treaure chest
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Chest )
 				{
@@ -346,12 +379,41 @@ public class WorldController extends InputAdapter
 				//Checks to see if the player reached the goal
 				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Goal)
 				{
-					System.out.println("You are colliding with the goal");
 					if(level.goal.body == fixtureB.getBody())
 					{
 						goalReached = 1;
 					}
 				}
+				
+				//Checks to see if the player is hit by a slime
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Slime)
+				{
+					for(Slime slime: level.slime)
+					{
+						boolean sensor = fixtureB.isSensor();
+						if(!sensor)
+						{
+							if(slime.body == fixtureB.getBody())
+							{
+								//destroyEntities.add(fixtureA);
+								System.out.println("AHHHHHHH");
+								entity = slime;
+								lives = lives-1;
+							}
+						}
+					}
+				}
+				if(fixtureA.getBody().getUserData() instanceof Knight && fixtureB.getBody().getUserData() instanceof Slime)
+				{
+					for(Slime slime: level.slime)
+					{
+						if(slime.body == fixtureB.getBody())
+						{
+							slime.moving = true;
+						}
+					}
+				}
+				
 				Gdx.app.log("beginContact", "between " + fixtureA.toString() + "and" + fixtureB.toString());
 			}
 			
@@ -395,6 +457,7 @@ public class WorldController extends InputAdapter
 	{
 		Gdx.input.setInputProcessor(this);
 		cameraHelper = new CameraHelper();
+		livesVisual = lives;
 
 		//initTestObjects();
 		initLevel();
@@ -456,11 +519,11 @@ public class WorldController extends InputAdapter
 		//Fill square with red color at 50% opacity
 		pixmap.setColor(1,0,0,0.5f);
 		pixmap.fill();
-		//Draw a yellow-colored X shap on square
+		//Draw a yellow-colored X shape on square
 		pixmap.setColor(1,1,0,1);
 		pixmap.drawLine(0, 0, width, height);
 		pixmap.drawLine(width, 0, 0, height);
-		//Draw a cayan-colored border around square
+		//Draw a cyan-colored border around square
 		pixmap.setColor(0,1,1,1);
 		pixmap.drawRectangle(0, 0, width, height);
 		return pixmap;
@@ -470,7 +533,7 @@ public class WorldController extends InputAdapter
 	 * Updates the scene when called upon
 	 * @param deltaTime
 	 */
-	public void update (float deltaTime) 
+	public void update (float deltaTime)
 	{
 		handleInputGame(deltaTime);
 		handleDebugInput(deltaTime);
@@ -498,8 +561,39 @@ public class WorldController extends InputAdapter
 		b2world.step(deltaTime, 8, 3);
 		testCollision();
 		cameraHelper.update(deltaTime);
-		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
 		level.clouds.updateScrollPosition(cameraHelper.getPosition());
+		if (isGameOver()) {
+			game.setScreen(new MenuScreen(game));
+		}
+		if (livesVisual > lives)
+			livesVisual = Math.max(lives, livesVisual - 1 * deltaTime);
+		for(Slime slime : level.slime)
+		{
+			if(slime.moving == true)
+			{
+				float vert = 0;
+				float horiz = 0;
+				//destroyEntities.add(fixtureA);
+				if(slime.position.x > level.knight.position.x)
+				{
+					
+					horiz = -2;
+				}
+				if(slime.position.y > level.knight.position.y)
+				{
+					vert = -2;
+				}
+				if(slime.position.x < level.knight.position.x)
+				{
+					horiz = 2;
+				}
+				if(slime.position.y < level.knight.position.y)
+				{
+					vert = 2;
+				}
+				slime.body.setLinearVelocity(horiz,vert);
+			}
+		}
 	}
 	
 	/**
@@ -564,6 +658,20 @@ public class WorldController extends InputAdapter
 		return false;
 	}
 	
+	/**
+	 * Check if the player is out of lives, and the game is over.
+	 * 
+	 * @return True if player is out of lives, false if not.
+	 */
+	public boolean isGameOver()
+	{
+		return lives < 0;
+	}
+	
+	/**\
+	 * Handles the input from the user
+	 * @param deltaTime
+	 */
 	private void handleInputGame(float deltaTime)
 	{
 		if(Gdx.input.isKeyPressed(Keys.A))
@@ -616,14 +724,16 @@ public class WorldController extends InputAdapter
 		{
 			level.knight.body.setLinearVelocity(0,0);
 		}
+		
 	}
-	
+
+	/**
+	 * Send the play back where he came from
+	 */
 	private void backToMenu()
 	{
 		game.setScreen(new MenuScreen(game));
 	}
 	
-	/**
-	 * A public class tha
-	 */
+
 }

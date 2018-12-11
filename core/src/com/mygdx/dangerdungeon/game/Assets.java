@@ -43,6 +43,8 @@ public class Assets implements Disposable, AssetErrorListener
 	public AssetBackground background;
 	public AssetStatue statue;
 	public AssetGoal goal;
+	public AssetSlime slime;
+	public AssetHeart heart;
 
 	public AssetLevelDecoration levelDecoration;
 	
@@ -113,9 +115,15 @@ public class Assets implements Disposable, AssetErrorListener
 		music = new AssetMusic(assetManager);
 		statue = new AssetStatue(atlas);
 		goal = new AssetGoal(atlas);
+		slime = new AssetSlime(atlas);
+		heart = new AssetHeart(atlas);
 	}
 	
-	
+	/**
+	 * This handles the asset needed to have fonts in the game
+	 * @author Tyler Forrester
+	 *
+	 */
 	public class AssetFonts
 	{
 		public final BitmapFont defaultSmall;
@@ -176,6 +184,7 @@ public class Assets implements Disposable, AssetErrorListener
 		public final AtlasRegion knightBack;
 		public final AtlasRegion knightSide;
 		public final AtlasRegion knightOtherSide;
+		public final AtlasRegion knight;
 		
 	
 		
@@ -185,6 +194,7 @@ public class Assets implements Disposable, AssetErrorListener
 			knightBack = atlas.findRegion("Knightooback_01");
 			knightSide = atlas.findRegion("KnightSide_01");
 			knightOtherSide = atlas.findRegion("KnightOtherSide_01");
+			knight = atlas.findRegion("Knightoo");
 			
 			
 			Array<AtlasRegion> regions = null;
@@ -450,6 +460,30 @@ public class Assets implements Disposable, AssetErrorListener
 		public AssetGoal(TextureAtlas atlas)
 		{
 			goal = atlas.findRegion("goal");
+		}
+	}
+	
+	/**
+	 * Handles the slime asset
+	 */
+	public class AssetSlime
+	{
+		public final AtlasRegion slime;
+		public AssetSlime(TextureAtlas atlas)
+		{
+			slime = atlas.findRegion("slime");
+		}
+	}
+	
+	/**
+	 * Handles the heart asset
+	 */
+	public class AssetHeart
+	{
+		public final AtlasRegion heart;
+		public AssetHeart(TextureAtlas atlas)
+		{
+			heart = atlas.findRegion("heart");
 		}
 	}
 }

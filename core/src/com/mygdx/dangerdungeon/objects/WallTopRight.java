@@ -15,7 +15,7 @@ public class WallTopRight extends AbstractGameObject
 
 	
 	/**
-	 * Creates a new floor instance
+	 * Creates a new wall instance
 	 */
 	public WallTopRight() 
 	{
@@ -23,7 +23,7 @@ public class WallTopRight extends AbstractGameObject
 	}
 	
 	/**
-	 * Initiates the floor class
+	 * Initiates the wall class
 	 */
 	private void init() 
 	{

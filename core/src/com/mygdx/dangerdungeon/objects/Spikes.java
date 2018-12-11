@@ -7,7 +7,7 @@ import com.mygdx.dangerdungeon.game.Assets;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * Draws the spikes for the background
+ * Draws the spikes for the background, This doesn't work but I'm keeping it for expansion in the future
  * @author Tyler Forrester
  *
  */
