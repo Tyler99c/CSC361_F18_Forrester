@@ -6,6 +6,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Useless class, but might have use later on
+ * @author Tyler Forrester
+ *
+ */
 public class HighScoreReader {
 	private Scanner x;
 	

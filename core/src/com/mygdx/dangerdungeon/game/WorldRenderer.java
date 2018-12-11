@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 
 /**
  * Draws the world and the images in it
- * @author tf0199
+ * @author Tyler Forreter
  *
  */
 public class WorldRenderer implements Disposable
@@ -80,7 +80,7 @@ public class WorldRenderer implements Disposable
 			if (worldController.lives <= i)
 				batch.setColor(0.5f, 0.5f, 0.5f, 0.5f);
 
-			batch.draw(Assets.instance.chest.chest, x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
+			batch.draw(Assets.instance.heart.heart, x + i * 50, y, 50, 50, 120, 100, 0.35f, -0.35f, 0);
 			batch.setColor(1, 1, 1, 1);
 		}
 
@@ -154,7 +154,7 @@ public class WorldRenderer implements Disposable
 	}
 	
 	/**
-	 * Displayes the current highscore
+	 * Displays the current highscores
 	 */
 	public void renderGuiHigh (SpriteBatch batch)
 	{

@@ -106,9 +106,7 @@ public class Level {
 		wall_topright = new Array<WallTopRight>();
 		chest = new Array<Chest>();
 		statue = new Array<Statue>();
-		//spikes = new Array<Spikes>();
 		spikes = null;
-		//player character
 		knight = null;
 		clouds = null;
 		goal = null;
@@ -118,6 +116,7 @@ public class Level {
 		Pixmap pixmap = new Pixmap(Gdx.files.internal(filename));
 		//scane pixels form top-left to botom-right
 		int lastPixel = -1;
+		//This loop will place values at certian spots we the program know what needs to be drawn where
 		for (int pixelY = 0; pixelY < pixmap.getHeight(); pixelY++)
 		{
 			for (int pixelX = 0; pixelX < pixmap.getWidth(); pixelX++)
@@ -135,7 +134,7 @@ public class Level {
 				{
 					//do nothing
 				}
-				//rock
+				//Floor
 				else if (BLOCK_TYPE.FLOOR.sameColor(currentPixel))
 				{
 					obj = new Floor();
@@ -144,6 +143,7 @@ public class Level {
 					floor.add((Floor)obj);
 					System.out.println("Founds a floor pixel");
 				}
+				//Wall
 				if (BLOCK_TYPE.WALL_UP.sameColor(currentPixel))
 				{
 					obj = new WallUp();
@@ -151,6 +151,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_up.add((WallUp)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_DOWN.sameColor(currentPixel))
 				{
 					obj = new WallDown();
@@ -158,6 +159,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_down.add((WallDown)obj);					
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_LEFT.sameColor(currentPixel))
 				{
 					obj = new WallLeft();
@@ -165,6 +167,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_left.add((WallLeft)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_RIGHT.sameColor(currentPixel))
 				{
 					obj = new WallRight();
@@ -172,6 +175,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_right.add((WallRight)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.KNIGHT.sameColor(currentPixel))
 				{
 					obj = new Floor();
@@ -184,6 +188,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					knight = (Knight)obj;
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_BOTTOMRIGHT.sameColor(currentPixel))
 				{
 					if(BLOCK_TYPE.WALL_UP.sameColor(lastPixel))
@@ -199,6 +204,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_bottomright.add((WallBottomRight)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_TOPRIGHT.sameColor(currentPixel))
 				{
 					if(BLOCK_TYPE.WALL_DOWN.sameColor(lastPixel) || BLOCK_TYPE.WALL_BOTTOMLEFT.sameColor(lastPixel))
@@ -214,6 +220,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_topright.add((WallTopRight)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_TOPLEFT.sameColor(currentPixel))
 				{
 					if(BLOCK_TYPE.FLOOR.sameColor(lastPixel))
@@ -229,6 +236,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_topleft.add((WallTopLeft)obj);
 				}
+				//Wall
 				else if (BLOCK_TYPE.WALL_BOTTOMLEFT.sameColor(currentPixel))
 				{
 
@@ -245,6 +253,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					wall_bottomleft.add((WallBottomLeft)obj);
 				}
+				//Chest
 				else if (BLOCK_TYPE.CHEST.sameColor(currentPixel))
 				{
 					obj= new Chest();
@@ -256,6 +265,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 				}
+				//Statue
 				else if (BLOCK_TYPE.STATUE.sameColor(currentPixel))
 				{
 					obj= new Statue();
@@ -267,6 +277,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 				}
+				//Goal
 				else if (BLOCK_TYPE.GOAL.sameColor(currentPixel))
 				{
 					obj = new Goal();
@@ -274,6 +285,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					goal = (Goal)obj;
 				}
+				//Slime
 				else if (BLOCK_TYPE.SLIME.sameColor(currentPixel))
 				{
 					obj = new Slime();
@@ -285,6 +297,7 @@ public class Level {
 					obj.position.set(pixelX,baseHeight * obj.dimension.y + offsetHeight);
 					floor.add((Floor)obj);
 				}
+				//Value not found
 				else
 				{
 					int r = 0xff & (currentPixel >>> 24); //red color channel
@@ -349,7 +362,7 @@ public class Level {
 	}
 	
 	/**
-	 * Updates the knight in the level
+	 * Updates the knight and enemies in the level
 	 * @param deltaTime
 	 */
 	public void update(float deltaTime)

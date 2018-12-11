@@ -21,7 +21,7 @@ public class Slime extends AbstractGameObject
 	
 		
 	/**
-	 * Creates a new floor instance
+	 * Creates a new slime instance
 	 */
 	public Slime() 
 	{
@@ -29,7 +29,7 @@ public class Slime extends AbstractGameObject
 	}
 	
 	/**
-	 * Initiates the floor class
+	 * Initiates the slime class
 	 */
 	private void init() 
 	{

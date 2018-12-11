@@ -20,7 +20,7 @@ public class Chest extends AbstractGameObject
 
 	
 	/**
-	 * Creates a new floor instance
+	 * Creates a new chest instance
 	 */
 	public Chest() 
 	{
@@ -28,7 +28,7 @@ public class Chest extends AbstractGameObject
 	}
 	
 	/**
-	 * Initiates the floor class
+	 * Initiates the chest class
 	 */
 	private void init() 
 	{

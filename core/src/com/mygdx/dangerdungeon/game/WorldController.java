@@ -112,6 +112,7 @@ public class WorldController extends InputAdapter
 		
 		createCollisionListener();
 		
+		//Knight's Physics
 		Vector2 origin = new Vector2();
 		Knight knight = level.knight;
 		BodyDef bodyDef = new BodyDef();
@@ -129,7 +130,7 @@ public class WorldController extends InputAdapter
 		body.setUserData(knight);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
-		
+		//Walls
 		for(WallUp wall_up : level.wall_up)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -256,6 +257,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Create's physics for chests
 		for(Chest chest : level.chest)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -272,6 +274,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Creates physics for statues
 		for(Statue statue : level.statue)
 		{
 			bodyDef.type = BodyType.StaticBody;
@@ -288,6 +291,7 @@ public class WorldController extends InputAdapter
 			body.createFixture(fixtureDef);
 			polygonShape.dispose();
 		}
+		//Creates physics for the goal
 		bodyDef.type = BodyType.StaticBody;
 		bodyDef.position.set(level.goal.position);
 		body = b2world.createBody(bodyDef);
@@ -301,6 +305,7 @@ public class WorldController extends InputAdapter
 		body.setUserData(level.goal);
 		body.createFixture(fixtureDef);
 		polygonShape.dispose();
+		//Creates physics for the slimes
 		for(Slime slime : level.slime)
 		{
 			bodyDef.type = BodyType.DynamicBody;
@@ -514,11 +519,11 @@ public class WorldController extends InputAdapter
 		//Fill square with red color at 50% opacity
 		pixmap.setColor(1,0,0,0.5f);
 		pixmap.fill();
-		//Draw a yellow-colored X shap on square
+		//Draw a yellow-colored X shape on square
 		pixmap.setColor(1,1,0,1);
 		pixmap.drawLine(0, 0, width, height);
 		pixmap.drawLine(width, 0, 0, height);
-		//Draw a cayan-colored border around square
+		//Draw a cyan-colored border around square
 		pixmap.setColor(0,1,1,1);
 		pixmap.drawRectangle(0, 0, width, height);
 		return pixmap;
@@ -556,7 +561,6 @@ public class WorldController extends InputAdapter
 		b2world.step(deltaTime, 8, 3);
 		testCollision();
 		cameraHelper.update(deltaTime);
-		//level.spikes.updateScrollPosition(cameraHelper.getPosition());
 		level.clouds.updateScrollPosition(cameraHelper.getPosition());
 		if (isGameOver()) {
 			game.setScreen(new MenuScreen(game));
@@ -587,7 +591,6 @@ public class WorldController extends InputAdapter
 				{
 					vert = 2;
 				}
-				//System.out.println(vert + "," + horiz);
 				slime.body.setLinearVelocity(horiz,vert);
 			}
 		}
